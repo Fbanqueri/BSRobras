@@ -11,7 +11,7 @@ const Hero = () => {
                 <img
                     alt="Construcción profesional BSR Obras"
                     className="w-full h-full object-cover"
-                    src="src/assets/Hero.webp"
+                    src="/assets/Hero.webp"
                 />
             </div>
 

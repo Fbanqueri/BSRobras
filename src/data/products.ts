@@ -36,12 +36,12 @@ export const categories: Category[] = [
 ];
 
 export const subcategories: Subcategory[] = [
-  { id: 'pintura-interior', name: 'Pintura Interior', categoryId: 'pintura', image: '/categories/pintura-interior.jpg' },
-  { id: 'pintura-exterior', name: 'Pintura Exterior', categoryId: 'pintura', image: '/categories/pintura-exterior.jpg' },
-  { id: 'membranas-liquidas', name: 'Membranas Líquidas', categoryId: 'impermeabilizacion', image: 'src/assets/categories/MemLiquida.webp' },
-  { id: 'membranas-asfalticas', name: 'Membranas Asfálticas', categoryId: 'impermeabilizacion', image: 'src/assets/categories/mem-rollo.webp' },
-  { id: 'pintura-asfaltica', name: 'Pintura Asfáltica', categoryId: 'impermeabilizacion', image: 'src/assets/categories/p-asfal.webp' },
-  { id: 'selladores-juntas', name: 'Selladores de Juntas', categoryId: 'selladores', image: 'src/assets/categories/grietas.webp' },
+  { id: 'pintura-interior', name: 'Pintura Interior', categoryId: 'pintura', image: '/assets/categories/pintura-interior.jpg' },
+  { id: 'pintura-exterior', name: 'Pintura Exterior', categoryId: 'pintura', image: '/assets/categories/pintura-exterior.jpg' },
+  { id: 'membranas-liquidas', name: 'Membranas Líquidas', categoryId: 'impermeabilizacion', image: '/assets/categories/MemLiquida.webp' },
+  { id: 'membranas-asfalticas', name: 'Membranas Asfálticas', categoryId: 'impermeabilizacion', image: '/assets/categories/mem-rollo.webp' },
+  { id: 'pintura-asfaltica', name: 'Pintura Asfáltica', categoryId: 'impermeabilizacion', image: '/assets/categories/p-asfal.webp' },
+  { id: 'selladores-juntas', name: 'Selladores de Juntas', categoryId: 'selladores', image: '/assets/categories/grietas.webp' },
 ];
 
 export const products: Product[] = [
@@ -50,7 +50,7 @@ export const products: Product[] = [
     name: 'Pintura Látex Premium',
     slug: 'pintura-latex-premium',
     description: 'Acabado mate de alta cobertura. Ideal para interiores con gran resistencia al desgaste.',
-    image: '/products/pintura-latex-premium.jpg',
+    image: '/assets/products/pintura-latex-premium.jpg',
     category: 'pintura',
     subcategory: 'pintura-interior',
     specs: {
@@ -67,7 +67,7 @@ export const products: Product[] = [
     name: 'Látex Exterior Pro',
     slug: 'latex-exterior-pro',
     description: 'Máxima resistencia a la intemperie y rayos UV. Formulado para climas extremos.',
-    image: '/products/latex-exterior-pro.jpg',
+    image: '/assets/products/latex-exterior-pro.jpg',
     category: 'pintura',
     subcategory: 'pintura-exterior',
     specs: {
@@ -84,7 +84,7 @@ export const products: Product[] = [
     name: 'Impermeabilizante Poliuretánico Das Beste',
     slug: 'impermeabilizante-poliuretanico-das-beste',
     description: 'Membrana impermeable de base poliuretánica en pasta, diseñada para ofrecer la máxima elasticidad, transitabilidad y resistencia a la radiación UV en superficies exigentes.',
-    image: 'src/assets/products/mem-liq/das-beste-poliuretanico.webp',
+    image: '/assets/products/mem-liq/das-beste-poliuretanico.webp',
     category: 'impermeabilizacion',
     subcategory: 'membranas-liquidas',
     specs: {
@@ -101,7 +101,7 @@ export const products: Product[] = [
     name: 'Impermeabilizante Acrílico Das Beste',
     slug: 'impermeabilizante-acrilico-das-beste',
     description: 'Producto polimérico en pasta de alta elasticidad y resistencia UV, diseñado para formar una membrana impermeable protectora en superficies exteriores.',
-    image: 'src/assets/products/mem-liq/das-beste-acrilico.webp',
+    image: '/assets/products/mem-liq/das-beste-acrilico.webp',
     category: 'impermeabilizacion',
     subcategory: 'membranas-liquidas',
     specs: {
@@ -113,12 +113,12 @@ export const products: Product[] = [
       secado: '3 horas mínimo entre manos.'
     }
   },
-   {
+  {
     id: '3.2',
     name: 'Impermeabilizante Poliuretánico Terra Color',
     slug: 'impermeabilizante-poliuretanico-terra-color',
     description: 'Membrana impermeable de base poliuretánica en pasta, diseñada para ofrecer la máxima elasticidad.',
-    image: 'src/assets/products/mem-liq/terra-color-poliuretanico.webp',
+    image: '/assets/products/mem-liq/terra-color-poliuretanico.webp',
     category: 'impermeabilizacion',
     subcategory: 'membranas-liquidas',
     specs: {
@@ -130,12 +130,12 @@ export const products: Product[] = [
       secado: '3 horas mínimo entre manos.'
     }
   },
-     {
+  {
     id: '3.3',
     name: 'Impermeabilizante Impercaucho Das Beste',
     slug: 'impermeabilizante-impercaucho-das-beste',
     description: 'Impermeabilizante acrílico de alto espesor con polímeros de caucho microtriturado. Ofrece máxima elasticidad y una resistencia superior a la abrasión, al desgaste mecánico y a los rayos UV.',
-    image: 'src/assets/products/mem-liq/imper-caucho-hogar-obra.webp',
+    image: '/assets/products/mem-liq/imper-caucho-hogar-obra.webp',
     category: 'impermeabilizacion',
     subcategory: 'membranas-liquidas',
     specs: {
@@ -152,7 +152,7 @@ export const products: Product[] = [
     name: 'KoverTech FLEX - Membrana Asfáltica',
     slug: 'kovertech-flex-membrana-asfaltica',
     description: 'Membrana asfáltica con alma central de polietileno de alta densidad y cara superior de aluminio gofrado flexible de 27 micrones. Ofrece máxima adaptabilidad y no se quiebra ante cambios de temperatura.',
-    image: 'src/assets/products/mem-roll/kovertech-flex.webp',
+    image: '/assets/products/mem-roll/kovertech-flex.webp',
     category: 'impermeabilizacion',
     subcategory: 'membranas-asfalticas',
     specs: {
@@ -169,7 +169,7 @@ export const products: Product[] = [
     name: 'KoverTech ROLL MT450 - Membrana Asfáltica',
     slug: 'kovertech-roll-mt450-membrana-asfaltica',
     description: 'Membrana asfáltica con alma central de polietileno de alta densidad (HDPE) y cara superior de aluminio gofrado flexible de 19 micrones. Diseñada para reducir la absorción térmica y resistir climas adversos en superficies no transitables.',
-    image: 'src/assets/products/mem-roll/kovertech-roll-mt450.webp',
+    image: '/assets/products/mem-roll/kovertech-roll-mt450.webp',
     category: 'impermeabilizacion',
     subcategory: 'membranas-asfalticas',
     specs: {
@@ -186,7 +186,7 @@ export const products: Product[] = [
     name: 'KoverTech GEO - Membrana Asfáltica Geotextil',
     slug: 'kovertech-geo-membrana-asfaltica-geotextil',
     description: 'Membrana asfáltica de alta resistencia con protección superior de geotextil de 150 gr y alma central de HDPE de 50 micrones. Es una solución antigranizo y transitable, ideal para superficies con tránsito moderado y climas desfavorables.',
-    image: 'src/assets/products/mem-roll/kovertech-geo.webp',
+    image: '/assets/products/mem-roll/kovertech-geo.webp',
     category: 'impermeabilizacion',
     subcategory: 'membranas-asfalticas',
     specs: {
@@ -203,7 +203,7 @@ export const products: Product[] = [
     name: 'Kover Primer - Emulsión Asfáltica',
     slug: 'kover-primer-emulsion-asfaltica',
     description: 'Emulsión asfáltica acuosa de base coloide mineral que al secar forma una película impermeable y elástica. Funciona tanto como imprimante para membranas como impermeabilizante único en techos y muros.',
-    image: 'src/assets/products/p-asfal/kover-primer-emulsion-asfaltica.webp',
+    image: '/assets/products/p-asfal/kover-primer-emulsion-asfaltica.webp',
     category: 'impermeabilizacion',
     subcategory: 'pintura-asfaltica',
     specs: {
@@ -220,7 +220,7 @@ export const products: Product[] = [
     name: 'Kover Primer - Pintura Asfáltica',
     slug: 'kover-primer-pintura-asfaltica',
     description: 'Imprimante de base solvente de secado rápido, elaborado a partir de asfaltos oxidados y solventes volátiles. Proporciona una aislación hidrófuga eficaz y protección anticorrosiva en diversas superficies.',
-    image: 'src/assets/products/p-asfal/kover-primer-pintura-asfaltica.webp',
+    image: '/assets/products/p-asfal/kover-primer-pintura-asfaltica.webp',
     category: 'impermeabilizacion',
     subcategory: 'pintura-asfaltica',
     specs: {
@@ -237,7 +237,7 @@ export const products: Product[] = [
     name: 'KoverTech - Pintura Asfáltica Aluminizada',
     slug: 'kovertech-pintura-asfaltica-aluminizada',
     description: 'Imprimante de base solvente y secado ultra rápido con pasta de aluminio leafing incorporada. Ofrece protección anticorrosiva e hidrófuga con una película flexible de alta adhesividad.',
-    image: 'src/assets/products/p-asfal/kovertech-pintura-aluminizada.webp',
+    image: '/assets/products/p-asfal/kovertech-pintura-aluminizada.webp',
     category: 'impermeabilizacion',
     subcategory: 'pintura-asfaltica',
     specs: {
@@ -254,7 +254,7 @@ export const products: Product[] = [
     name: 'Sellador Acrílico Pro',
     slug: 'sellador-acrilico-pro',
     description: 'Máxima adherencia y pintable. Perfecto para juntas de dilatación.',
-    image: '/products/sellador-acrilico-pro.jpg',
+    image: '/assets/products/sellador-acrilico-pro.jpg',
     category: 'selladores',
     subcategory: 'selladores-juntas',
     specs: {
@@ -270,8 +270,8 @@ export const products: Product[] = [
     id: '7',
     name: 'Esmalte Sintético Satinado',
     slug: 'esmalte-sintetico-satinado',
-    description: 'Esmalte de gran terminación y durabilidad. Ideal para maderas y metales.',
-    image: '/products/esmalte-satinado.jpg',
+    description: 'Esmalte de gran terminación and durabilidad. Ideal para maderas y metales.',
+    image: '/assets/products/esmalte-satinado.jpg',
     category: 'pintura',
     subcategory: 'pintura-interior',
     specs: {

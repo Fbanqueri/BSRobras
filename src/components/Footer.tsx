@@ -9,7 +9,7 @@ const Footer = () => {
                     {/* Columna 1: Branding */}
                     <div className="col-span-1">
                         <div className="flex items-center gap-2 mb-6">
-                            <img src="/logo.png" alt="BSR Obras" className="w-10 h-10 object-contain" />
+                            <img src="/assets/logo.png" alt="BSR Obras" className="w-10 h-10 object-contain" />
                             <span className="text-xl font-bold tracking-tight text-white">BSR Obras</span>
                         </div>
                         <p className="text-sm leading-relaxed mb-6">
