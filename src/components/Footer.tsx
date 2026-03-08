@@ -16,10 +16,10 @@ const Footer = () => {
                             Dedicados a proveer materiales de construcción de la más alta gama, asegurando la durabilidad y estética de sus proyectos.
                         </p>
                         <div className="flex gap-4">
-                            <a href="#" className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-primary hover:text-white transition-all">
+                            <a href={import.meta.env.VITE_INSTAGRAM_URL || "#"} target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-primary hover:text-white transition-all">
                                 <Instagram size={20} />
                             </a>
-                            <a href="#" className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-primary hover:text-white transition-all">
+                            <a href={import.meta.env.VITE_FACEBOOK_URL || "#"} target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-primary hover:text-white transition-all">
                                 <Facebook size={20} />
                             </a>
                         </div>
@@ -39,7 +39,7 @@ const Footer = () => {
                             </li>
                             <li className="flex items-center gap-3">
                                 <Mail className="text-primary shrink-0" size={18} />
-                                <span>contacto@bsrobras.com</span>
+                                <span>{import.meta.env.VITE_CONTACT_EMAIL || "contacto@bsrobras.com"}</span>
                             </li>
                         </ul>
                     </div>
@@ -62,7 +62,7 @@ const Footer = () => {
                     </div>
                 </div>
                 <div className="mt-16 pt-8 border-t border-white/5 text-center text-xs">
-                    <p>© {new Date().getFullYear()} BSR Obras. Todos los derechos reservados.</p>
+                    <p>© {new Date().getFullYear()} {import.meta.env.VITE_SITE_NAME || "BSR Obras"}. Todos los derechos reservados.</p>
                 </div>
             </div>
         </footer>

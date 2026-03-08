@@ -23,7 +23,7 @@ const Hero = () => {
                     className="max-w-2xl"
                 >
                     <h1 className="text-4xl md:text-6xl font-extrabold text-white leading-[1.1] mb-6">
-                        BSR Obras: Donde cada material es un <span className="text-white underline decoration-primary decoration-4 underline-offset-4">nuevo comienzo</span>
+                        {import.meta.env.VITE_SITE_NAME || "BSR Obras"}: Donde cada material es un <span className="text-white underline decoration-primary decoration-4 underline-offset-4">nuevo comienzo</span>
                     </h1>
                     <p className="text-lg md:text-xl text-slate-100 mb-8 font-medium leading-relaxed opacity-90">
                         Soluciones integrales para la construcción. Materiales de alta calidad que garantizan resultados de excelencia en cada proyecto.

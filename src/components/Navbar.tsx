@@ -37,7 +37,7 @@ const Navbar = () => {
                 <div className="flex justify-between items-center">
                     <div className="flex items-center gap-2">
                         <img src="/assets/logo.png" alt="BSR Obras" className="w-10 h-10 object-contain" />
-                        <span className={`text-xl font-bold tracking-tight ${isScrolled ? 'text-primary' : 'text-white'}`}>BSR Obras</span>
+                        <span className={`text-xl font-bold tracking-tight ${isScrolled ? 'text-primary' : 'text-white'}`}>{import.meta.env.VITE_SITE_NAME || "BSR Obras"}</span>
                     </div>
 
                     <nav className="hidden md:flex items-center space-x-8">
