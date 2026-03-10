@@ -2,8 +2,8 @@ import { Phone as WhatsApp } from 'lucide-react';
 
 const WhatsAppButton = () => {
     // Aquí podés cambiar el número (sin el +) y el mensaje inicial
-    const phoneNumber = import.meta.env.VITE_WHATSAPP_NUMBER || "5493414577305";
-    const initialMessage = import.meta.env.VITE_WHATSAPP_MESSAGE || "Hola BSR Obras, me gustaría solicitar un presupuesto sobre...";
+    const phoneNumber = import.meta.env.VITE_WHATSAPP_NUMBER;
+    const initialMessage = import.meta.env.VITE_WHATSAPP_MESSAGE;
     const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(initialMessage)}`;
 
     return (
