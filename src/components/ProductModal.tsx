@@ -37,13 +37,25 @@ const ProductModal = ({ product, onClose }: ProductModalProps) => {
                 </div>
 
                 <div className="p-6 sm:p-8 max-h-[80vh] overflow-y-auto">
+                    {/* Sección de Descripción */}
+                    <div className="mb-8 pb-6 border-b border-slate-100">
+                        <h4 className="text-xs font-bold text-primary uppercase mb-2 tracking-widest">
+                            Descripción
+                        </h4>
+                        <p className="text-slate-700 leading-relaxed">
+                            {product.description}
+                        </p>
+                    </div>
+
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                         {/* Columna Izquierda */}
                         <div className="space-y-6">
-                            <div>
-                                <h4 className="text-xs font-bold text-primary uppercase mb-1 tracking-widest">Rendimiento</h4>
-                                <p className="text-slate-800 font-medium">{product.specs.rendimiento}</p>
-                            </div>
+                            {product.specs.rendimiento && (
+                                <div>
+                                    <h4 className="text-xs font-bold text-primary uppercase mb-1 tracking-widest">Rendimiento</h4>
+                                    <p className="text-slate-800 font-medium">{product.specs.rendimiento}</p>
+                                </div>
+                            )}
                             <div>
                                 <h4 className="text-xs font-bold text-primary uppercase mb-1 tracking-widest">Prestación</h4>
                                 <p className="text-slate-800 font-medium">{product.specs.prestacion}</p>
@@ -72,10 +84,12 @@ const ProductModal = ({ product, onClose }: ProductModalProps) => {
                                 <h4 className="text-xs font-bold text-primary uppercase mb-1 tracking-widest">Aplicación</h4>
                                 <p className="text-slate-800 font-medium">{product.specs.aplicacion}</p>
                             </div>
-                            <div>
-                                <h4 className="text-xs font-bold text-primary uppercase mb-1 tracking-widest">Secado</h4>
-                                <p className="text-slate-800 font-medium">{product.specs.secado}</p>
-                            </div>
+                            {product.specs.secado && (
+                                <div>
+                                    <h4 className="text-xs font-bold text-primary uppercase mb-1 tracking-widest">Secado</h4>
+                                    <p className="text-slate-800 font-medium">{product.specs.secado}</p>
+                                </div>
+                            )}
                         </div>
                     </div>
 

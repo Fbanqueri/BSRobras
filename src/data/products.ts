@@ -7,13 +7,13 @@ export interface Product {
   category: string;
   subcategory: string;
   specs: {
-    rendimiento: string;
+    rendimiento?: string;
     prestacion: string;
     uso: string;
     acabado?: string;
     color?: string;
     aplicacion: string;
-    secado: string;
+    secado?: string;
   };
 }
 
@@ -32,16 +32,19 @@ export interface Category {
 export const categories: Category[] = [
   { id: 'pintura', name: 'Pintura' },
   { id: 'impermeabilizacion', name: 'Impermeabilización' },
-  { id: 'selladores', name: 'Selladores' },
+  { id: 'preparacion-superficies', name: 'Preparación de superficies' },
 ];
 
 export const subcategories: Subcategory[] = [
-  { id: 'pintura-interior', name: 'Pintura Interior', categoryId: 'pintura', image: '/assets/categories/pintura-interior.jpg' },
-  { id: 'pintura-exterior', name: 'Pintura Exterior', categoryId: 'pintura', image: '/assets/categories/pintura-exterior.jpg' },
-  { id: 'membranas-liquidas', name: 'Membranas Líquidas', categoryId: 'impermeabilizacion', image: '/assets/categories/MemLiquida.webp' },
+  { id: 'pintura-interior', name: 'Pintura Interior', categoryId: 'pintura', image: '/assets/categories/pintura-interior.webp' },
+  { id: 'pintura-exterior', name: 'Pintura Exterior', categoryId: 'pintura', image: '/assets/categories/pintura-exterior.webp' },
+  { id: 'membranas-liquidas', name: 'Membranas Líquidas', categoryId: 'impermeabilizacion', image: '/assets/categories/MemLiquida_optimized.webp' },
   { id: 'membranas-asfalticas', name: 'Membranas Asfálticas', categoryId: 'impermeabilizacion', image: '/assets/categories/mem-rollo.webp' },
   { id: 'pintura-asfaltica', name: 'Pintura Asfáltica', categoryId: 'impermeabilizacion', image: '/assets/categories/p-asfal.webp' },
-  { id: 'selladores-juntas', name: 'Selladores de Juntas', categoryId: 'selladores', image: '/assets/categories/grietas.webp' },
+  { id: 'selladores-juntas', name: 'Selladores de Juntas', categoryId: 'preparacion-superficies', image: '/assets/categories/selladores-juntas-optimized-v2.png' },
+  {id: 'reparacion-grietas', name: 'Reparación de Grietas', categoryId: 'preparacion-superficies', image: '/assets/categories/reparacion-grietas.png' },
+  {id: 'masillas-fijadores', name: 'Masillas y Fijadores', categoryId: 'preparacion-superficies', image: '/assets/categories/masillas-fijadores-optimized-v2.png' },
+  
 ];
 
 export const products: Product[] = [
@@ -249,23 +252,120 @@ export const products: Product[] = [
       secado: 'Al tacto: 30 min | Total: 1 a 2 hs.'
     }
   },
+ 
   {
-    id: '6',
-    name: 'Sellador Acrílico Pro',
-    slug: 'sellador-acrilico-pro',
-    description: 'Máxima adherencia y pintable. Perfecto para juntas de dilatación.',
-    image: '/assets/products/sellador-acrilico-pro.jpg',
-    category: 'selladores',
-    subcategory: 'selladores-juntas',
+    id: "6",
+    name: "Sellador de Poliuretano TACSA",
+    slug: "sellador-poliuretano-tacsa",
+    description: "Sellador elastomérico monocomponente de módulo medio-alto que cura con la humedad ambiente. Posee excelente adherencia, es resistente al agua, intemperie y radiación UV, además de ser pintable y transitable.",
+    image: "/assets/products/Juntas/sellador_de_pu_tacsa.webp",
+    category: "selladores",
+    subcategory: "selladores-juntas",
     specs: {
-      rendimiento: '5 metros lineales por cartucho.',
-      prestacion: 'Pintable y flexible.',
-      uso: 'Juntas de construcción.',
-      acabado: 'Liso.',
-      aplicacion: 'Pistola aplicadora.',
-      secado: '15 min formación de piel.'
+      rendimiento: "-",
+      prestacion: "Cartucho de 310ml",
+      uso: "Interior y exterior. Juntas de dilatación, unión de paneles de concreto, sellado de techos, terrazas, fachadas y carpintería.",
+      acabado: "Pasta tixotrópica de color gris",
+      aplicacion: "Pistola aplicadora sobre superficies limpias; permite alisado con regla o espátula.",
+      secado: "Secado al tacto en 60 min; Profundidad de curado de 3mm cada 24 hs"
     }
-  },
+},
+{
+    id: "6.1",
+    name: "Sellador Acrílico TACSA",
+    slug: "sellador-acrilico-tacsa",
+    description: "Sellador acrílico base acuosa con funguicida, flexible y sin olor. Ideal para propósitos generales, brinda excelentes terminaciones, es amigable con el medio ambiente y permite ser pintado una vez curado.",
+    image: "/assets/products/Juntas/sellador_acrilico_tacsa.webp",
+    category: "selladores",
+    subcategory: "selladores-juntas",
+    specs: {
+      rendimiento: "-",
+      prestacion: "Cartucho de 280ml",
+      uso: "Uso interior (resiste intemperie una vez curado). Sellado de grietas, marcos de puertas, ventanas, molduras, zócalos y juntas en placas de yeso.",
+      acabado: "Pasta tixotrópica de color blanco",
+      aplicacion: "Pistola aplicadora sobre superficies limpias. Permite alisar con regla o espátula. No exponer al agua durante las primeras 2 horas.",
+      secado: "Secado al tacto (formación de piel) entre 5-20 min. Profundidad de curado > 3mm cada 24 hs."
+    }
+},
+ {
+  id: '6.2',
+  name: 'Sella Grietas Elástico Das Beste',
+  slug: 'dasbeste-sella-grietas-elastico',
+  description: 'Masilla acrílica elástica de alto poder adherente, ideal para sellar grietas en techos y paredes. Mantiene su elasticidad durante años evitando la reaparición de fisuras.',
+  image: '/assets/products/Juntas/sella-grietas-dasbeste.webp',
+  category: 'preparacion-superficies',
+  subcategory: 'selladores-juntas',
+  specs: {
+    rendimiento: 'Alto rendimiento, depende del ancho y profundidad de la grieta.',
+    prestacion: 'Potes de 1 litro.',
+    uso: 'Sellado de grietas en techos, paredes, juntas de placas cementicias y superficies de distintos materiales.',
+    acabado: 'Flexible, elástico y adherente.',
+    aplicacion: 'Aplicar sobre superficie limpia y seca. Se aplica directamente desde la bolsa o con espátula. Puede diluirse con agua para grietas horizontales.',
+    secado: 'Secado natural al aire. Mantiene elasticidad permanente.'
+  }
+},
+{
+  id: '6.4',
+  name: 'Manta de Fibra Sintetica',
+  slug: 'fibra-sintetica-manta',
+  description: 'Manta de fibras sintéticas para reparaciones, sellado de grietas y refuerzo de impermeabilización en techos, muros y cubiertas. Alta resistencia, flexibilidad y fácil aplicación.',
+  image: '/assets/products/Grietas/manta-fibra-sintetica.webp',
+  category: 'preparacion-superficies',
+  subcategory: 'reparacion-grietas',
+  specs: {
+    prestacion: 'Rollo de 0,90 m x 25 m.',
+    uso: 'Reparación de grietas, fisuras y rajaduras en cemento, concreto, mampostería, galvanizado y fibrocemento.',
+    aplicacion: 'Aplicar con pincel o rodillo junto con impermeabilizante sobre superficie limpia y seca.',
+  }
+},
+{
+  id: '6.5',
+  name: 'Venda de Fibra Sintetica',
+  slug: 'fibra-sintetica-venda',
+  description: 'Venda de fibras sintéticas para reparaciones, sellado de grietas y refuerzo de impermeabilización en techos, muros y cubiertas. Alta resistencia, flexibilidad y fácil aplicación.',
+  image: '/assets/products/Grietas/venda-fibra-sintetica.webp',
+  category: 'preparacion-superficies',
+  subcategory: 'reparacion-grietas',
+  specs: {
+    prestacion: 'Vendas de 0,20 m x 25 m.',
+    uso: 'Reparación de grietas, fisuras y rajaduras en cemento, concreto, mampostería, galvanizado y fibrocemento.',
+    aplicacion: 'Aplicar con pincel o rodillo junto con impermeabilizante sobre superficie limpia y seca.',
+  }
+},
+{
+  id: '6.6',
+  name: 'Das Beste - Masilla Classic',
+  slug: 'dasbeste-masilla-classic',
+  description: 'Masilla lista para usar especialmente formulada para terminaciones en placas de yeso y construcción en seco. Alta adherencia, flexible y de excelente calidad de terminación.',
+  image: '/assets/products/myf/masilla-classic-dasbeste.webp',
+  category: 'preparacion-superficies',
+  subcategory: 'masillas-fijadores',
+  specs: {
+    rendimiento: 'Aproximadamente 0,6 kg por m² en tomado de juntas y tapado de tornillos.',
+    prestacion: 'Baldes de 32 kg, 17 kg y 7 kg. Bolsa de 25 kg. Pote de 1 litro.',
+    uso: 'Tomado de juntas, tapado de tornillos y terminaciones en placas de yeso y sistemas de construcción en seco.',
+    acabado: 'Terminación lisa, uniforme y de alta adherencia.',
+    aplicacion: 'Aplicar con espátula sobre superficie limpia y seca. Colocar cinta en la junta y cubrir con masilla.',
+    secado: 'Secado al tacto variable. Para lijado final dejar secar mínimo 24 horas.'
+  }
+},
+{
+  id: '6.7',
+  name: 'Das Beste - Enlucido Exterior / Interior Multiproposito',
+  slug: 'dasbeste-enlucido-exterior-multiproposito',
+  description: 'Revoque multipropósito para exterior e interior, resistente al agua y a la inmersión. Permite lograr superficies lisas, parejas y de alta adherencia en trabajos de reparación, terminación y construcción.',
+  image: '/assets/products/myf/enlucido-multiproposito-dasbeste.webp',
+  category: 'preparacion-superficies',
+  subcategory: 'masillas-fijadores',
+  specs: {
+    rendimiento: 'Aproximadamente 3 kg por m² en capas de 3 a 5 mm de espesor.',
+    prestacion: 'Bolsas de 1.25 kg, 5 kg y 20 kg en color blanco o gris cemento.',
+    uso: 'Revoques, reparaciones, emprolijado de superficies, colocación de cerámicos, arreglos en hormigón, mampostería, madera, chapa o vidrio.',
+    acabado: 'Superficie lisa, pareja, suave y resistente al agua.',
+    aplicacion: 'Aplicar con cuchara, llana o fratacho. Preparar mezclando con agua hasta lograr consistencia cremosa.',
+    secado: 'Tiempo variable según espesor y condiciones ambientales.'
+  }
+},
   {
     id: '7',
     name: 'Esmalte Sintético Satinado',
@@ -282,6 +382,23 @@ export const products: Product[] = [
       aplicacion: 'Pincel, rodillo o soplete.',
       secado: '4 a 6 horas.'
     }
+  },
+  {
+  id: '7.1',
+  name: 'Emapi - Sellador Fijador',
+  slug: 'emapi-sellador-fijador',
+  description: 'Sellador fijador al agua para interior y exterior que sella la porosidad, mejora la adherencia y aumenta el rendimiento de la pintura. Resistente a hongos y algas.',
+  image: '/assets/products/myf/sellador-fijador-emapi.webp',
+  category: 'preparacion-superficies',
+  subcategory: 'masillas-fijadores',
+  specs: {
+    rendimiento: '10 a 20 m² por litro y por mano según absorción de la superficie.',
+    prestacion: 'Envases de 1 L, 4 L, 10 L y 20 L.',
+    uso: 'Sellado y fijado de superficies interiores y exteriores de mampostería, yeso, fibrocemento y placas de yeso.',
+    acabado: 'Mate, incoloro.',
+    aplicacion: 'Aplicar con pincel, rodillo o airless. Diluir 1 parte de producto en 2 a 3 partes de agua.',
+    secado: 'Al tacto 2 horas, secado total 8 horas.'
   }
+},
 ];
 

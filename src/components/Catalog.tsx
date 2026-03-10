@@ -11,32 +11,86 @@ const Catalog = () => {
 
     // --- Lógica de Deep Linking (URL) ---
     useEffect(() => {
-        const handlePopState = () => {
+        const handleUrlChange = () => {
+            // 1. Manejo de Productos (Query Params)
             const params = new URLSearchParams(window.location.search);
             const productSlug = params.get('producto');
+            
             if (productSlug) {
                 const product = products.find(p => p.slug === productSlug);
                 if (product) setSelectedProduct(product);
             } else {
                 setSelectedProduct(null);
             }
+
+            // 2. Manejo de Subcategorías (Hash)
+            const hash = window.location.hash;
+            if (hash.startsWith('#catalogo/')) {
+                const subId = hash.replace('#catalogo/', '');
+                const sub = subcategories.find(s => s.id === subId);
+                if (sub) {
+                    setSelectedSubcategory(sub.id);
+                    setSelectedCategory(sub.categoryId);
+                }
+            } else if (hash === '#catalogo') {
+                setSelectedSubcategory(null);
+            } else if (!hash) {
+                // Si no hay hash y no estamos en modo producto, reseteamos vista (opcional)
+                // setSelectedSubcategory(null);
+            }
         };
 
-        window.addEventListener('popstate', handlePopState);
-        handlePopState();
-        return () => window.removeEventListener('popstate', handlePopState);
+        window.addEventListener('popstate', handleUrlChange);
+        window.addEventListener('hashchange', handleUrlChange);
+        handleUrlChange();
+
+        return () => {
+            window.removeEventListener('popstate', handleUrlChange);
+            window.removeEventListener('hashchange', handleUrlChange);
+        };
     }, []);
 
     const openProductModal = (product: Product) => {
         setSelectedProduct(product);
-        const newUrl = `${window.location.pathname}?producto=${product.slug}`;
-        window.history.pushState({ path: newUrl }, '', newUrl);
+        // Nota: Si ya hay un hash, el query param debe ir antes o después dependiendo de cómo maneje el ruteo Vite, 
+        // pero para evitar líos con window.location.search, lo ideal es mantener el formato estándar.
+        const searchPath = `?producto=${product.slug}`;
+        window.history.pushState({ path: searchPath }, '', searchPath + window.location.hash);
     };
 
     const closeProductModal = () => {
         setSelectedProduct(null);
-        const newUrl = window.location.pathname;
-        window.history.pushState({ path: newUrl }, '', newUrl);
+        window.history.pushState({ path: window.location.pathname }, '', window.location.pathname + window.location.hash);
+    };
+
+    const handleSelectSubcategory = (subId: string | null) => {
+        const currentHash = window.location.hash;
+        
+        if (subId) {
+            const nextHash = `#catalogo/${subId}`;
+            
+            // Si ya estamos en una subcategoría, reemplazamos el estado para no llenar el historial
+            if (currentHash.startsWith('#catalogo/') && currentHash !== '#catalogo') {
+                window.history.replaceState(null, '', nextHash);
+            } 
+            // Si venimos de la raíz o de otro lugar sin el hash intermedio, lo inyectamos
+            else if (currentHash !== '#catalogo') {
+                window.history.pushState(null, '', '#catalogo');
+                window.history.pushState(null, '', nextHash);
+            }
+            // Si ya estábamos en #catalogo, solo hacemos un push normal de la subcategoría
+            else {
+                window.location.hash = `catalogo/${subId}`;
+            }
+            
+            setSelectedSubcategory(subId);
+        } else {
+            setSelectedSubcategory(null);
+            window.location.hash = 'catalogo';
+        }
+
+        // Forzamos el disparo de hashchange porque pushState/replaceState no lo hacen automáticamente
+        window.dispatchEvent(new HashChangeEvent('hashchange'));
     };
 
     // --- Filtrado ---
@@ -62,7 +116,7 @@ const Catalog = () => {
                     {/* Nivel 1: Pastillas de Categorías */}
                     <div className="flex flex-wrap gap-2">
                         <button
-                            onClick={() => { setSelectedCategory(null); setSelectedSubcategory(null); }}
+                            onClick={() => { setSelectedCategory(null); handleSelectSubcategory(null); }}
                             className={`px-5 py-2 rounded-full text-sm font-bold transition-all ${!selectedCategory ? 'bg-primary text-white shadow-md' : 'bg-primary/10 text-primary hover:bg-primary/20'}`}
                         >
                             Todos
@@ -70,7 +124,7 @@ const Catalog = () => {
                         {categories.map(cat => (
                             <button
                                 key={cat.id}
-                                onClick={() => { setSelectedCategory(cat.id); setSelectedSubcategory(null); }}
+                                onClick={() => { setSelectedCategory(cat.id); handleSelectSubcategory(null); }}
                                 className={`px-5 py-2 rounded-full text-sm font-bold transition-all ${selectedCategory === cat.id ? 'bg-primary text-white shadow-md' : 'bg-primary/10 text-primary hover:bg-primary/20'}`}
                             >
                                 {cat.name}
@@ -92,10 +146,10 @@ const Catalog = () => {
                             {filteredSubcategories.map(sub => (
                                 <button
                                     key={sub.id}
-                                    onClick={() => setSelectedSubcategory(sub.id)}
+                                    onClick={() => handleSelectSubcategory(sub.id)}
                                     className="group relative h-64 rounded-xl overflow-hidden border border-primary/10 hover:border-primary transition-all shadow-sm hover:shadow-xl"
                                 >
-                                    <img src={sub.image} alt={sub.name} className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+                                    <img src={sub.image} alt={sub.name} className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" loading="lazy" decoding="async" />
                                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
                                     <div className="absolute bottom-6 left-6 text-left">
                                         <h4 className="text-white font-bold text-2xl">{sub.name}</h4>
@@ -115,7 +169,7 @@ const Catalog = () => {
                         >
                             <div className="flex items-center justify-between">
                                 <button
-                                    onClick={() => setSelectedSubcategory(null)}
+                                    onClick={() => handleSelectSubcategory(null)}
                                     className="text-primary font-bold flex items-center gap-1 hover:underline"
                                 >
                                     <ArrowLeft size={16} /> Volver al catálogo
@@ -129,7 +183,7 @@ const Catalog = () => {
                                 {filteredProducts.map(product => (
                                     <div key={product.id} className="bg-white rounded-xl overflow-hidden border border-slate-200 group hover:shadow-xl transition-all duration-300 flex flex-col h-full">
                                         <div className="h-64 overflow-hidden relative">
-                                            <img alt={product.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src={product.image} />
+                                            <img alt={product.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src={product.image} loading="lazy" decoding="async" />
                                         </div>
                                         <div className="p-6 flex-1 flex flex-col">
                                             <h3 className="text-xl font-bold text-slate-900 mb-2">{product.name}</h3>

@@ -3,7 +3,7 @@ import { motion } from 'motion/react';
 const Hero = () => {
     return (
         <section id="inicio" className="relative h-[85vh] min-h-[600px] flex items-center pt-16">
-            <div className="absolute inset-0 overflow-hidden">
+            <div className="absolute inset-0 overflow-hidden bg-slate-900">
                 {/* Capa de color verde oscuro sutil sobre la imagen */}
                 <div className="absolute inset-0 bg-primary/20 mix-blend-multiply z-10"></div>
                 {/* Degradado para que el texto se lea siempre bien */}
@@ -11,7 +11,12 @@ const Hero = () => {
                 <img
                     alt="Construcción profesional BSR Obras"
                     className="w-full h-full object-cover"
-                    src="/assets/Hero.webp"
+                    src="/assets/Hero_optimized.webp"
+                    width="1920"
+                    height="1080"
+                    fetchPriority="high"
+                    loading="eager"
+                    decoding="async"
                 />
             </div>
 
