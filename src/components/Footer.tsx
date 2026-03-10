@@ -33,13 +33,24 @@ const Footer = () => {
                                 <MapPin className="text-primary shrink-0" size={18} />
                                 <span>Mendoza 7301, Rosario</span>
                             </li>
-                            <li className="flex items-center gap-3">
+                            <li className="flex items-center gap-3 group/phone">
                                 <Phone className="text-primary shrink-0" size={18} />
-                                <span>0341 457-7305</span>
+                                <a
+                                    href={`https://wa.me/${import.meta.env.VITE_WHATSAPP_NUMBER}?text=${encodeURIComponent(import.meta.env.VITE_WHATSAPP_MESSAGE || "Hola BSR Obras, me gustaría solicitar un presupuesto...")}`}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="hover:text-primary transition-colors"
+                                >
+                                    {import.meta.env.VITE_WHATSAPP_NUMBER ?
+                                        `+${import.meta.env.VITE_WHATSAPP_NUMBER.slice(0, 2)} ${import.meta.env.VITE_WHATSAPP_NUMBER.slice(2, 5)} ${import.meta.env.VITE_WHATSAPP_NUMBER.slice(5, 8)}-${import.meta.env.VITE_WHATSAPP_NUMBER.slice(8)}` :
+                                        "0341 323-3169"}
+                                </a>
                             </li>
                             <li className="flex items-center gap-3">
                                 <Mail className="text-primary shrink-0" size={18} />
-                                <span>{import.meta.env.VITE_CONTACT_EMAIL || "contacto@bsrobras.com"}</span>
+                                <a href={`mailto:${import.meta.env.VITE_CONTACT_EMAIL || "contacto@bsrobras.com"}`} className="hover:text-primary transition-colors">
+                                    {import.meta.env.VITE_CONTACT_EMAIL || "contacto@bsrobras.com"}
+                                </a>
                             </li>
                         </ul>
                     </div>
