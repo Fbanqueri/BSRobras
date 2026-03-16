@@ -35,16 +35,7 @@ const Footer = () => {
                             </li>
                             <li className="flex items-center gap-3 group/phone">
                                 <Phone className="text-primary shrink-0" size={18} />
-                                <a
-                                    href={`https://wa.me/${import.meta.env.VITE_WHATSAPP_NUMBER}?text=${encodeURIComponent(import.meta.env.VITE_WHATSAPP_MESSAGE || "Hola BSR Obras, me gustaría solicitar un presupuesto...")}`}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="hover:text-primary transition-colors"
-                                >
-                                    {import.meta.env.VITE_WHATSAPP_NUMBER ?
-                                        `+${import.meta.env.VITE_WHATSAPP_NUMBER.slice(0, 2)} ${import.meta.env.VITE_WHATSAPP_NUMBER.slice(2, 5)} ${import.meta.env.VITE_WHATSAPP_NUMBER.slice(5, 8)}-${import.meta.env.VITE_WHATSAPP_NUMBER.slice(8)}` :
-                                        "0341 323-3169"}
-                                </a>
+                                0341 457-7305
                             </li>
                             <li className="flex items-center gap-3">
                                 <Mail className="text-primary shrink-0" size={18} />

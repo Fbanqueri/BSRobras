@@ -160,18 +160,27 @@ const Catalog = () => {
                             className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"
                         >
                             {filteredSubcategories.map(sub => (
-                                <button
+                                <a
                                     key={sub.id}
-                                    onClick={() => handleSelectSubcategory(sub.id)}
+                                    href={`#catalogo/${sub.id}`}
+                                    onClick={(e) => { e.preventDefault(); handleSelectSubcategory(sub.id); }}
                                     className="group relative h-64 rounded-xl overflow-hidden border border-primary/10 hover:border-primary transition-all shadow-sm hover:shadow-xl"
                                 >
-                                    <img src={sub.image} alt={sub.name} className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" loading="lazy" decoding="async" />
+                                    <img 
+                                        src={sub.image} 
+                                        alt={sub.name} 
+                                        className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" 
+                                        loading="lazy" 
+                                        decoding="async"
+                                        width="400"
+                                        height="300"
+                                    />
                                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
                                     <div className="absolute bottom-6 left-6 text-left">
-                                        <h4 className="text-white font-bold text-2xl">{sub.name}</h4>
+                                        <h3 className="text-white font-bold text-2xl">{sub.name}</h3>
                                         <p className="text-white/70 text-sm mt-1">Ver productos</p>
                                     </div>
-                                </button>
+                                </a>
                             ))}
                         </motion.div>
                     ) : (
@@ -199,17 +208,26 @@ const Catalog = () => {
                                 {filteredProducts.map(product => (
                                     <div key={product.id} className="bg-white rounded-xl overflow-hidden border border-slate-200 group hover:shadow-xl transition-all duration-300 flex flex-col h-full">
                                         <div className="h-64 overflow-hidden relative">
-                                            <img alt={product.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src={product.image} loading="lazy" decoding="async" />
+                                            <img 
+                                                alt={product.name} 
+                                                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
+                                                src={product.image} 
+                                                loading="lazy" 
+                                                decoding="async"
+                                                width="400"
+                                                height="300"
+                                            />
                                         </div>
                                         <div className="p-6 flex-1 flex flex-col">
                                             <h3 className="text-xl font-bold text-slate-900 mb-2">{product.name}</h3>
                                             <p className="text-slate-600 text-sm mb-6 line-clamp-2">{product.description}</p>
-                                            <button
-                                                onClick={() => openProductModal(product)}
+                                            <a
+                                                href={`?producto=${product.slug}${window.location.hash}`}
+                                                onClick={(e) => { e.preventDefault(); openProductModal(product); }}
                                                 className="mt-auto w-full flex items-center justify-center gap-2 py-3 bg-primary/5 hover:bg-primary text-primary hover:text-white rounded-lg font-bold transition-all border border-primary/20"
                                             >
                                                 <FileText size={16} /> Ficha técnica
-                                            </button>
+                                            </a>
                                         </div>
                                     </div>
                                 ))}

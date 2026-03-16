@@ -57,9 +57,9 @@ const ProductModal = ({ product, onClose }: ProductModalProps) => {
             >
                 {/* Cabecera del Modal */}
                 <div className="bg-primary px-6 py-4 flex justify-between items-center">
-                    <h3 className="text-white font-bold text-lg uppercase tracking-wider">
+                    <h2 className="text-white font-bold text-lg uppercase tracking-wider">
                         Ficha Técnica: {product.name}
-                    </h3>
+                    </h2>
                     <button onClick={onClose} className="text-white hover:rotate-90 transition-transform">
                         <X size={24} />
                     </button>
