@@ -1,6 +1,7 @@
 import { useState, useEffect, useMemo } from 'react';
 import { ArrowLeft, FileText } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
+import { Helmet } from 'react-helmet-async';
 import { categories, subcategories, products, type Product } from '../data/products';
 import ProductModal from './ProductModal';
 
@@ -106,6 +107,21 @@ const Catalog = () => {
 
     return (
         <section id="catalogo" className="py-20 bg-[#f6f8f6]">
+            <Helmet>
+                <title>
+                    {selectedSubcategory 
+                        ? `${subcategories.find(s => s.id === selectedSubcategory)?.name} | BSR Obras`
+                        : (selectedCategory 
+                            ? `${categories.find(c => c.id === selectedCategory)?.name} | BSR Obras`
+                            : "Catálogo de Materiales | BSR Obras")}
+                </title>
+                <meta 
+                    name="description" 
+                    content={selectedSubcategory 
+                        ? `Explora nuestra selección de ${subcategories.find(s => s.id === selectedSubcategory)?.name}. Materiales de construcción de alta calidad en Rosario.`
+                        : "Catálogo completo de materiales para la construcción: impermeabilización, preparación de superficies y más en BSR Obras."} 
+                />
+            </Helmet>
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
                     <div>

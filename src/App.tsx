@@ -3,10 +3,55 @@ import Hero from './components/Hero';
 import Catalog from './components/Catalog';
 import Footer from './components/Footer';
 import WhatsAppButton from './components/WhatsAppButton';
+import { Helmet } from 'react-helmet-async';
 
 function App() {
+    const organizationSchema = {
+        "@context": "https://schema.org",
+        "@type": "LocalBusiness",
+        "name": import.meta.env.VITE_SITE_NAME || "BSR Obras",
+        "image": `${import.meta.env.VITE_SITE_URL || "https://bsrobras.vercel.app"}/assets/logo.png`,
+        "@id": import.meta.env.VITE_SITE_URL || "https://bsrobras.vercel.app",
+        "url": import.meta.env.VITE_SITE_URL || "https://bsrobras.vercel.app",
+        "telephone": `+${import.meta.env.VITE_WHATSAPP_NUMBER || "5493413233169"}`,
+        "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Mendoza 7301",
+            "addressLocality": "Rosario",
+            "addressRegion": "Santa Fe",
+            "postalCode": "2000",
+            "addressCountry": "AR"
+        },
+        "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": import.meta.env.VITE_MAP_LATITUDE || -32.940586,
+            "longitude": import.meta.env.VITE_MAP_LONGITUDE || -60.719493
+        },
+        "openingHoursSpecification": {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": [
+                "Monday",
+                "Tuesday",
+                "Wednesday",
+                "Thursday",
+                "Friday"
+            ],
+            "opens": "08:00",
+            "closes": "17:00"
+        },
+        "sameAs": [
+            import.meta.env.VITE_INSTAGRAM_URL,
+            import.meta.env.VITE_FACEBOOK_URL
+        ].filter(Boolean)
+    };
+
   return (
     <div className="min-h-screen bg-slate-50 font-sans antialiased text-slate-900">
+      <Helmet>
+        <script type="application/ld+json">
+          {JSON.stringify(organizationSchema)}
+        </script>
+      </Helmet>
       <Navbar />
       <main>
         <Hero />

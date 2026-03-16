@@ -30,14 +30,14 @@ export interface Category {
 }
 
 export const categories: Category[] = [
-  { id: 'pintura', name: 'Pintura' },
+  // { id: 'pintura', name: 'Pintura' },
   { id: 'impermeabilizacion', name: 'Impermeabilización' },
   { id: 'preparacion-superficies', name: 'Preparación de superficies' },
 ];
 
 export const subcategories: Subcategory[] = [
-  { id: 'pintura-interior', name: 'Pintura Interior', categoryId: 'pintura', image: '/assets/categories/pintura-interior.webp' },
-  { id: 'pintura-exterior', name: 'Pintura Exterior', categoryId: 'pintura', image: '/assets/categories/pintura-exterior.webp' },
+  // { id: 'pintura-interior', name: 'Pintura Interior', categoryId: 'pintura', image: '/assets/categories/pintura-interior.webp' },
+  // { id: 'pintura-exterior', name: 'Pintura Exterior', categoryId: 'pintura', image: '/assets/categories/pintura-exterior.webp' },
   { id: 'membranas-liquidas', name: 'Membranas Líquidas', categoryId: 'impermeabilizacion', image: '/assets/categories/MemLiquida_optimized.webp' },
   { id: 'membranas-asfalticas', name: 'Membranas Asfálticas', categoryId: 'impermeabilizacion', image: '/assets/categories/mem-rollo.webp' },
   { id: 'pintura-asfaltica', name: 'Pintura Asfáltica', categoryId: 'impermeabilizacion', image: '/assets/categories/p-asfal.webp' },
@@ -48,6 +48,7 @@ export const subcategories: Subcategory[] = [
 ];
 
 export const products: Product[] = [
+  /*
   {
     id: '1',
     name: 'Pintura Látex Premium',
@@ -82,6 +83,7 @@ export const products: Product[] = [
       secado: '2 horas al tacto.'
     }
   },
+  */
   {
     id: '3.0',
     name: 'Impermeabilizante Poliuretánico Das Beste',
@@ -366,6 +368,7 @@ export const products: Product[] = [
     secado: 'Tiempo variable según espesor y condiciones ambientales.'
   }
 },
+  /*
   {
     id: '7',
     name: 'Esmalte Sintético Satinado',
@@ -383,6 +386,7 @@ export const products: Product[] = [
       secado: '4 a 6 horas.'
     }
   },
+  */
   {
   id: '7.1',
   name: 'Emapi - Sellador Fijador',

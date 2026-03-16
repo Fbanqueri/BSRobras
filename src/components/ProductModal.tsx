@@ -1,5 +1,6 @@
 import { X } from 'lucide-react';
 import { motion } from 'motion/react';
+import { Helmet } from 'react-helmet-async';
 import type { Product } from '../data/products';
 
 interface ProductModalProps {
@@ -8,8 +9,36 @@ interface ProductModalProps {
 }
 
 const ProductModal = ({ product, onClose }: ProductModalProps) => {
+    const jsonLd = {
+        "@context": "https://schema.org/",
+        "@type": "Product",
+        "name": product.name,
+        "image": [
+            `${import.meta.env.VITE_SITE_URL || "https://bsrobras.vercel.app"}${product.image}`
+        ],
+        "description": product.description,
+        "sku": product.id,
+        "brand": {
+            "@type": "Brand",
+            "name": import.meta.env.VITE_SITE_NAME || "BSR Obras"
+        },
+        "offers": {
+            "@type": "Offer",
+            "url": `${import.meta.env.VITE_SITE_URL || "https://bsrobras.vercel.app"}/?producto=${product.slug}`,
+            "priceCurrency": "ARS",
+            "availability": "https://schema.org/InStock"
+        }
+    };
+
     return (
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6">
+            <Helmet>
+                <title>{product.name} | Ficha Técnica | BSR Obras</title>
+                <meta name="description" content={product.description} />
+                <script type="application/ld+json">
+                    {JSON.stringify(jsonLd)}
+                </script>
+            </Helmet>
             {/* Fondo desenfocado */}
             <motion.div
                 initial={{ opacity: 0 }}

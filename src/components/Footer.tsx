@@ -73,7 +73,7 @@ const Footer = () => {
                     </div>
                 </div>
                 <div className="mt-16 pt-8 border-t border-white/5 text-center text-xs">
-                    <p>© {new Date().getFullYear()} {import.meta.env.VITE_SITE_NAME || "BSR Obras"}. Todos los derechos reservados.</p>
+                    <p>© 2017 {import.meta.env.VITE_SITE_NAME || "BSR Obras"}. Todos los derechos reservados.</p>
                 </div>
             </div>
         </footer>
