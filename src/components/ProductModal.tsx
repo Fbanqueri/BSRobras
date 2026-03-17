@@ -71,52 +71,66 @@ const ProductModal = ({ product, onClose }: ProductModalProps) => {
                         <h4 className="text-xs font-bold text-primary uppercase mb-2 tracking-widest">
                             Descripción
                         </h4>
-                        <p className="text-slate-700 leading-relaxed">
+                        <p className="text-slate-700 leading-relaxed text-lg">
                             {product.description}
                         </p>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                        {/* Columna Izquierda */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-8">
+                        {/* Columna 1: Rendimiento y Presentación */}
                         <div className="space-y-6">
+                            <div className="border-b border-slate-100 pb-2 mb-4">
+                                <h4 className="text-sm font-bold text-primary uppercase tracking-wider">Rendimiento y Presentación</h4>
+                            </div>
+
                             {product.specs.rendimiento && (
                                 <div>
-                                    <h4 className="text-xs font-bold text-primary uppercase mb-1 tracking-widest">Rendimiento</h4>
+                                    <span className="block text-[10px] font-bold text-slate-400 uppercase tracking-tighter mb-1">Cobertura Estimada</span>
                                     <p className="text-slate-800 font-medium">{product.specs.rendimiento}</p>
                                 </div>
                             )}
-                            <div>
-                                <h4 className="text-xs font-bold text-primary uppercase mb-1 tracking-widest">Prestación</h4>
-                                <p className="text-slate-800 font-medium">{product.specs.prestacion}</p>
-                            </div>
-                            <div>
-                                <h4 className="text-xs font-bold text-primary uppercase mb-1 tracking-widest">Uso</h4>
-                                <p className="text-slate-800 font-medium">{product.specs.uso}</p>
-                            </div>
-                        </div>
-
-                        {/* Columna Derecha */}
-                        <div className="space-y-6">
-                            {product.specs.acabado && (
+                            {product.specs.prestacion && (
                                 <div>
-                                    <h4 className="text-xs font-bold text-primary uppercase mb-1 tracking-widest">Acabado</h4>
-                                    <p className="text-slate-800 font-medium">{product.specs.acabado}</p>
+                                    <span className="block text-[10px] font-bold text-slate-400 uppercase tracking-tighter mb-1">Presentación</span>
+                                    <p className="text-slate-800 font-medium">{product.specs.prestacion}</p>
                                 </div>
                             )}
                             {product.specs.color && (
                                 <div>
-                                    <h4 className="text-xs font-bold text-primary uppercase mb-1 tracking-widest">Color</h4>
+                                    <span className="block text-[10px] font-bold text-slate-400 uppercase tracking-tighter mb-1">Tonalidad Disponible</span>
                                     <p className="text-slate-800 font-medium">{product.specs.color}</p>
                                 </div>
                             )}
-                            <div>
-                                <h4 className="text-xs font-bold text-primary uppercase mb-1 tracking-widest">Aplicación</h4>
-                                <p className="text-slate-800 font-medium">{product.specs.aplicacion}</p>
+                        </div>
+
+                        {/* Columna 2: Aplicación y Tiempos */}
+                        <div className="space-y-6">
+                            <div className="border-b border-slate-100 pb-2 mb-4">
+                                <h4 className="text-sm font-bold text-primary uppercase tracking-wider">Aplicación y Tiempos</h4>
                             </div>
+
+                            {product.specs.uso && (
+                                <div>
+                                    <span className="block text-[10px] font-bold text-slate-400 uppercase tracking-tighter mb-1">Uso Recomendado</span>
+                                    <p className="text-slate-800 font-medium">{product.specs.uso}</p>
+                                </div>
+                            )}
+                            {product.specs.aplicacion && (
+                                <div>
+                                    <span className="block text-[10px] font-bold text-slate-400 uppercase tracking-tighter mb-1">Método de Aplicación</span>
+                                    <p className="text-slate-800 font-medium">{product.specs.aplicacion}</p>
+                                </div>
+                            )}
                             {product.specs.secado && (
                                 <div>
-                                    <h4 className="text-xs font-bold text-primary uppercase mb-1 tracking-widest">Secado</h4>
+                                    <span className="block text-[10px] font-bold text-slate-400 uppercase tracking-tighter mb-1">Tiempo de Secado</span>
                                     <p className="text-slate-800 font-medium">{product.specs.secado}</p>
+                                </div>
+                            )}
+                            {product.specs.acabado && (
+                                <div>
+                                    <span className="block text-[10px] font-bold text-slate-400 uppercase tracking-tighter mb-1">Acabado Final</span>
+                                    <p className="text-slate-800 font-medium">{product.specs.acabado}</p>
                                 </div>
                             )}
                         </div>
@@ -124,7 +138,7 @@ const ProductModal = ({ product, onClose }: ProductModalProps) => {
 
                     <div className="mt-10 pt-6 border-t border-slate-100 flex justify-center">
                         <p className="text-sm text-slate-500 italic text-center">
-                            * Los valores son aproximados y pueden variar según la superficie y condiciones climáticas.
+                            * Los valores son aproximados. Como resultado, pueden variar según la superficie y condiciones climáticas.
                         </p>
                     </div>
                 </div>
