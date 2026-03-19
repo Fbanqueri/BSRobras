@@ -273,7 +273,7 @@ export const products: Product[] = [
     category: "selladores",
     subcategory: "selladores-juntas",
     specs: {
-      rendimiento: "-",
+      rendimiento: "3 metros lineales por cartucho en juntas de 0,5 cm x 1 cm.",
       prestacion: "Cartucho de 310ml",
       uso: "Interior y exterior. Juntas de dilatación, unión de paneles de concreto, sellado de techos, terrazas, fachadas y carpintería.",
       acabado: "Pasta tixotrópica de color gris",
@@ -290,7 +290,7 @@ export const products: Product[] = [
     category: "selladores",
     subcategory: "selladores-juntas",
     specs: {
-      rendimiento: "-",
+      rendimiento: "3 metros lineales por cartucho en juntas de 0,5 cm x 1 cm.",
       prestacion: "Cartucho de 280ml",
       uso: "Uso interior (resiste intemperie una vez curado). Sellado de grietas, marcos de puertas, ventanas, molduras, zócalos y juntas en placas de yeso.",
       acabado: "Pasta tixotrópica de color blanco",

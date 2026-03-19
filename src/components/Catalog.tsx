@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, useRef } from 'react';
 import { ArrowLeft, FileText } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Helmet } from 'react-helmet-async';
@@ -9,6 +9,7 @@ const Catalog = () => {
     const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
     const [selectedSubcategory, setSelectedSubcategory] = useState<string | null>(null);
     const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+    const catalogRef = useRef<HTMLElement>(null);
 
     // --- Lógica de Deep Linking (URL) ---
     useEffect(() => {
@@ -105,8 +106,19 @@ const Catalog = () => {
         return products.filter(p => p.subcategory === selectedSubcategory);
     }, [selectedSubcategory]);
 
+    // Scroll to top of catalog when subcategory changes
+    useEffect(() => {
+        if (selectedSubcategory && catalogRef.current) {
+            // Un pequeño delay ayuda a que el cambio de contenido (AnimatePresence) 
+            // no interfiera con el scroll si el DOM está mutando.
+            setTimeout(() => {
+                catalogRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 100);
+        }
+    }, [selectedSubcategory]);
+
     return (
-        <section id="catalogo" className="py-20 bg-[#f6f8f6]">
+        <section id="catalogo" ref={catalogRef} className="py-20 bg-[#f6f8f6]">
             <Helmet>
                 <title>
                     {selectedSubcategory 
