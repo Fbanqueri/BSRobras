@@ -36,8 +36,8 @@ function App() {
         "Thursday",
         "Friday"
       ],
-      "opens": "08:00",
-      "closes": "17:00"
+      "opens": "08:30",
+      "closes": "19:00"
     },
     "sameAs": [
       import.meta.env.VITE_INSTAGRAM_URL,
@@ -48,6 +48,8 @@ function App() {
   return (
     <div className="min-h-screen bg-slate-50 font-sans antialiased text-slate-900">
       <Helmet>
+        <title>BSR Obras | Materiales de Construcción en Rosario</title>
+        <meta name="description" content="Venta de materiales para la construcción, impermeabilizantes y pinturas en Rosario. Calidad y asesoramiento para tu obra." />
         <script type="application/ld+json">
           {JSON.stringify(organizationSchema)}
         </script>
