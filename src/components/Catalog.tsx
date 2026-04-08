@@ -65,7 +65,7 @@ const Catalog = () => {
                             ? `${subcategories.find(s => s.id === activeSubcategory)?.name} | BSR Obras`
                             : (selectedCategory
                                 ? `${categories.find(c => c.id === selectedCategory)?.name} | BSR Obras`
-                                : "Catálogo de Materiales | BSR Obras")}
+                                : "Catálogo de Impermeabilizantes y Pinturas | BSR Obras")}
                 </title>
                 <meta
                     name="description"
@@ -73,7 +73,7 @@ const Catalog = () => {
                         ? selectedProduct.description
                         : activeSubcategory
                             ? `Explora nuestra selección de ${subcategories.find(s => s.id === activeSubcategory)?.name}. Materiales de construcción de alta calidad en Rosario.`
-                            : "Catálogo completo de materiales para la construcción: impermeabilización, preparación de superficies y más en BSR Obras."}
+                            : "Catálogo completo de impermeabilizantes, pinturas y preparación de superficies en BSR Obras, Rosario."}
                 />
             </Helmet>
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

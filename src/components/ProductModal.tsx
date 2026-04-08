@@ -9,24 +9,21 @@ interface ProductModalProps {
 }
 
 const ProductModal = ({ product, onClose }: ProductModalProps) => {
+    // Hemos eliminado "offers", "aggregateRating" y "reviews"
+    // y actualizamos la URL a la nueva ruta limpia para mejorar el SEO
     const jsonLd = {
         "@context": "https://schema.org/",
         "@type": "Product",
         "name": product.name,
         "image": [
-            `${import.meta.env.VITE_SITE_URL || "https://bsrobras.vercel.app"}${product.image}`
+            `${import.meta.env.VITE_SITE_URL || "https://bsrobras.com.ar"}${product.image}`
         ],
         "description": product.description,
         "sku": product.id,
+        "url": `${import.meta.env.VITE_SITE_URL || "https://bsrobras.com.ar"}/producto/${product.slug}`,
         "brand": {
             "@type": "Brand",
             "name": import.meta.env.VITE_SITE_NAME || "BSR Obras"
-        },
-        "offers": {
-            "@type": "Offer",
-            "url": `${import.meta.env.VITE_SITE_URL || "https://bsrobras.vercel.app"}/?producto=${product.slug}`,
-            "priceCurrency": "ARS",
-            "availability": "https://schema.org/InStock"
         }
     };
 

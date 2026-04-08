@@ -105,7 +105,7 @@ export const products: Product[] = [
       rendimiento: '1.5 kg/m² (Techos) / 0.5 kg/m² (Paredes).',
       prestacion: 'Baldes de 5, 12 y 20 kg / Potes de 1 Lt.',
       uso: 'Techos, muros, frentes y superficies transitables.',
-      color: 'Blaco, Verde, Rojo Teja, Gris.',
+      color: 'Blanco, Verde, Rojo Teja, Gris.',
       aplicacion: 'Pincel o rodillo.',
       secado: '3 horas mínimo entre manos.'
     }
@@ -122,7 +122,7 @@ export const products: Product[] = [
       rendimiento: '1.5 kg/m² (Techos) / 0.5 kg/m² (Paredes).',
       prestacion: 'Baldes de 5, 12 y 20 kg / Potes de 1 Lt.',
       uso: 'Techos, terrazas, muros y frentes.',
-      color: 'Blaco, Verde, Rojo Teja, Gris.',
+      color: 'Blanco, Verde, Rojo Teja, Gris.',
       aplicacion: 'Rodillo, pincel o soplete.',
       secado: '3 horas mínimo entre manos.'
     }
@@ -139,7 +139,7 @@ export const products: Product[] = [
       rendimiento: '1.5 lt/m² (Techos).',
       prestacion: 'Baldes de 5, 12 y 20 lt / Potes de 1 lt.',
       uso: 'Techos, muros, frentes y superficies transitables.',
-      color: 'Blaco, Verde, Rojo Teja.',
+      color: 'Blanco, Verde, Rojo Teja.',
       aplicacion: 'Rodillo, pincel.',
       secado: '3 horas mínimo entre manos.'
     }

@@ -61,8 +61,8 @@ function App() {
     <BrowserRouter>
       <div className="min-h-screen bg-slate-50 font-sans antialiased text-slate-900">
         <Helmet>
-          <title>BSR Obras | Materiales de Construcción en Rosario</title>
-          <meta name="description" content="Venta de materiales para la construcción, impermeabilizantes y pinturas en Rosario. Calidad y asesoramiento para tu obra." />
+          <title>BSR Obras | Impermeabilizantes y Pinturas en Rosario</title>
+          <meta name="description" content="Venta de impermeabilizantes y pinturas en Rosario. Calidad y asesoramiento para tu obra." />
           <script type="application/ld+json">
             {JSON.stringify(organizationSchema)}
           </script>
