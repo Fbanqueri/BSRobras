@@ -5,6 +5,9 @@ import Footer from './components/Footer';
 import WhatsAppButton from './components/WhatsAppButton';
 import { Helmet } from 'react-helmet-async';
 
+// 1. IMPORTAMOS LAS HERRAMIENTAS DE RUTAS
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+
 function App() {
   const organizationSchema = {
     "@context": "https://schema.org",
@@ -30,25 +33,13 @@ function App() {
     "openingHoursSpecification": [
       {
         "@type": "OpeningHoursSpecification",
-        "dayOfWeek": [
-          "Monday",
-          "Tuesday",
-          "Wednesday",
-          "Thursday",
-          "Friday"
-        ],
+        "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
         "opens": "08:30",
         "closes": "12:00"
       },
       {
         "@type": "OpeningHoursSpecification",
-        "dayOfWeek": [
-          "Monday",
-          "Tuesday",
-          "Wednesday",
-          "Thursday",
-          "Friday"
-        ],
+        "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
         "opens": "16:30",
         "closes": "19:00"
       },
@@ -66,22 +57,38 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 font-sans antialiased text-slate-900">
-      <Helmet>
-        <title>BSR Obras | Materiales de Construcción en Rosario</title>
-        <meta name="description" content="Venta de materiales para la construcción, impermeabilizantes y pinturas en Rosario. Calidad y asesoramiento para tu obra." />
-        <script type="application/ld+json">
-          {JSON.stringify(organizationSchema)}
-        </script>
-      </Helmet>
-      <Navbar />
-      <main>
-        <Hero />
-        <Catalog />
-      </main>
-      <Footer />
-      <WhatsAppButton />
-    </div>
+    // 2. ENVOLVEMOS TODA LA APP EN EL BROWSER ROUTER
+    <BrowserRouter>
+      <div className="min-h-screen bg-slate-50 font-sans antialiased text-slate-900">
+        <Helmet>
+          <title>BSR Obras | Materiales de Construcción en Rosario</title>
+          <meta name="description" content="Venta de materiales para la construcción, impermeabilizantes y pinturas en Rosario. Calidad y asesoramiento para tu obra." />
+          <script type="application/ld+json">
+            {JSON.stringify(organizationSchema)}
+          </script>
+        </Helmet>
+
+        <Navbar />
+
+        <main>
+          {/* 3. DEFINIMOS NUESTRAS RUTAS LIMPIAS */}
+          <Routes>
+            {/* Ruta principal: Home */}
+            <Route path="/" element={<><Hero /><Catalog /></>} />
+
+            {/* Rutas para las categorías del catálogo */}
+            <Route path="/catalogo" element={<><Hero /><Catalog /></>} />
+            <Route path="/catalogo/:subcategoria" element={<><Hero /><Catalog /></>} />
+
+            {/* Ruta para productos individuales */}
+            <Route path="/producto/:slug" element={<><Hero /><Catalog /></>} />
+          </Routes>
+        </main>
+
+        <Footer />
+        <WhatsAppButton />
+      </div>
+    </BrowserRouter>
   );
 }
 

@@ -1,6 +1,10 @@
 import { motion } from 'motion/react';
+import { useNavigate } from 'react-router-dom';
 
 const Hero = () => {
+    // 1. El Hook useNavigate siempre debe ir aquí, adentro de la función del componente
+    const navigate = useNavigate();
+
     return (
         <section id="inicio" className="relative h-[85vh] min-h-[600px] flex items-center pt-16">
             <div className="absolute inset-0 overflow-hidden bg-slate-900">
@@ -34,12 +38,29 @@ const Hero = () => {
                         Soluciones integrales para la construcción. Materiales de alta calidad que garantizan resultados de excelencia en cada proyecto.
                     </p>
                     <div className="flex flex-col sm:flex-row gap-4">
-                        <a href="#catalogo" className="inline-flex items-center justify-center bg-primary text-white px-8 py-4 rounded-lg text-base font-bold hover:scale-[1.02] transition-transform shadow-xl">
+
+                        {/* 2. Botón Ver Catálogo: Navega a la ruta limpia y hace el scroll */}
+                        <button
+                            onClick={() => {
+                                navigate('/catalogo');
+                                setTimeout(() => document.querySelector('#catalogo')?.scrollIntoView({ behavior: 'smooth' }), 150);
+                            }}
+                            className="inline-flex items-center justify-center bg-primary text-white px-8 py-4 rounded-lg text-base font-bold hover:scale-[1.02] transition-transform shadow-xl"
+                        >
                             Ver Catálogo
-                        </a>
-                        <a href="#contacto" className="inline-flex items-center justify-center bg-white/10 backdrop-blur-md border border-white/30 text-white px-8 py-4 rounded-lg text-base font-bold hover:bg-white/20 transition-all">
+                        </button>
+
+                        {/* 3. Botón Presupuesto: Navega al inicio y hace scroll hasta el footer de contacto */}
+                        <button
+                            onClick={() => {
+                                navigate('/#contacto');
+                                setTimeout(() => document.querySelector('#contacto')?.scrollIntoView({ behavior: 'smooth' }), 150);
+                            }}
+                            className="inline-flex items-center justify-center bg-white/10 backdrop-blur-md border border-white/30 text-white px-8 py-4 rounded-lg text-base font-bold hover:bg-white/20 transition-all"
+                        >
                             Solicitar Presupuesto
-                        </a>
+                        </button>
+
                     </div>
                 </motion.div>
             </div>

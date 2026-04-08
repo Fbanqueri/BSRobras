@@ -2,98 +2,37 @@ import { useState, useEffect, useMemo, useRef } from 'react';
 import { ArrowLeft, FileText } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Helmet } from 'react-helmet-async';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 import { categories, subcategories, products, type Product } from '../data/products';
 import ProductModal from './ProductModal';
 
 const Catalog = () => {
+    // 1. Hooks de React Router
+    const { subcategoria, slug } = useParams<{ subcategoria?: string, slug?: string }>();
+    const navigate = useNavigate();
+
     const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
-    const [selectedSubcategory, setSelectedSubcategory] = useState<string | null>(null);
-    const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
     const catalogRef = useRef<HTMLElement>(null);
 
-    // --- Lógica de Deep Linking (URL) ---
+    // 2. MAGIA SEO: Calculamos la subcategoría activa. 
+    // Si estamos en /catalogo/:subcategoria, usa esa. 
+    // Si entramos directo a /producto/:slug, busca a qué categoría pertenece el producto.
+    const activeSubcategory = subcategoria || (slug ? products.find(p => p.slug === slug)?.subcategory : null);
+
+    // 3. Estado del producto para abrir/cerrar el modal basado en la URL
+    const [selectedProduct, setSelectedProduct] = useState<Product | null>(
+        slug ? products.find(p => p.slug === slug) || null : null
+    );
+
+    // Efecto para abrir o cerrar el modal si el usuario usa las flechas de "Atrás/Adelante" del navegador
     useEffect(() => {
-        const handleUrlChange = () => {
-            // 1. Manejo de Productos (Query Params)
-            const params = new URLSearchParams(window.location.search);
-            const productSlug = params.get('producto');
-            
-            if (productSlug) {
-                const product = products.find(p => p.slug === productSlug);
-                if (product) setSelectedProduct(product);
-            } else {
-                setSelectedProduct(null);
-            }
-
-            // 2. Manejo de Subcategorías (Hash)
-            const hash = window.location.hash;
-            if (hash.startsWith('#catalogo/')) {
-                const subId = hash.replace('#catalogo/', '');
-                const sub = subcategories.find(s => s.id === subId);
-                if (sub) {
-                    setSelectedSubcategory(sub.id);
-                    setSelectedCategory(sub.categoryId);
-                }
-            } else if (hash === '#catalogo') {
-                setSelectedSubcategory(null);
-            } else if (!hash) {
-                // Si no hay hash y no estamos en modo producto, reseteamos vista (opcional)
-                // setSelectedSubcategory(null);
-            }
-        };
-
-        window.addEventListener('popstate', handleUrlChange);
-        window.addEventListener('hashchange', handleUrlChange);
-        handleUrlChange();
-
-        return () => {
-            window.removeEventListener('popstate', handleUrlChange);
-            window.removeEventListener('hashchange', handleUrlChange);
-        };
-    }, []);
-
-    const openProductModal = (product: Product) => {
-        setSelectedProduct(product);
-        // Nota: Si ya hay un hash, el query param debe ir antes o después dependiendo de cómo maneje el ruteo Vite, 
-        // pero para evitar líos con window.location.search, lo ideal es mantener el formato estándar.
-        const searchPath = `?producto=${product.slug}`;
-        window.history.pushState({ path: searchPath }, '', searchPath + window.location.hash);
-    };
-
-    const closeProductModal = () => {
-        setSelectedProduct(null);
-        window.history.pushState({ path: window.location.pathname }, '', window.location.pathname + window.location.hash);
-    };
-
-    const handleSelectSubcategory = (subId: string | null) => {
-        const currentHash = window.location.hash;
-        
-        if (subId) {
-            const nextHash = `#catalogo/${subId}`;
-            
-            // Si ya estamos en una subcategoría, reemplazamos el estado para no llenar el historial
-            if (currentHash.startsWith('#catalogo/') && currentHash !== '#catalogo') {
-                window.history.replaceState(null, '', nextHash);
-            } 
-            // Si venimos de la raíz o de otro lugar sin el hash intermedio, lo inyectamos
-            else if (currentHash !== '#catalogo') {
-                window.history.pushState(null, '', '#catalogo');
-                window.history.pushState(null, '', nextHash);
-            }
-            // Si ya estábamos en #catalogo, solo hacemos un push normal de la subcategoría
-            else {
-                window.location.hash = `catalogo/${subId}`;
-            }
-            
-            setSelectedSubcategory(subId);
+        if (slug) {
+            const product = products.find(p => p.slug === slug);
+            if (product) setSelectedProduct(product);
         } else {
-            setSelectedSubcategory(null);
-            window.location.hash = 'catalogo';
+            setSelectedProduct(null);
         }
-
-        // Forzamos el disparo de hashchange porque pushState/replaceState no lo hacen automáticamente
-        window.dispatchEvent(new HashChangeEvent('hashchange'));
-    };
+    }, [slug]);
 
     // --- Filtrado ---
     const filteredSubcategories = useMemo(() => {
@@ -102,36 +41,39 @@ const Catalog = () => {
     }, [selectedCategory]);
 
     const filteredProducts = useMemo(() => {
-        if (!selectedSubcategory) return [];
-        return products.filter(p => p.subcategory === selectedSubcategory);
-    }, [selectedSubcategory]);
+        if (!activeSubcategory) return [];
+        return products.filter(p => p.subcategory === activeSubcategory);
+    }, [activeSubcategory]);
 
-    // Scroll to top of catalog when subcategory changes
+    // Scroll al inicio del catálogo cuando cambia la subcategoría (pero no cuando abrimos un producto)
     useEffect(() => {
-        if (selectedSubcategory && catalogRef.current) {
-            // Un pequeño delay ayuda a que el cambio de contenido (AnimatePresence) 
-            // no interfiera con el scroll si el DOM está mutando.
+        if (activeSubcategory && catalogRef.current && !slug) {
             setTimeout(() => {
                 catalogRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }, 100);
         }
-    }, [selectedSubcategory]);
+    }, [activeSubcategory, slug]);
 
     return (
         <section id="catalogo" ref={catalogRef} className="py-20 bg-[#f6f8f6]">
             <Helmet>
                 <title>
-                    {selectedSubcategory 
-                        ? `${subcategories.find(s => s.id === selectedSubcategory)?.name} | BSR Obras`
-                        : (selectedCategory 
-                            ? `${categories.find(c => c.id === selectedCategory)?.name} | BSR Obras`
-                            : "Catálogo de Materiales | BSR Obras")}
+                    {/* El título cambia dinámicamente: Producto > Subcategoría > Categoría > General */}
+                    {selectedProduct
+                        ? `${selectedProduct.name} | BSR Obras`
+                        : activeSubcategory
+                            ? `${subcategories.find(s => s.id === activeSubcategory)?.name} | BSR Obras`
+                            : (selectedCategory
+                                ? `${categories.find(c => c.id === selectedCategory)?.name} | BSR Obras`
+                                : "Catálogo de Materiales | BSR Obras")}
                 </title>
-                <meta 
-                    name="description" 
-                    content={selectedSubcategory 
-                        ? `Explora nuestra selección de ${subcategories.find(s => s.id === selectedSubcategory)?.name}. Materiales de construcción de alta calidad en Rosario.`
-                        : "Catálogo completo de materiales para la construcción: impermeabilización, preparación de superficies y más en BSR Obras."} 
+                <meta
+                    name="description"
+                    content={selectedProduct
+                        ? selectedProduct.description
+                        : activeSubcategory
+                            ? `Explora nuestra selección de ${subcategories.find(s => s.id === activeSubcategory)?.name}. Materiales de construcción de alta calidad en Rosario.`
+                            : "Catálogo completo de materiales para la construcción: impermeabilización, preparación de superficies y más en BSR Obras."}
                 />
             </Helmet>
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -144,16 +86,16 @@ const Catalog = () => {
                     {/* Nivel 1: Pastillas de Categorías */}
                     <div className="flex flex-wrap gap-2">
                         <button
-                            onClick={() => { setSelectedCategory(null); handleSelectSubcategory(null); }}
-                            className={`px-5 py-2 rounded-full text-sm font-bold transition-all ${!selectedCategory ? 'bg-primary text-white shadow-md' : 'bg-primary/10 text-primary hover:bg-primary/20'}`}
+                            onClick={() => { setSelectedCategory(null); navigate('/catalogo'); }}
+                            className={`px-5 py-2 rounded-full text-sm font-bold transition-all ${!selectedCategory && !activeSubcategory ? 'bg-primary text-white shadow-md' : 'bg-primary/10 text-primary hover:bg-primary/20'}`}
                         >
                             Todos
                         </button>
                         {categories.map(cat => (
                             <button
                                 key={cat.id}
-                                onClick={() => { setSelectedCategory(cat.id); handleSelectSubcategory(null); }}
-                                className={`px-5 py-2 rounded-full text-sm font-bold transition-all ${selectedCategory === cat.id ? 'bg-primary text-white shadow-md' : 'bg-primary/10 text-primary hover:bg-primary/20'}`}
+                                onClick={() => { setSelectedCategory(cat.id); navigate('/catalogo'); }}
+                                className={`px-5 py-2 rounded-full text-sm font-bold transition-all ${selectedCategory === cat.id && !activeSubcategory ? 'bg-primary text-white shadow-md' : 'bg-primary/10 text-primary hover:bg-primary/20'}`}
                             >
                                 {cat.name}
                             </button>
@@ -162,7 +104,7 @@ const Catalog = () => {
                 </div>
 
                 <AnimatePresence mode="wait">
-                    {!selectedSubcategory ? (
+                    {!activeSubcategory ? (
                         /* Nivel 2: Grid de Subcategorías */
                         <motion.div
                             key="subcategories"
@@ -172,17 +114,16 @@ const Catalog = () => {
                             className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"
                         >
                             {filteredSubcategories.map(sub => (
-                                <a
+                                <Link
                                     key={sub.id}
-                                    href={`#catalogo/${sub.id}`}
-                                    onClick={(e) => { e.preventDefault(); handleSelectSubcategory(sub.id); }}
-                                    className="group relative h-64 rounded-xl overflow-hidden border border-primary/10 hover:border-primary transition-all shadow-sm hover:shadow-xl"
+                                    to={`/catalogo/${sub.id}`}
+                                    className="group relative h-64 rounded-xl overflow-hidden border border-primary/10 hover:border-primary transition-all shadow-sm hover:shadow-xl block"
                                 >
-                                    <img 
-                                        src={sub.image} 
-                                        alt={sub.name} 
-                                        className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" 
-                                        loading="lazy" 
+                                    <img
+                                        src={sub.image}
+                                        alt={sub.name}
+                                        className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                                        loading="lazy"
                                         decoding="async"
                                         width="400"
                                         height="300"
@@ -192,7 +133,7 @@ const Catalog = () => {
                                         <h3 className="text-white font-bold text-2xl">{sub.name}</h3>
                                         <p className="text-white/70 text-sm mt-1">Ver productos</p>
                                     </div>
-                                </a>
+                                </Link>
                             ))}
                         </motion.div>
                     ) : (
@@ -206,13 +147,13 @@ const Catalog = () => {
                         >
                             <div className="flex items-center justify-between">
                                 <button
-                                    onClick={() => handleSelectSubcategory(null)}
+                                    onClick={() => navigate('/catalogo')}
                                     className="text-primary font-bold flex items-center gap-1 hover:underline"
                                 >
                                     <ArrowLeft size={16} /> Volver al catálogo
                                 </button>
                                 <span className="font-bold text-slate-900">
-                                    {subcategories.find(s => s.id === selectedSubcategory)?.name}
+                                    {subcategories.find(s => s.id === activeSubcategory)?.name}
                                 </span>
                             </div>
 
@@ -220,11 +161,11 @@ const Catalog = () => {
                                 {filteredProducts.map(product => (
                                     <div key={product.id} className="bg-white rounded-xl overflow-hidden border border-slate-200 group hover:shadow-xl transition-all duration-300 flex flex-col h-full">
                                         <div className="h-64 overflow-hidden relative">
-                                            <img 
-                                                alt={product.name} 
-                                                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
-                                                src={product.image} 
-                                                loading="lazy" 
+                                            <img
+                                                alt={product.name}
+                                                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                                src={product.image}
+                                                loading="lazy"
                                                 decoding="async"
                                                 width="400"
                                                 height="300"
@@ -233,13 +174,14 @@ const Catalog = () => {
                                         <div className="p-6 flex-1 flex flex-col">
                                             <h3 className="text-xl font-bold text-slate-900 mb-2">{product.name}</h3>
                                             <p className="text-slate-600 text-sm mb-6 line-clamp-2">{product.description}</p>
-                                            <a
-                                                href={`?producto=${product.slug}${window.location.hash}`}
-                                                onClick={(e) => { e.preventDefault(); openProductModal(product); }}
+
+                                            {/* Link limpio para productos */}
+                                            <Link
+                                                to={`/producto/${product.slug}`}
                                                 className="mt-auto w-full flex items-center justify-center gap-2 py-3 bg-primary/5 hover:bg-primary text-primary hover:text-white rounded-lg font-bold transition-all border border-primary/20"
                                             >
                                                 <FileText size={16} /> Ficha técnica
-                                            </a>
+                                            </Link>
                                         </div>
                                     </div>
                                 ))}
@@ -251,7 +193,14 @@ const Catalog = () => {
 
             <AnimatePresence>
                 {selectedProduct && (
-                    <ProductModal product={selectedProduct} onClose={closeProductModal} />
+                    <ProductModal
+                        product={selectedProduct}
+                        onClose={() => {
+                            setSelectedProduct(null);
+                            // Al cerrar el modal, regresamos limpiamente a la subcategoría
+                            navigate(`/catalogo/${selectedProduct.subcategory}`);
+                        }}
+                    />
                 )}
             </AnimatePresence>
         </section>
