@@ -9,32 +9,11 @@ interface ProductModalProps {
 }
 
 const ProductModal = ({ product, onClose }: ProductModalProps) => {
-    // Hemos eliminado "offers", "aggregateRating" y "reviews"
-    // y actualizamos la URL a la nueva ruta limpia para mejorar el SEO
-    const jsonLd = {
-        "@context": "https://schema.org/",
-        "@type": "Product",
-        "name": product.name,
-        "image": [
-            `${import.meta.env.VITE_SITE_URL || "https://bsrobras.com.ar"}${product.image}`
-        ],
-        "description": product.description,
-        "sku": product.id,
-        "url": `${import.meta.env.VITE_SITE_URL || "https://bsrobras.com.ar"}/producto/${product.slug}`,
-        "brand": {
-            "@type": "Brand",
-            "name": import.meta.env.VITE_SITE_NAME || "BSR Obras"
-        }
-    };
-
     return (
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6">
             <Helmet>
                 <title>{product.name} | Ficha Técnica | BSR Obras</title>
                 <meta name="description" content={product.description} />
-                <script type="application/ld+json">
-                    {JSON.stringify(jsonLd)}
-                </script>
             </Helmet>
             {/* Fondo desenfocado */}
             <motion.div
