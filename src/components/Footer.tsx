@@ -13,7 +13,7 @@ const Footer = () => {
                             <span className="text-xl font-bold tracking-tight text-white">BSR Obras</span>
                         </div>
                         <p className="text-sm leading-relaxed mb-6">
-                            Dedicados a proveer materiales de construcción de la más alta gama, asegurando la durabilidad y estética de sus proyectos.
+                            Tu pinturería de confianza en Rosario. Dedicados a proveer materiales de construcción, impermeabilizantes y soluciones para construcción en seco de la más alta gama para tus proyectos.
                         </p>
                         <div className="flex gap-4">
                             <a href={import.meta.env.VITE_INSTAGRAM_URL || "#"} target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-primary hover:text-white transition-all">

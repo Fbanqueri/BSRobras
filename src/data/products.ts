@@ -31,7 +31,11 @@ export interface Category {
 }
 
 export const categories: Category[] = [
-  // { id: 'pintura', name: 'Pintura', introduction: '' },
+  { 
+    id: 'pintura', 
+    name: 'Pintura', 
+    introduction: 'Nuestra línea de pinturas ofrece soluciones de alta calidad para renovar y proteger tus espacios. Desde látex premium hasta esmaltes específicos, garantizamos durabilidad y un acabado profesional.' 
+  },
   { 
     id: 'impermeabilizacion', 
     name: 'Impermeabilización',
@@ -45,8 +49,7 @@ export const categories: Category[] = [
 ];
 
 export const subcategories: Subcategory[] = [
-  // { id: 'pintura-interior', name: 'Pintura Interior', categoryId: 'pintura', image: '/assets/categories/pintura-interior.webp' },
-  // { id: 'pintura-exterior', name: 'Pintura Exterior', categoryId: 'pintura', image: '/assets/categories/pintura-exterior.webp' },
+  { id: 'latex', name: 'Látex', categoryId: 'pintura', image: '/assets/categories/latex.webp' },
   { id: 'membranas-liquidas', name: 'Membranas Líquidas', categoryId: 'impermeabilizacion', image: '/assets/categories/MemLiquida_optimized.webp' },
   { id: 'membranas-asfalticas', name: 'Membranas Asfálticas', categoryId: 'impermeabilizacion', image: '/assets/categories/mem-rollo.webp' },
   { id: 'pintura-asfaltica', name: 'Pintura Asfáltica', categoryId: 'impermeabilizacion', image: '/assets/categories/p-asfal.webp' },
@@ -57,42 +60,60 @@ export const subcategories: Subcategory[] = [
 ];
 
 export const products: Product[] = [
-  /*
   {
-    id: '1',
-    name: 'Pintura Látex Premium',
-    slug: 'pintura-latex-premium',
-    description: 'Acabado mate de alta cobertura. Ideal para interiores con gran resistencia al desgaste.',
-    image: '/assets/products/pintura-latex-premium.jpg',
-    category: 'pintura',
-    subcategory: 'pintura-interior',
+    id: "1.0",
+    name: "Látex Acrílico Interior Das Beste Hogar y Obra",
+    slug: "latex-acrilico-das-beste-hogar-y-obra",
+    description: "Pintura diseñada para paredes interiores que ofrece un muy buen poder cubritivo y protección antihongos. Su fórmula garantiza una excelente terminación con mínimo salpicado.",
+    image: "/assets/products/latex/das-beste-hogar-obra-int.webp",
+    category: "pintura",
+    subcategory: "latex",
     specs: {
-      rendimiento: '10 a 12 m² por litro y por mano.',
-      prestacion: 'Antihongo, lavable y de bajo olor.',
-      uso: 'Paredes interiores de yeso, revoque o ladrillo.',
-      acabado: 'Mate sedoso aterciopelado.',
-      aplicacion: 'Pincel, rodillo de lana o soplete.',
-      secado: 'Al tacto 1 hora. Entre manos 4 horas.'
+      rendimiento: "12 m² por litro y por mano (aproximadamente).",
+      prestacion: "Baldes de 20 y 10 litros.",
+      uso: "Paredes interiores",
+      color: "Blanco (apto para entonadores universales).",
+      acabado: 'Mate',
+      aplicacion: "Pincel o rodillo.",
+      secado: "2 horas (al tacto) / 5 horas mínimo entre manos."
+    }
+  },
+{
+    id: "2.0",
+    name: "Látex Acrílico Plus Interior Terra Color",
+    slug: "latex-acrilico-plus-interior-terra-color",
+    description: "Pintura de alta calidad diseñada especialmente para ambientes internos. Ofrece un blanco intenso, gran poder cubritivo y una fórmula de bajo olor que facilita la habitabilidad inmediata.",
+    image: "/assets/products/latex/terra-color-interior-plus.webp",
+    category: "pintura",
+    subcategory: "latex",
+    specs: {
+      rendimiento: "10 a 12 m² por litro y por mano.",
+      prestacion: "Baldes de 20 y 10 litros.",
+      uso: "Paredes interiores, yeso y mampostería.",
+      color: "Blanco (apto para entonadores).",
+      acabado: 'Mate',
+      aplicacion: "Pincel, rodillo o soplete.",
+      secado: "1 a 2 horas al tacto / 4 horas entre manos."
     }
   },
   {
-    id: '2',
-    name: 'Látex Exterior Pro',
-    slug: 'latex-exterior-pro',
-    description: 'Máxima resistencia a la intemperie y rayos UV. Formulado para climas extremos.',
-    image: '/assets/products/latex-exterior-pro.jpg',
-    category: 'pintura',
-    subcategory: 'pintura-exterior',
+    id: "3.0",
+    name: "Látex Acrílico Plus Exterior Terra Color",
+    slug: "latex-acrilico-plus-exterior-terra-color",
+    description: "Formulado para resistir las exigencias del clima, este látex exterior cuenta con aditivos UV y máxima resistencia a la intemperie, evitando el desgaste prematuro y la formación de algas.",
+    image: "/assets/products/latex/terra-color-exterior-plus.webp",
+    category: "pintura",
+    subcategory: "latex",
     specs: {
-      rendimiento: '8 a 10 m² por litro.',
-      prestacion: 'Impermeable y elástico.',
-      uso: 'Frentes y muros exteriores.',
-      acabado: 'Mate.',
-      aplicacion: 'Rodillo o soplete.',
-      secado: '2 horas al tacto.'
+      rendimiento: "10 a 14 m² por litro y por mano.",
+      prestacion: "Baldes de 20 y 10 litros.",
+      uso: "Frentes, muros exteriores y patios.",
+      color: "Blanco (apto para entonadores).",
+      acabado: 'Mate',
+      aplicacion: "Rodillo o pincel de cerda reforzada.",
+      secado: "3 horas al tacto / 6 horas entre manos."
     }
   },
-  */
   {
     id: '3.0',
     name: 'Impermeabilizante Poliuretánico Das Beste',

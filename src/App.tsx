@@ -16,7 +16,15 @@ function App() {
     "image": `${import.meta.env.VITE_SITE_URL || "https://bsrobras.com.ar"}/assets/logo.png`,
     "@id": import.meta.env.VITE_SITE_URL || "https://bsrobras.com.ar",
     "url": import.meta.env.VITE_SITE_URL || "https://bsrobras.com.ar",
-    "telephone": `+${import.meta.env.VITE_WHATSAPP_NUMBER || "5493413233169"}`,
+    "telephone": "+54 341 457-7305",
+    "contactPoint": [
+      {
+        "@type": "ContactPoint",
+        "telephone": `+${import.meta.env.VITE_WHATSAPP_NUMBER || "5493413233169"}`,
+        "contactType": "Customer Support",
+        "availableLanguage": "Spanish"
+      }
+    ],
     "address": {
       "@type": "PostalAddress",
       "streetAddress": "Mendoza 7301",
@@ -61,8 +69,9 @@ function App() {
     <BrowserRouter>
       <div className="min-h-screen bg-slate-50 font-sans antialiased text-slate-900">
         <Helmet>
-          <title>BSR Obras | Impermeabilizantes y Pinturas en Rosario</title>
-          <meta name="description" content="Venta de impermeabilizantes y pinturas en Rosario. Calidad y asesoramiento para tu obra." />
+          <title>BSR Obras | Pinturería e Impermeabilizantes en Rosario</title>
+          <meta name="description" content="Tu pinturería en Rosario. Venta de impermeabilizantes, pinturas, materiales de construcción y soluciones para construcción en seco. Asesoramiento profesional." />
+          <link rel="canonical" href="https://bsrobras.com.ar/" />
           <script type="application/ld+json">
             {JSON.stringify(organizationSchema)}
           </script>
@@ -78,10 +87,10 @@ function App() {
 
             {/* Rutas para las categorías del catálogo */}
             <Route path="/catalogo" element={<><Hero /><Catalog /></>} />
-            <Route path="/catalogo/:subcategoria" element={<><Hero /><Catalog /></>} />
+            <Route path="/catalogo/:subcategoria" element={<><Hero isMainHero={false} /><Catalog /></>} />
 
             {/* Ruta para productos individuales */}
-            <Route path="/producto/:slug" element={<><Hero /><Catalog /></>} />
+            <Route path="/producto/:slug" element={<><Hero isMainHero={false} /><Catalog /></>} />
           </Routes>
         </main>
 

@@ -1,6 +1,5 @@
 import { X } from 'lucide-react';
 import { motion } from 'motion/react';
-import { Helmet } from 'react-helmet-async';
 import type { Product } from '../data/products';
 
 interface ProductModalProps {
@@ -11,10 +10,6 @@ interface ProductModalProps {
 const ProductModal = ({ product, onClose }: ProductModalProps) => {
     return (
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6">
-            <Helmet>
-                <title>{product.name} | Ficha Técnica | BSR Obras</title>
-                <meta name="description" content={product.description} />
-            </Helmet>
             {/* Fondo desenfocado */}
             <motion.div
                 initial={{ opacity: 0 }}
@@ -44,9 +39,9 @@ const ProductModal = ({ product, onClose }: ProductModalProps) => {
                 <div className="p-6 sm:p-8 max-h-[80vh] overflow-y-auto">
                     {/* Sección de Descripción */}
                     <div className="mb-8 pb-6 border-b border-slate-100">
-                        <h4 className="text-xs font-bold text-primary uppercase mb-2 tracking-widest">
+                        <h3 className="text-xs font-bold text-primary uppercase mb-2 tracking-widest">
                             Descripción
-                        </h4>
+                        </h3>
                         <p className="text-slate-700 leading-relaxed text-lg">
                             {product.description}
                         </p>
@@ -56,7 +51,7 @@ const ProductModal = ({ product, onClose }: ProductModalProps) => {
                         {/* Columna 1: Rendimiento y Presentación */}
                         <div className="space-y-6">
                             <div className="border-b border-slate-100 pb-2 mb-4">
-                                <h4 className="text-sm font-bold text-primary uppercase tracking-wider">Rendimiento y Presentación</h4>
+                                <h3 className="text-sm font-bold text-primary uppercase tracking-wider">Rendimiento y Presentación</h3>
                             </div>
 
                             {product.specs.rendimiento && (
@@ -82,7 +77,7 @@ const ProductModal = ({ product, onClose }: ProductModalProps) => {
                         {/* Columna 2: Aplicación y Tiempos */}
                         <div className="space-y-6">
                             <div className="border-b border-slate-100 pb-2 mb-4">
-                                <h4 className="text-sm font-bold text-primary uppercase tracking-wider">Aplicación y Tiempos</h4>
+                                <h3 className="text-sm font-bold text-primary uppercase tracking-wider">Aplicación y Tiempos</h3>
                             </div>
 
                             {product.specs.uso && (

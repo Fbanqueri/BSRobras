@@ -2,7 +2,7 @@ import { useState, useEffect, useMemo, useRef } from 'react';
 import { ArrowLeft, FileText } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Helmet } from 'react-helmet-async';
-import { useParams, useNavigate, Link } from 'react-router-dom';
+import { useParams, useNavigate, Link, useLocation } from 'react-router-dom';
 import { categories, subcategories, products, type Product } from '../data/products';
 import ProductModal from './ProductModal';
 
@@ -10,6 +10,8 @@ const Catalog = () => {
     // 1. Hooks de React Router
     const { subcategoria, slug } = useParams<{ subcategoria?: string, slug?: string }>();
     const navigate = useNavigate();
+    const location = useLocation();
+    const isHome = location.pathname === '/';
 
     const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
     const catalogRef = useRef<HTMLElement>(null);
@@ -54,32 +56,110 @@ const Catalog = () => {
         }
     }, [activeSubcategory, slug]);
 
+    // 4. Esquema de Migas de Pan (Breadcrumbs)
+    const breadcrumbSchema = useMemo(() => {
+        const items = [
+            { "@type": "ListItem", "position": 1, "name": "Inicio", "item": "https://bsrobras.com.ar/" },
+            { "@type": "ListItem", "position": 2, "name": "Catálogo", "item": "https://bsrobras.com.ar/catalogo" }
+        ];
+
+        if (activeSubcategory) {
+            const subName = subcategories.find(s => s.id === activeSubcategory)?.name;
+            items.push({
+                "@type": "ListItem",
+                "position": 3,
+                "name": subName || "Categoría",
+                "item": `https://bsrobras.com.ar/catalogo/${activeSubcategory}`
+            });
+        }
+
+        if (selectedProduct) {
+            items.push({
+                "@type": "ListItem",
+                "position": activeSubcategory ? 4 : 3,
+                "name": selectedProduct.name,
+                "item": `https://bsrobras.com.ar/producto/${selectedProduct.slug}`
+            });
+        }
+
+        return {
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": items
+        };
+    }, [activeSubcategory, selectedProduct]);
+
     return (
         <section id="catalogo" ref={catalogRef} className="py-20 bg-[#f6f8f6]">
             <Helmet>
                 <title>
-                    {/* El título cambia dinámicamente: Producto > Subcategoría > Categoría > General */}
-                    {selectedProduct
-                        ? `${selectedProduct.name} | BSR Obras`
-                        : activeSubcategory
-                            ? `${subcategories.find(s => s.id === activeSubcategory)?.name} | BSR Obras`
-                            : (selectedCategory
-                                ? `${categories.find(c => c.id === selectedCategory)?.name} | BSR Obras`
-                                : "Catálogo de Impermeabilizantes y Pinturas | BSR Obras")}
+                    {isHome
+                        ? "BSR Obras | Impermeabilizantes y Pinturas en Rosario"
+                        : selectedProduct
+                            ? `${selectedProduct.name} | BSR Obras`
+                            : activeSubcategory
+                                ? `${subcategories.find(s => s.id === activeSubcategory)?.name} | BSR Obras`
+                                : "Catálogo de Impermeabilizantes y Pinturas | BSR Obras"}
                 </title>
                 <meta
                     name="description"
-                    content={selectedProduct
-                        ? selectedProduct.description
-                        : activeSubcategory
-                            ? `Explora nuestra selección de ${subcategories.find(s => s.id === activeSubcategory)?.name}. Materiales de construcción de alta calidad en Rosario.`
-                            : "Catálogo completo de impermeabilizantes, pinturas y preparación de superficies en BSR Obras, Rosario."}
+                    content={isHome
+                        ? "Venta de impermeabilizantes y pinturas en Rosario. Calidad y asesoramiento para tu obra."
+                        : selectedProduct
+                            ? selectedProduct.description
+                            : activeSubcategory
+                                ? `Explora nuestra selección de ${subcategories.find(s => s.id === activeSubcategory)?.name}. Materiales de construcción de alta calidad en Rosario.`
+                                : "Catálogo completo de impermeabilizantes, pinturas y preparación de superficies en BSR Obras, Rosario."}
                 />
+
+                {/* Meta etiquetas Open Graph para Social Media */}
+                <meta property="og:title" content={isHome ? "BSR Obras | Impermeabilizantes y Pinturas en Rosario" : selectedProduct ? `${selectedProduct.name} | BSR Obras` : (activeSubcategory ? `${subcategories.find(s => s.id === activeSubcategory)?.name} | BSR Obras` : "Catálogo BSR Obras")} />
+                <meta property="og:description" content={isHome ? "Venta de impermeabilizantes y pinturas en Rosario. Calidad y asesoramiento para tu obra." : selectedProduct ? selectedProduct.description : (activeSubcategory ? `Explora nuestra selección de ${subcategories.find(s => s.id === activeSubcategory)?.name}.` : "Catálogo completo de impermeabilizantes, pinturas y preparación de superficies en BSR Obras.")} />
+                <meta property="og:image" content={selectedProduct ? `https://bsrobras.com.ar${selectedProduct.image}` : "https://bsrobras.com.ar/assets/logo.png"} />
+                <meta property="og:type" content={selectedProduct ? "product" : "website"} />
+
+                {/* Etiqueta Canonical */}
+                <link rel="canonical" href={isHome ? "https://bsrobras.com.ar/" : selectedProduct ? `https://bsrobras.com.ar/producto/${selectedProduct.slug}` : (activeSubcategory ? `https://bsrobras.com.ar/catalogo/${activeSubcategory}` : "https://bsrobras.com.ar/catalogo")} />
+
+                {/* Esquema de Breadcrumbs */}
+                <script type="application/ld+json">
+                    {JSON.stringify(breadcrumbSchema)}
+                </script>
+
+                {/* Esquema de Producto (Informativo) */}
+                {selectedProduct && (
+                    <script type="application/ld+json">
+                        {JSON.stringify({
+                            "@context": "https://schema.org",
+                            "@type": "Product",
+                            "name": selectedProduct.name,
+                            "description": selectedProduct.description,
+                            "image": `https://bsrobras.com.ar${selectedProduct.image}`,
+                            "brand": {
+                                "@type": "Brand",
+                                "name": "BSR Obras"
+                            },
+                            "offers": {
+                                "@type": "Offer",
+                                "availability": "https://schema.org/InStock",
+                                "url": `https://bsrobras.com.ar/producto/${selectedProduct.slug}`
+                            }
+                        })}
+                    </script>
+                )}
             </Helmet>
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
                     <div>
-                        <h2 className="text-3xl font-bold text-slate-900 mb-2">Nuestro Catálogo</h2>
+                        {selectedProduct || activeSubcategory ? (
+                            <h1 className="text-3xl font-bold text-slate-900 mb-2">
+                                {selectedProduct 
+                                    ? selectedProduct.name 
+                                    : subcategories.find(s => s.id === activeSubcategory)?.name}
+                            </h1>
+                        ) : (
+                            <h2 className="text-3xl font-bold text-slate-900 mb-2">Nuestro Catálogo</h2>
+                        )}
                         <p className="text-slate-600">Selección premium para profesionales de la construcción.</p>
                     </div>
 

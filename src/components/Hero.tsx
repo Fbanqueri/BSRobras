@@ -1,7 +1,11 @@
 import { motion } from 'motion/react';
 import { useNavigate } from 'react-router-dom';
 
-const Hero = () => {
+interface HeroProps {
+    isMainHero?: boolean;
+}
+
+const Hero = ({ isMainHero = true }: HeroProps) => {
     // 1. El Hook useNavigate siempre debe ir aquí, adentro de la función del componente
     const navigate = useNavigate();
 
@@ -31,11 +35,17 @@ const Hero = () => {
                     transition={{ duration: 0.8 }}
                     className="max-w-2xl"
                 >
-                    <h1 className="text-4xl md:text-6xl font-extrabold text-white leading-[1.1] mb-6">
-                        {import.meta.env.VITE_SITE_NAME || "BSR Obras"}: Donde cada material es un <span className="text-white underline decoration-primary decoration-4 underline-offset-4">nuevo comienzo</span>
-                    </h1>
+                    {isMainHero ? (
+                        <h1 className="text-4xl md:text-6xl font-extrabold text-white leading-[1.1] mb-6">
+                            {import.meta.env.VITE_SITE_NAME || "BSR Obras"}: Soluciones Definitivas en <br className="hidden md:block" /> <span className="text-white underline decoration-primary decoration-4 underline-offset-4">Impermeabilizantes y Pinturas</span>
+                        </h1>
+                    ) : (
+                        <h2 className="text-4xl md:text-6xl font-extrabold text-white leading-[1.1] mb-6">
+                            {import.meta.env.VITE_SITE_NAME || "BSR Obras"}: Soluciones Definitivas en <br className="hidden md:block" /> <span className="text-white underline decoration-primary decoration-4 underline-offset-4">Impermeabilizantes y Pinturas</span>
+                        </h2>
+                    )}
                     <p className="text-lg md:text-xl text-slate-100 mb-8 font-medium leading-relaxed opacity-90">
-                        Soluciones integrales para la construcción. Materiales de alta calidad que garantizan resultados de excelencia en cada proyecto.
+                        Olvídate de las filtraciones y los repintados constantes. Protege tu inversión con materiales profesionales que embellecen y resisten el paso del tiempo.
                     </p>
                     <div className="flex flex-col sm:flex-row gap-4">
 
