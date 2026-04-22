@@ -135,14 +135,11 @@ const Catalog = () => {
                             "name": selectedProduct.name,
                             "description": selectedProduct.description,
                             "image": `https://bsrobras.com.ar${selectedProduct.image}`,
+                            "sku": selectedProduct.id,
+                            "mpn": selectedProduct.id,
                             "brand": {
                                 "@type": "Brand",
                                 "name": "BSR Obras"
-                            },
-                            "offers": {
-                                "@type": "Offer",
-                                "availability": "https://schema.org/InStock",
-                                "url": `https://bsrobras.com.ar/producto/${selectedProduct.slug}`
                             }
                         })}
                     </script>
