@@ -6,7 +6,7 @@ import WhatsAppButton from './components/WhatsAppButton';
 import { Helmet } from 'react-helmet-async';
 
 // 1. IMPORTAMOS LAS HERRAMIENTAS DE RUTAS
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 
 function App() {
   const organizationSchema = {
@@ -65,8 +65,6 @@ function App() {
   };
 
   return (
-    // 2. ENVOLVEMOS TODA LA APP EN EL BROWSER ROUTER
-    <BrowserRouter>
       <div className="min-h-screen bg-slate-50 font-sans antialiased text-slate-900">
         <Helmet>
           <title>BSR Obras | Pinturería e Impermeabilizantes en Rosario</title>
@@ -97,7 +95,6 @@ function App() {
         <Footer />
         <WhatsAppButton />
       </div>
-    </BrowserRouter>
   );
 }
 

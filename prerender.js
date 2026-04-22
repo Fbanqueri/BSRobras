@@ -1,58 +1,62 @@
-import puppeteer from 'puppeteer';
-import { fileURLToPath } from 'url';
-import path from 'path';
 import fs from 'fs';
-import express from 'express';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const distPath = path.join(__dirname, 'dist');
 
 async function runPrerender() {
-    console.log('Starting custom prerender script...');
-    
-    // Read routes from sitemap
+    console.log('Starting SSR prerender (no browser needed)...');
+
+    // 1. Read routes from sitemap
     const sitemapContent = fs.readFileSync(path.join(distPath, 'sitemap.xml'), 'utf-8');
     const matches = [...sitemapContent.matchAll(/<loc>(https?:\/\/[^\/]+)?(\/.*?)<\/loc>/g)];
     const routes = matches.map(match => match[2] || '/');
-    
-    // Ensure unique routes and always include /
     const uniqueRoutes = [...new Set(['/', ...routes])];
     console.log(`Found ${uniqueRoutes.length} routes to prerender.`);
 
-    const app = express();
-    app.use(express.static(distPath));
-    app.use((req, res) => res.sendFile(path.join(distPath, 'index.html')));
+    // 2. Read the base HTML template from the Vite build output
+    const templateHtml = fs.readFileSync(path.join(distPath, 'index.html'), 'utf-8');
 
-    const port = 3000;
-    const server = app.listen(port, async () => {
-        console.log(`Server running on port ${port}`);
-        try {
-            const browser = await puppeteer.launch({ headless: 'new' });
-            const page = await browser.newPage();
-            
-            for (const route of uniqueRoutes) {
-                console.log(`Prerendering ${route}...`);
-                await page.goto(`http://localhost:${port}${route}`, { waitUntil: 'networkidle2' });
-                
-                const html = await page.content();
-                
-                const routeDir = path.join(distPath, route === '/' ? '' : route);
-                if (!fs.existsSync(routeDir)) {
-                    fs.mkdirSync(routeDir, { recursive: true });
-                }
-                
-                fs.writeFileSync(path.join(routeDir, 'index.html'), html);
+    // 3. Import the SSR render function (built by Vite)
+    const { render } = await import('./dist/server/entry-server.js');
+
+    // 4. Render each route
+    for (const route of uniqueRoutes) {
+        console.log(`Prerendering ${route}...`);
+
+        const { html: appHtml, helmet } = render(route);
+
+        // Inject the rendered app HTML into the template
+        let finalHtml = templateHtml.replace('<div id="root"></div>', `<div id="root">${appHtml}</div>`);
+
+        // Inject Helmet meta tags into <head>
+        if (helmet) {
+            const headTags = [
+                helmet.title?.toString() || '',
+                helmet.meta?.toString() || '',
+                helmet.link?.toString() || '',
+                helmet.script?.toString() || '',
+            ].filter(Boolean).join('\n');
+
+            if (headTags) {
+                finalHtml = finalHtml.replace('</head>', `${headTags}\n</head>`);
             }
-            console.log('Prerendering complete!');
-            await browser.close();
-        } catch (error) {
-            console.error('Error during prerendering:', error);
-            process.exit(1);
-        } finally {
-            server.close();
         }
-    });
+
+        // Write the prerendered HTML file
+        const routeDir = path.join(distPath, route === '/' ? '' : route);
+        if (!fs.existsSync(routeDir)) {
+            fs.mkdirSync(routeDir, { recursive: true });
+        }
+        fs.writeFileSync(path.join(routeDir, 'index.html'), finalHtml);
+    }
+
+    console.log('Prerendering complete! All routes have been prerendered.');
 }
 
-runPrerender();
+runPrerender().catch(err => {
+    console.error('Prerender failed:', err);
+    process.exit(1);
+});
