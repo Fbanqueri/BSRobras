@@ -1,4 +1,5 @@
 {
+  "cleanUrls": true,
   "headers": [
     {
       "source": "/(.*)",
@@ -32,6 +33,148 @@
           "value": "camera=(), microphone=(), geolocation=(self https://maps.googleapis.com)"
         }
       ]
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/catalogo/latex",
+      "destination": "/catalogo/pintura/latex",
+      "permanent": true
+    },
+    {
+      "source": "/catalogo/membranas-liquidas",
+      "destination": "/catalogo/impermeabilizacion/membranas-liquidas",
+      "permanent": true
+    },
+    {
+      "source": "/catalogo/membranas-asfalticas",
+      "destination": "/catalogo/impermeabilizacion/membranas-asfalticas",
+      "permanent": true
+    },
+    {
+      "source": "/catalogo/pintura-asfaltica",
+      "destination": "/catalogo/impermeabilizacion/pintura-asfaltica",
+      "permanent": true
+    },
+    {
+      "source": "/catalogo/selladores-juntas",
+      "destination": "/catalogo/preparacion-superficies/selladores-juntas",
+      "permanent": true
+    },
+    {
+      "source": "/catalogo/masillas-fijadores",
+      "destination": "/catalogo/preparacion-superficies/masillas-fijadores",
+      "permanent": true
+    },
+    {
+      "source": "/catalogo/reparacion-grietas",
+      "destination": "/catalogo/preparacion-superficies/reparacion-grietas",
+      "permanent": true
+    },
+    {
+      "source": "/producto/latex-acrilico-plus-interior-terra-color",
+      "destination": "/catalogo/pintura/latex/latex-acrilico-plus-interior-terra-color",
+      "permanent": true
+    },
+    {
+      "source": "/producto/latex-acrilico-plus-exterior-terra-color",
+      "destination": "/catalogo/pintura/latex/latex-acrilico-plus-exterior-terra-color",
+      "permanent": true
+    },
+    {
+      "source": "/producto/latex-acrilico-das-beste-hogar-y-obra",
+      "destination": "/catalogo/pintura/latex/latex-acrilico-das-beste-hogar-y-obra",
+      "permanent": true
+    },
+    {
+      "source": "/producto/impermeabilizante-acrilico-das-beste",
+      "destination": "/catalogo/impermeabilizacion/membranas-liquidas/impermeabilizante-acrilico-das-beste",
+      "permanent": true
+    },
+    {
+      "source": "/producto/impermeabilizante-poliuretanico-das-beste",
+      "destination": "/catalogo/impermeabilizacion/membranas-liquidas/impermeabilizante-poliuretanico-das-beste",
+      "permanent": true
+    },
+    {
+      "source": "/producto/impermeabilizante-impercaucho-das-beste",
+      "destination": "/catalogo/impermeabilizacion/membranas-liquidas/impermeabilizante-impercaucho-das-beste",
+      "permanent": true
+    },
+    {
+      "source": "/producto/impermeabilizante-poliuretanico-terra-color",
+      "destination": "/catalogo/impermeabilizacion/membranas-liquidas/impermeabilizante-poliuretanico-terra-color",
+      "permanent": true
+    },
+    {
+      "source": "/producto/fibra-sintetica-manta",
+      "destination": "/catalogo/preparacion-superficies/reparacion-grietas/fibra-sintetica-manta",
+      "permanent": true
+    },
+    {
+      "source": "/producto/fibra-sintetica-venda",
+      "destination": "/catalogo/preparacion-superficies/reparacion-grietas/fibra-sintetica-venda",
+      "permanent": true
+    },
+    {
+      "source": "/producto/kovertech-roll-mt450-membrana-asfaltica",
+      "destination": "/catalogo/impermeabilizacion/membranas-asfalticas/kovertech-roll-mt450-membrana-asfaltica",
+      "permanent": true
+    },
+    {
+      "source": "/producto/kovertech-geo-membrana-asfaltica-geotextil",
+      "destination": "/catalogo/impermeabilizacion/membranas-asfalticas/kovertech-geo-membrana-asfaltica-geotextil",
+      "permanent": true
+    },
+    {
+      "source": "/producto/kovertech-flex-membrana-asfaltica",
+      "destination": "/catalogo/impermeabilizacion/membranas-asfalticas/kovertech-flex-membrana-asfaltica",
+      "permanent": true
+    },
+    {
+      "source": "/producto/kover-primer-pintura-asfaltica",
+      "destination": "/catalogo/impermeabilizacion/pintura-asfaltica/kover-primer-pintura-asfaltica",
+      "permanent": true
+    },
+    {
+      "source": "/producto/kover-primer-emulsion-asfaltica",
+      "destination": "/catalogo/impermeabilizacion/pintura-asfaltica/kover-primer-emulsion-asfaltica",
+      "permanent": true
+    },
+    {
+      "source": "/producto/kovertech-pintura-asfaltica-aluminizada",
+      "destination": "/catalogo/impermeabilizacion/pintura-asfaltica/kovertech-pintura-asfaltica-aluminizada",
+      "permanent": true
+    },
+    {
+      "source": "/producto/sellador-acrilico-tacsa",
+      "destination": "/catalogo/preparacion-superficies/selladores-juntas/sellador-acrilico-tacsa",
+      "permanent": true
+    },
+    {
+      "source": "/producto/sellador-poliuretano-tacsa",
+      "destination": "/catalogo/preparacion-superficies/selladores-juntas/sellador-poliuretano-tacsa",
+      "permanent": true
+    },
+    {
+      "source": "/producto/dasbeste-enlucido-exterior-multiproposito",
+      "destination": "/catalogo/preparacion-superficies/masillas-fijadores/dasbeste-enlucido-exterior-multiproposito",
+      "permanent": true
+    },
+    {
+      "source": "/producto/dasbeste-masilla-classic",
+      "destination": "/catalogo/preparacion-superficies/masillas-fijadores/dasbeste-masilla-classic",
+      "permanent": true
+    },
+    {
+      "source": "/producto/dasbeste-sella-grietas-elastico",
+      "destination": "/catalogo/preparacion-superficies/selladores-juntas/dasbeste-sella-grietas-elastico",
+      "permanent": true
+    },
+    {
+      "source": "/producto/emapi-sellador-fijador",
+      "destination": "/catalogo/preparacion-superficies/masillas-fijadores/emapi-sellador-fijador",
+      "permanent": true
     }
   ],
   "rewrites": [
