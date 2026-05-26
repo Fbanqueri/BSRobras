@@ -128,7 +128,7 @@ export default function CatalogLanding() {
                     <p className="text-slate-600">Selección premium para profesionales de la construcción y refacción en Rosario.</p>
                 </div>
 
-                {/* BOTONERA DE FILTROS: Interactiva para el usuario, estructural para Google */}
+                {/* BOTONERA DE FILTROS MINIMALISTA INDUSTRIAL: Letras blancas en el botón activo */}
                 <div className="flex flex-wrap gap-3 border-b border-slate-200/60 pb-8 mb-10 justify-center md:justify-start">
                     {filterButtons.map((btn) => {
                         const isActive = currentCategory === btn.id;
@@ -136,9 +136,9 @@ export default function CatalogLanding() {
                             <Link
                                 key={btn.id}
                                 to={btn.path}
-                                className={`px-5 py-2.5 rounded-xl text-sm font-bold transition-all shadow-sm ${isActive
-                                        ? 'bg-primary text-white ring-2 ring-primary/20'
-                                        : 'bg-white text-slate-600 hover:bg-slate-50 border border-slate-200'
+                                className={`px-5 py-2.5 rounded-xl text-sm font-bold transition-all ${isActive
+                                        ? 'bg-slate-900 text-white shadow-md ring-2 ring-slate-900/10' // Activo: Letras blancas, fondo oscuro
+                                        : 'bg-slate-100/70 text-slate-600 hover:bg-slate-100 border border-transparent' // Inactivo: Gris sutil
                                     }`}
                             >
                                 {btn.label}
