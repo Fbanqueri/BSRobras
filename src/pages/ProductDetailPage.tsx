@@ -49,14 +49,12 @@ export default function ProductDetailPage() {
             "offers": {
                 "@type": "Offer",
                 "url": `https://bsrobras.com.ar/catalogo/${categorySlug}/${subcategorySlug}/${product.slug}`,
+                "price": "0",
+                "priceCurrency": "ARS",
                 "availability": "https://schema.org/InStock",
                 "itemCondition": "https://schema.org/NewCondition",
-                "priceSpecification": {
-                    "@type": "PriceSpecification",
-                    "priceCurrency": "ARS",
-                    "valueAddedTaxIncluded": "true",
-                    "description": "Precio a consultar / Cotización personalizada por volumen"
-                }
+                "priceValidUntil": "2027-12-31",
+                "description": "Precio a consultar. Contactar para cotización personalizada."
             }
         };
     }, [product, categorySlug, subcategorySlug, brandName]);
