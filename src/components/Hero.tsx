@@ -1,81 +1,90 @@
 import { motion } from 'motion/react';
-import { useNavigate } from 'react-router-dom';
+import { ArrowRight, MessageSquare } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 interface HeroProps {
     isMainHero?: boolean;
 }
 
-const Hero = ({ isMainHero = true }: HeroProps) => {
-    // 1. El Hook useNavigate siempre debe ir aquí, adentro de la función del componente
-    const navigate = useNavigate();
-
+export default function Hero({ isMainHero = true }: HeroProps) {
     return (
-        <section id="inicio" className="relative h-[85vh] min-h-[600px] flex items-center pt-16">
-            <div className="absolute inset-0 overflow-hidden bg-slate-900">
-                {/* Capa de color verde oscuro sutil sobre la imagen */}
-                <div className="absolute inset-0 bg-primary/20 mix-blend-multiply z-10"></div>
-                {/* Degradado para que el texto se lea siempre bien */}
-                <div className="absolute inset-0 bg-black/75 z-20"></div>
-                <img
-                    alt="Construcción profesional BSR Obras"
-                    className="w-full h-full object-cover"
-                    src="/assets/Hero_optimized.webp"
-                    width="1920"
-                    height="1080"
-                    fetchPriority="high"
-                    loading="eager"
-                    decoding="async"
-                />
-            </div>
+        <section className="relative bg-slate-950 text-white py-24 md:py-32 overflow-hidden text-left">
+            {/* Imagen de fondo premium con opacidad uniforme */}
+            <div
+                className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-25 mix-blend-luminosity"
+                style={{ backgroundImage: "url('/assets/Hero.webp')" }}
+            />
+            {/* Capa de oscurecimiento uniforme para asegurar la legibilidad del texto */}
+            <div className="absolute inset-0 bg-slate-950/50" />
 
-            <div className="relative z-30 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <motion.div
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8 }}
-                    className="max-w-2xl"
-                >
+            {/* Fondo estético sutil */}
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(var(--color-primary-rgb),0.12),transparent_50%)]" />
+
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                <div className="max-w-3xl">
                     {isMainHero ? (
-                        <h1 className="text-4xl md:text-6xl font-extrabold text-white leading-[1.1] mb-6">
-                            {import.meta.env.VITE_SITE_NAME || "BSR Obras"}: Soluciones Definitivas en <br className="hidden md:block" /> <span className="text-white underline decoration-primary decoration-4 underline-offset-4">Impermeabilizantes y Pinturas</span>
-                        </h1>
+                        <>
+                            {/* Bloque para la Home principal */}
+
+                            {/* NUEVO H1 CORREGIDO: Todo en minúsculas/capitalizado comercial enfocado en SEO local */}
+                            <motion.h1
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: 0.1 }}
+                                className="text-4xl md:text-6xl font-extrabold tracking-tight mb-6 leading-tight"
+                            >
+                                Venta de impermeabilizantes y pinturas en Rosario
+                            </motion.h1>
+
+                            {/* NUEVO PÁRRAFO CORREGIDO: Persuasivo y enfocado al cliente minorista/profesional */}
+                            <motion.p
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: 0.2 }}
+                                className="text-slate-300 text-lg md:text-xl mb-10 leading-relaxed"
+                            >
+                                Soluciones definitivas en impermeabilizantes y pinturas. Olvídate de las filtraciones y los repintados constantes. Protege tu inversión con materiales profesionales que embellecen y resisten el paso del tiempo.
+                            </motion.p>
+
+                            {/* Botones de acción rápida en la Home */}
+                            <motion.div
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: 0.3 }}
+                                className="flex flex-wrap gap-4"
+                            >
+                                {/* BOTÓN PRINCIPAL: Letras blancas, sin uppercase y con fondo de alto contraste */}
+                                <Link
+                                    to="/catalogo"
+                                    className="bg-primary hover:bg-primary-dark text-white font-extrabold py-3.5 px-8 rounded-xl transition-all shadow-md hover:shadow-xl inline-flex items-center gap-2 text-sm tracking-wide"
+                                >
+                                    Ver Catálogo <ArrowRight size={18} />
+                                </Link>
+
+                                {/* BOTÓN SECUNDARIO: Estilo outline blanco y sutil */}
+                                <a
+                                    href="https://wa.me/5493413233169"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="bg-white/5 hover:bg-white/10 text-white font-semibold py-3.5 px-6 rounded-xl transition-all inline-flex items-center gap-2 text-sm border border-white/20 backdrop-blur-sm"
+                                >
+                                    <MessageSquare size={18} className="text-primary" /> Asesoramiento Directo
+                                </a>
+                            </motion.div>
+                        </>
                     ) : (
-                        <h2 className="text-4xl md:text-6xl font-extrabold text-white leading-[1.1] mb-6">
-                            {import.meta.env.VITE_SITE_NAME || "BSR Obras"}: Soluciones Definitivas en <br className="hidden md:block" /> <span className="text-white underline decoration-primary decoration-4 underline-offset-4">Impermeabilizantes y Pinturas</span>
-                        </h2>
+                        <>
+                            {/* Bloque compacto secundario para la vista interna del catálogo */}
+                            <h1 className="text-3xl md:text-5xl font-extrabold tracking-tight mb-4">
+                                Catálogo Técnico Completo
+                            </h1>
+                            <p className="text-slate-300 text-base md:text-lg max-w-2xl leading-relaxed">
+                                Explorá nuestras líneas de productos por categorías jerárquicas. Encontrá fichas técnicas, rendimientos y marcas líderes para cada etapa de tu proyecto.
+                            </p>
+                        </>
                     )}
-                    <p className="text-lg md:text-xl text-slate-100 mb-8 font-medium leading-relaxed opacity-90">
-                        Olvídate de las filtraciones y los repintados constantes. Protege tu inversión con materiales profesionales que embellecen y resisten el paso del tiempo.
-                    </p>
-                    <div className="flex flex-col sm:flex-row gap-4">
-
-                        {/* 2. Botón Ver Catálogo: Navega a la ruta limpia y hace el scroll */}
-                        <button
-                            onClick={() => {
-                                navigate('/catalogo');
-                                setTimeout(() => document.querySelector('#catalogo')?.scrollIntoView({ behavior: 'smooth' }), 150);
-                            }}
-                            className="inline-flex items-center justify-center bg-primary text-white px-8 py-4 rounded-lg text-base font-bold hover:scale-[1.02] transition-transform shadow-xl"
-                        >
-                            Ver Catálogo
-                        </button>
-
-                        {/* 3. Botón Presupuesto: Navega al inicio y hace scroll hasta el footer de contacto */}
-                        <button
-                            onClick={() => {
-                                navigate('/#contacto');
-                                setTimeout(() => document.querySelector('#contacto')?.scrollIntoView({ behavior: 'smooth' }), 150);
-                            }}
-                            className="inline-flex items-center justify-center bg-white/10 backdrop-blur-md border border-white/30 text-white px-8 py-4 rounded-lg text-base font-bold hover:bg-white/20 transition-all"
-                        >
-                            Solicitar Presupuesto
-                        </button>
-
-                    </div>
-                </motion.div>
+                </div>
             </div>
         </section>
     );
-};
-
-export default Hero;
+}

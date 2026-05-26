@@ -18,6 +18,10 @@ const Navbar = () => {
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
+    // Determinamos si estamos en la Home y si el navbar debe ser opaco
+    const isHome = location.pathname === '/';
+    const shouldBeOpaque = !isHome || isScrolled;
+
     // Magia para el scroll automático si la URL tiene un hash (ej. /#contacto)
     useEffect(() => {
         if (location.hash) {
@@ -59,14 +63,14 @@ const Navbar = () => {
     };
 
     return (
-        <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'bg-white shadow-md py-3' : 'bg-transparent py-5'}`}>
+        <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${shouldBeOpaque ? 'bg-white shadow-md py-3' : 'bg-transparent py-5'}`}>
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between items-center">
 
                     {/* Logo ahora usa Link para ir al inicio limpiamente */}
                     <Link to="/" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="flex items-center gap-2">
                         <img src="/assets/logo.png" alt="BSR Obras" className="w-10 h-10 object-contain" />
-                        <span className={`text-xl font-bold tracking-tight ${isScrolled ? 'text-primary' : 'text-white'}`}>{import.meta.env.VITE_SITE_NAME || "BSR Obras"}</span>
+                        <span className={`text-xl font-bold tracking-tight ${shouldBeOpaque ? 'text-primary' : 'text-white'}`}>{import.meta.env.VITE_SITE_NAME || "BSR Obras"}</span>
                     </Link>
 
                     <nav className="hidden md:flex items-center space-x-8">
@@ -75,7 +79,7 @@ const Navbar = () => {
                                 key={link.name}
                                 href={link.path}
                                 onClick={(e) => handleNavClick(e, link.path)}
-                                className={`text-sm font-semibold transition-colors ${isScrolled ? 'text-slate-700 hover:text-primary' : 'text-white/90 hover:text-white'}`}
+                                className={`text-sm font-semibold transition-colors ${shouldBeOpaque ? 'text-slate-700 hover:text-primary' : 'text-white/90 hover:text-white'}`}
                             >
                                 {link.name}
                             </a>
@@ -86,7 +90,7 @@ const Navbar = () => {
                         className="md:hidden"
                         onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                     >
-                        {isMobileMenuOpen ? <X className={isScrolled ? 'text-primary' : 'text-white'} /> : <Menu className={isScrolled ? 'text-primary' : 'text-white'} />}
+                        {isMobileMenuOpen ? <X className={shouldBeOpaque ? 'text-primary' : 'text-white'} /> : <Menu className={shouldBeOpaque ? 'text-primary' : 'text-white'} />}
                     </button>
                 </div>
             </div>

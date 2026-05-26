@@ -1,12 +1,10 @@
-import Navbar from './components/Navbar';
-import Hero from './components/Hero';
-import Catalog from './components/Catalog';
-import Footer from './components/Footer';
-import WhatsAppButton from './components/WhatsAppButton';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
-
-// 1. IMPORTAMOS LAS HERRAMIENTAS DE RUTAS
-import { Routes, Route } from 'react-router-dom';
+import Layout from './components/Layout';
+import CatalogLanding from './pages/CatalogLanding';
+import SubcategoryPage from './pages/SubcategoryPage';
+import ProductDetailPage from './pages/ProductDetailPage';
+import Home from './pages/Home';
 
 function App() {
   const organizationSchema = {
@@ -65,36 +63,41 @@ function App() {
   };
 
   return (
-      <div className="min-h-screen bg-slate-50 font-sans antialiased text-slate-900">
-        <Helmet>
-          <title>BSR Obras | Pinturería e Impermeabilizantes en Rosario</title>
-          <meta name="description" content="Tu pinturería en Rosario. Venta de impermeabilizantes, pinturas, materiales de construcción y soluciones para construcción en seco. Asesoramiento profesional." />
-          <link rel="canonical" href="https://bsrobras.com.ar/" />
-          <script type="application/ld+json">
-            {JSON.stringify(organizationSchema)}
-          </script>
-        </Helmet>
+    <>
+      <Helmet>
+        <title>Pinturas, Impermeabilizantes y Revestimientos en Rosario | BSR Obras</title>
+        <meta name="description" content="Solucioná tus problemas de humedad y renová tus ambientes. Especialistas en impermeabilizantes y pinturas en Rosario. ¡Pedí asesoramiento sin cargo!" />
+        <link rel="canonical" href="https://bsrobras.com.ar/" />
+        <script type="application/ld+json">
+          {JSON.stringify(organizationSchema)}
+        </script>
+      </Helmet>
 
-        <Navbar />
+      <Routes>
+        {/* Envolvemos todas las rutas dentro de nuestro nuevo Layout común */}
+        <Route path="/" element={<Layout />}>
 
-        <main>
-          {/* 3. DEFINIMOS NUESTRAS RUTAS LIMPIAS */}
-          <Routes>
-            {/* Ruta principal: Home */}
-            <Route path="/" element={<><Hero /><Catalog /></>} />
+          {/* 1. Ruta de Inicio (Home) */}
+          <Route index element={<Home />} />
 
-            {/* Rutas para las categorías del catálogo */}
-            <Route path="/catalogo" element={<><Hero /><Catalog /></>} />
-            <Route path="/catalogo/:subcategoria" element={<><Hero isMainHero={false} /><Catalog /></>} />
+          {/* 2. Catálogo Nivel 1: General (/catalogo) */}
+          <Route path="/catalogo" element={<CatalogLanding />}>
+            <Route path=":categoryId" element={<CatalogLanding />} />
+          </Route>
 
-            {/* Ruta para productos individuales */}
-            <Route path="/producto/:slug" element={<><Hero isMainHero={false} /><Catalog /></>} />
-          </Routes>
-        </main>
+          {/* 3. Catálogo Nivel 2: Subcategoría Jerárquica (/catalogo/impermeabilizacion/membranas-liquidas) */}
+          <Route path="catalogo/:categorySlug/:subcategorySlug" element={<SubcategoryPage />} />
 
-        <Footer />
-        <WhatsAppButton />
-      </div>
+          {/* 4. Catálogo Nivel 3: Ficha de Producto Individual (/catalogo/impermeabilizacion/membranas-liquidas/slug-producto) */}
+          <Route path="catalogo/:categorySlug/:subcategorySlug/:productSlug" element={<ProductDetailPage />} />
+
+          {/* Redirecciones de seguridad para mantener compatibilidad si alguien entra a las URLs viejas */}
+          <Route path="catalogo/:subcategoria" element={<Navigate to="/catalogo" replace />} />
+          <Route path="producto/:slug" element={<Navigate to="/catalogo" replace />} />
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Route>
+      </Routes>
+    </>
   );
 }
 

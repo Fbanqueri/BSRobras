@@ -1,187 +1,182 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <!-- Rutas Estáticas -->
   <url>
     <loc>https://bsrobras.com.ar/</loc>
-    <lastmod>2026-04-07</lastmod>
+    <lastmod>2026-05-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://bsrobras.com.ar/catalogo</loc>
-    <lastmod>2026-04-07</lastmod>
+    <lastmod>2026-05-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
-
-  <!-- Rutas de Subcategorías -->
   <url>
-    <loc>https://bsrobras.com.ar/catalogo/membranas-liquidas</loc>
-    <lastmod>2026-04-07</lastmod>
+    <loc>https://bsrobras.com.ar/catalogo/pintura/latex</loc>
+    <lastmod>2026-05-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://bsrobras.com.ar/catalogo/membranas-asfalticas</loc>
-    <lastmod>2026-04-07</lastmod>
+    <loc>https://bsrobras.com.ar/catalogo/impermeabilizacion/membranas-liquidas</loc>
+    <lastmod>2026-05-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://bsrobras.com.ar/catalogo/pintura-asfaltica</loc>
-    <lastmod>2026-04-07</lastmod>
+    <loc>https://bsrobras.com.ar/catalogo/impermeabilizacion/membranas-asfalticas</loc>
+    <lastmod>2026-05-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://bsrobras.com.ar/catalogo/selladores-juntas</loc>
-    <lastmod>2026-04-07</lastmod>
+    <loc>https://bsrobras.com.ar/catalogo/impermeabilizacion/pintura-asfaltica</loc>
+    <lastmod>2026-05-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://bsrobras.com.ar/catalogo/reparacion-grietas</loc>
-    <lastmod>2026-04-07</lastmod>
+    <loc>https://bsrobras.com.ar/catalogo/preparacion-superficies/selladores-juntas</loc>
+    <lastmod>2026-05-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://bsrobras.com.ar/catalogo/masillas-fijadores</loc>
-    <lastmod>2026-04-07</lastmod>
+    <loc>https://bsrobras.com.ar/catalogo/preparacion-superficies/reparacion-grietas</loc>
+    <lastmod>2026-05-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://bsrobras.com.ar/catalogo/latex</loc>
-    <lastmod>2026-04-22</lastmod>
+    <loc>https://bsrobras.com.ar/catalogo/preparacion-superficies/masillas-fijadores</loc>
+    <lastmod>2026-05-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
-
-  <!-- Rutas de Productos -->
   <url>
-    <loc>https://bsrobras.com.ar/producto/impermeabilizante-poliuretanico-das-beste</loc>
-    <lastmod>2026-04-07</lastmod>
+    <loc>https://bsrobras.com.ar/catalogo/pintura/latex/latex-acrilico-das-beste-hogar-y-obra</loc>
+    <lastmod>2026-05-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://bsrobras.com.ar/producto/impermeabilizante-acrilico-das-beste</loc>
-    <lastmod>2026-04-07</lastmod>
+    <loc>https://bsrobras.com.ar/catalogo/pintura/latex/latex-acrilico-plus-interior-terra-color</loc>
+    <lastmod>2026-05-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://bsrobras.com.ar/producto/impermeabilizante-poliuretanico-terra-color</loc>
-    <lastmod>2026-04-07</lastmod>
+    <loc>https://bsrobras.com.ar/catalogo/pintura/latex/latex-acrilico-plus-exterior-terra-color</loc>
+    <lastmod>2026-05-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://bsrobras.com.ar/producto/impermeabilizante-impercaucho-das-beste</loc>
-    <lastmod>2026-04-07</lastmod>
+    <loc>https://bsrobras.com.ar/catalogo/impermeabilizacion/membranas-liquidas/impermeabilizante-poliuretanico-das-beste</loc>
+    <lastmod>2026-05-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://bsrobras.com.ar/producto/kovertech-flex-membrana-asfaltica</loc>
-    <lastmod>2026-04-07</lastmod>
+    <loc>https://bsrobras.com.ar/catalogo/impermeabilizacion/membranas-liquidas/impermeabilizante-acrilico-das-beste</loc>
+    <lastmod>2026-05-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://bsrobras.com.ar/producto/kovertech-roll-mt450-membrana-asfaltica</loc>
-    <lastmod>2026-04-07</lastmod>
+    <loc>https://bsrobras.com.ar/catalogo/impermeabilizacion/membranas-liquidas/impermeabilizante-poliuretanico-terra-color</loc>
+    <lastmod>2026-05-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://bsrobras.com.ar/producto/kovertech-geo-membrana-asfaltica-geotextil</loc>
-    <lastmod>2026-04-07</lastmod>
+    <loc>https://bsrobras.com.ar/catalogo/impermeabilizacion/membranas-liquidas/impermeabilizante-impercaucho-das-beste</loc>
+    <lastmod>2026-05-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://bsrobras.com.ar/producto/kover-primer-emulsion-asfaltica</loc>
-    <lastmod>2026-04-07</lastmod>
+    <loc>https://bsrobras.com.ar/catalogo/impermeabilizacion/membranas-asfalticas/kovertech-flex-membrana-asfaltica</loc>
+    <lastmod>2026-05-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://bsrobras.com.ar/producto/kover-primer-pintura-asfaltica</loc>
-    <lastmod>2026-04-07</lastmod>
+    <loc>https://bsrobras.com.ar/catalogo/impermeabilizacion/membranas-asfalticas/kovertech-roll-mt450-membrana-asfaltica</loc>
+    <lastmod>2026-05-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://bsrobras.com.ar/producto/kovertech-pintura-asfaltica-aluminizada</loc>
-    <lastmod>2026-04-07</lastmod>
+    <loc>https://bsrobras.com.ar/catalogo/impermeabilizacion/membranas-asfalticas/kovertech-geo-membrana-asfaltica-geotextil</loc>
+    <lastmod>2026-05-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://bsrobras.com.ar/producto/sellador-poliuretano-tacsa</loc>
-    <lastmod>2026-04-07</lastmod>
+    <loc>https://bsrobras.com.ar/catalogo/impermeabilizacion/pintura-asfaltica/kover-primer-emulsion-asfaltica</loc>
+    <lastmod>2026-05-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://bsrobras.com.ar/producto/sellador-acrilico-tacsa</loc>
-    <lastmod>2026-04-07</lastmod>
+    <loc>https://bsrobras.com.ar/catalogo/impermeabilizacion/pintura-asfaltica/kover-primer-pintura-asfaltica</loc>
+    <lastmod>2026-05-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://bsrobras.com.ar/producto/dasbeste-sella-grietas-elastico</loc>
-    <lastmod>2026-04-07</lastmod>
+    <loc>https://bsrobras.com.ar/catalogo/impermeabilizacion/pintura-asfaltica/kovertech-pintura-asfaltica-aluminizada</loc>
+    <lastmod>2026-05-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://bsrobras.com.ar/producto/fibra-sintetica-manta</loc>
-    <lastmod>2026-04-07</lastmod>
+    <loc>https://bsrobras.com.ar/catalogo/preparacion-superficies/selladores-juntas/sellador-poliuretano-tacsa</loc>
+    <lastmod>2026-05-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://bsrobras.com.ar/producto/fibra-sintetica-venda</loc>
-    <lastmod>2026-04-07</lastmod>
+    <loc>https://bsrobras.com.ar/catalogo/preparacion-superficies/selladores-juntas/sellador-acrilico-tacsa</loc>
+    <lastmod>2026-05-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://bsrobras.com.ar/producto/dasbeste-masilla-classic</loc>
-    <lastmod>2026-04-07</lastmod>
+    <loc>https://bsrobras.com.ar/catalogo/preparacion-superficies/selladores-juntas/dasbeste-sella-grietas-elastico</loc>
+    <lastmod>2026-05-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://bsrobras.com.ar/producto/dasbeste-enlucido-exterior-multiproposito</loc>
-    <lastmod>2026-04-07</lastmod>
+    <loc>https://bsrobras.com.ar/catalogo/preparacion-superficies/reparacion-grietas/fibra-sintetica-manta</loc>
+    <lastmod>2026-05-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://bsrobras.com.ar/producto/emapi-sellador-fijador</loc>
-    <lastmod>2026-04-07</lastmod>
+    <loc>https://bsrobras.com.ar/catalogo/preparacion-superficies/reparacion-grietas/fibra-sintetica-venda</loc>
+    <lastmod>2026-05-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://bsrobras.com.ar/producto/latex-acrilico-das-beste-hogar-y-obra</loc>
-    <lastmod>2026-04-22</lastmod>
+    <loc>https://bsrobras.com.ar/catalogo/preparacion-superficies/masillas-fijadores/dasbeste-masilla-classic</loc>
+    <lastmod>2026-05-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://bsrobras.com.ar/producto/latex-acrilico-plus-interior-terra-color</loc>
-    <lastmod>2026-04-22</lastmod>
+    <loc>https://bsrobras.com.ar/catalogo/preparacion-superficies/masillas-fijadores/dasbeste-enlucido-exterior-multiproposito</loc>
+    <lastmod>2026-05-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://bsrobras.com.ar/producto/latex-acrilico-plus-exterior-terra-color</loc>
-    <lastmod>2026-04-22</lastmod>
+    <loc>https://bsrobras.com.ar/catalogo/preparacion-superficies/masillas-fijadores/emapi-sellador-fijador</loc>
+    <lastmod>2026-05-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>

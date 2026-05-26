@@ -54,9 +54,8 @@ export const subcategories: Subcategory[] = [
   { id: 'membranas-asfalticas', name: 'Membranas Asfálticas', categoryId: 'impermeabilizacion', image: '/assets/categories/mem-rollo.webp' },
   { id: 'pintura-asfaltica', name: 'Pintura Asfáltica', categoryId: 'impermeabilizacion', image: '/assets/categories/p-asfal.webp' },
   { id: 'selladores-juntas', name: 'Selladores de Juntas', categoryId: 'preparacion-superficies', image: '/assets/categories/selladores-juntas-optimized-v2.webp' },
-  {id: 'reparacion-grietas', name: 'Reparación de Grietas', categoryId: 'preparacion-superficies', image: '/assets/categories/reparacion-grietas.webp' },
-  {id: 'masillas-fijadores', name: 'Masillas y Fijadores', categoryId: 'preparacion-superficies', image: '/assets/categories/masillas-fijadores-optimized-v2.webp' },
-  
+  { id: 'reparacion-grietas', name: 'Reparación de Grietas', categoryId: 'preparacion-superficies', image: '/assets/categories/reparacion-grietas.webp' },
+  { id: 'masillas-fijadores', name: 'Masillas y Fijadores', categoryId: 'preparacion-superficies', image: '/assets/categories/masillas-fijadores-optimized-v2.webp' },
 ];
 
 export const products: Product[] = [
@@ -64,7 +63,7 @@ export const products: Product[] = [
     id: "1.0",
     name: "Látex Acrílico Interior Das Beste Hogar y Obra",
     slug: "latex-acrilico-das-beste-hogar-y-obra",
-    description: "Pintura diseñada para paredes interiores que ofrece un muy buen poder cubritivo y protección antihongos. Su fórmula garantiza una excelente terminación con mínimo salpicado.",
+    description: "Pintura para paredes interiores que ofrece un excelente poder cubritivo y protección antihongos. Ideal para proyectos residenciales y comerciales en Rosario que buscan una excelente terminación con mínimo salpicado.",
     image: "/assets/products/latex/das-beste-hogar-obra-int.webp",
     category: "pintura",
     subcategory: "latex",
@@ -75,14 +74,14 @@ export const products: Product[] = [
       color: "Blanco (apto para entonadores universales).",
       acabado: 'Mate',
       aplicacion: "Pincel o rodillo.",
-      secado: "2 horas (al tacto) / 5 horas mínimo entre manos."
+      secado: "2 horas (al tacto) / 5 hours mínimo entre manos."
     }
   },
-{
+  {
     id: "2.0",
     name: "Látex Acrílico Plus Interior Terra Color",
     slug: "latex-acrilico-plus-interior-terra-color",
-    description: "Pintura de alta calidad diseñada especialmente para ambientes internos. Ofrece un blanco intenso, gran poder cubritivo y una fórmula de bajo olor que facilita la habitabilidad inmediata.",
+    description: "Pintura látex para ambientes internos que ofrece un blanco intenso, gran poder cubritivo y una fórmula de bajo olor diseñada para facilitar la habitabilidad inmediata de tus espacios.",
     image: "/assets/products/latex/terra-color-interior-plus.webp",
     category: "pintura",
     subcategory: "latex",
@@ -100,7 +99,7 @@ export const products: Product[] = [
     id: "3.0",
     name: "Látex Acrílico Plus Exterior Terra Color",
     slug: "latex-acrilico-plus-exterior-terra-color",
-    description: "Formulado para resistir las exigencias del clima, este látex exterior cuenta con aditivos UV y máxima resistencia a la intemperie, evitando el desgaste prematuro y la formación de algas.",
+    description: "Formulado para resistir las máximas exigencias del clima, este látex para frentes y muros cuenta con aditivos UV que evitan el desgaste prematuro y previenen la formación de algas u hongos.",
     image: "/assets/products/latex/terra-color-exterior-plus.webp",
     category: "pintura",
     subcategory: "latex",
@@ -118,7 +117,7 @@ export const products: Product[] = [
     id: '3.0',
     name: 'Impermeabilizante Poliuretánico Das Beste',
     slug: 'impermeabilizante-poliuretanico-das-beste',
-    description: 'Esta membrana de base poliuretánica ofrece máxima elasticidad y transitabilidad. Como resultado, protege superficies exigentes contra la radiación UV de manera eficiente.',
+    description: 'Esta membrana líquida de base poliuretánica ofrece máxima elasticidad y transitabilidad. Es la solución definitiva para filtraciones en techos, muros y terrazas exigentes expuestas a la radiación UV.',
     image: '/assets/products/mem-liq/das-beste-poliuretanico.webp',
     category: 'impermeabilizacion',
     subcategory: 'membranas-liquidas',
@@ -135,14 +134,14 @@ export const products: Product[] = [
     id: '3.1',
     name: 'Impermeabilizante Acrílico Das Beste',
     slug: 'impermeabilizante-acrilico-das-beste',
-    description: 'Este producto polimérico forma una membrana protectora de alta elasticidad. Debido a esto, garantiza una resistencia UV superior en todas las superficies exteriores.',
+    description: 'Producto polimérico que forma una membrana protectora elástica de alta adherencia. Garantiza un sellado superior contra el agua y resistencia UV en cubiertas y frentes exteriores.',
     image: '/assets/products/mem-liq/das-beste-acrilico.webp',
     category: 'impermeabilizacion',
     subcategory: 'membranas-liquidas',
     specs: {
       rendimiento: '1.5 kg/m² (Techos) / 0.5 kg/m² (Paredes).',
       prestacion: 'Baldes de 5, 12 y 20 kg / Potes de 1 Lt.',
-      uso: 'Techos, terrazas, muros y frentes.',
+      uso: 'Techos, terrazas, muros and frentes.',
       color: 'Blanco, Verde, Rojo Teja, Gris.',
       aplicacion: 'Rodillo, pincel o soplete.',
       secado: '3 horas mínimo entre manos.'
@@ -152,7 +151,7 @@ export const products: Product[] = [
     id: '3.2',
     name: 'Impermeabilizante Poliuretánico Terra Color',
     slug: 'impermeabilizante-poliuretanico-terra-color',
-    description: 'Esta pasta poliuretánica está diseñada para ofrecer la máxima elasticidad posible. Por lo tanto, crea una barrera impermeable duradera que se adapta a diversos movimientos estructurales.',
+    description: 'Pasta poliuretánica elástica diseñada para impermeabilización de techos y muros. Crea una barrera impermeable duradera que se adapta eficazmente a los movimientos estructurales de la obra.',
     image: '/assets/products/mem-liq/terra-color-poliuretanico.webp',
     category: 'impermeabilizacion',
     subcategory: 'membranas-liquidas',
@@ -169,7 +168,7 @@ export const products: Product[] = [
     id: '3.3',
     name: 'Impermeabilizante Impercaucho Das Beste',
     slug: 'impermeabilizante-impercaucho-das-beste',
-    description: 'Su fórmula incluye polímeros de caucho microtriturado para lograr máxima elasticidad. Gracias a esto, el producto resiste con éxito la abrasión y el desgaste mecánico extremo.',
+    description: 'Formulado con polímeros de caucho microtriturado para lograr una resistencia extrema al desgaste mecánico y la abrasión. Ideal para techos transitables, chapas, hormigón y madera.',
     image: '/assets/products/mem-liq/imper-caucho-hogar-obra.webp',
     category: 'impermeabilizacion',
     subcategory: 'membranas-liquidas',
@@ -178,7 +177,7 @@ export const products: Product[] = [
       prestacion: 'Baldes de 5, 12 y 20 kg.',
       uso: 'Vidrios, plásticos, membranas, hormigón, chapa y madera.',
       color: 'Gris, Blanco.',
-      aplicacion: 'Rodillo sintético de pelo corto (aplicación cruzada.',
+      aplicacion: 'Rodillo sintético de pelo corto (aplicación cruzada).',
       secado: '3 horas mínimo entre manos.'
     }
   },
@@ -186,7 +185,7 @@ export const products: Product[] = [
     id: '4.0',
     name: 'KoverTech FLEX - Membrana Asfáltica',
     slug: 'kovertech-flex-membrana-asfaltica',
-    description: 'Esta membrana posee un alma de polietileno y cara de aluminio flexible. Gracias a esto, logra una adaptabilidad máxima y evita quiebres ante cambios térmicos.',
+    description: 'Membrana asfáltica en rollo con alma de polietileno y cara de aluminio flexible de alta pureza (27 micrones). Brinda máxima adaptabilidad térmica evitando quiebres en techos y losas.',
     image: '/assets/products/mem-roll/kovertech-flex.webp',
     category: 'impermeabilizacion',
     subcategory: 'membranas-asfalticas',
@@ -203,7 +202,7 @@ export const products: Product[] = [
     id: '4.1',
     name: 'KoverTech ROLL MT450 - Membrana Asfáltica',
     slug: 'kovertech-roll-mt450-membrana-asfaltica',
-    description: 'Su diseño incluye un alma de polietileno y aluminio gofrado. Debido a esto, reduce la absorción térmica y resiste eficientemente los climas más adversos.',
+    description: 'Solución hidrófuga con aluminio gofrado flexible de 19 micrones. Reduce eficientemente la absorción térmica en techos de chapa, losas y fibrocemento.',
     image: '/assets/products/mem-roll/kovertech-roll-mt450.webp',
     category: 'impermeabilizacion',
     subcategory: 'membranas-asfalticas',
@@ -220,7 +219,7 @@ export const products: Product[] = [
     id: '4.2',
     name: 'KoverTech GEO - Membrana Asfáltica Geotextil',
     slug: 'kovertech-geo-membrana-asfaltica-geotextil',
-    description: 'Esta solución cuenta con protección de geotextil y un alma resistente de HDPE. Como resultado, ofrece una superficie transitable y altamente resistente al granizo.',
+    description: 'Membrana con protección de geotextil tejido no tejido de poliéster y alma de HDPE. Diseñada especialmente para terrazas transitables y expuestas al impacto del granizo.',
     image: '/assets/products/mem-roll/kovertech-geo.webp',
     category: 'impermeabilizacion',
     subcategory: 'membranas-asfalticas',
@@ -237,7 +236,7 @@ export const products: Product[] = [
     id: '5.0',
     name: 'Kover Primer - Emulsión Asfáltica',
     slug: 'kover-primer-emulsion-asfaltica',
-    description: 'Esta emulsión acuosa forma una película elástica al secar. Por lo tanto, funciona perfectamente como imprimante.',
+    description: 'Emulsión asfáltica acuosa de aplicación en frío. Actúa como excelente imprimante hidrófugo preparando superficies verticales y techados antes de la colocación de membranas.',
     image: '/assets/products/p-asfal/kover-primer-emulsion-asfaltica.webp',
     category: 'impermeabilizacion',
     subcategory: 'pintura-asfaltica',
@@ -254,7 +253,7 @@ export const products: Product[] = [
     id: '5.1',
     name: 'Kover Primer - Pintura Asfáltica',
     slug: 'kover-primer-pintura-asfaltica',
-    description: 'Su fórmula de base solvente permite un secado muy rápido. Gracias a esto, proporciona una aislación hidrófuga eficaz y protección anticorrosiva inmediata.',
+    description: 'Pintura asfáltica de base solvente y secado rápido. Proporciona una barrera de aislamiento hidrófugo eficaz y protección anticorrosiva sobre metales, hormigón y mampostería.',
     image: '/assets/products/p-asfal/kover-primer-pintura-asfaltica.webp',
     category: 'impermeabilizacion',
     subcategory: 'pintura-asfaltica',
@@ -271,7 +270,7 @@ export const products: Product[] = [
     id: '5.2',
     name: 'KoverTech - Pintura Asfáltica Aluminizada',
     slug: 'kovertech-pintura-asfaltica-aluminizada',
-    description: 'Este imprimante incorpora pasta de aluminio para optimizar la protección. Debido a esto, ofrece una barrera anticorrosiva duradera con gran adherencia.',
+    description: 'Pintura asfáltica anticorrosiva que incorpora pasta de aluminio para optimizar la reflexión térmica. Ideal para la protección duradera de chapas de zinc y tanques de acero.',
     image: '/assets/products/p-asfal/kovertech-pintura-aluminizada.webp',
     category: 'impermeabilizacion',
     subcategory: 'pintura-asfaltica',
@@ -284,14 +283,13 @@ export const products: Product[] = [
       secado: 'Al tacto: 30 min | Total: 1 a 2 hs.'
     }
   },
- 
   {
     id: "6",
     name: "Sellador de Poliuretano TACSA",
     slug: "sellador-poliuretano-tacsa",
-    description: 'Este sellador monocomponente cura con la humedad ambiente. Gracias a esto, logra una adherencia excelente y absoluta resistencia al agua o la intemperie.',
+    description: 'Sellador de poliuretano monocomponente para juntas de dilatación. Cura con la humedad ambiente logrando una adherencia excepcional y absoluta resistencia al agua en fachadas y terrazas.',
     image: "/assets/products/Juntas/sellador_de_pu_tacsa.webp",
-    category: "selladores",
+    category: "preparacion-superficies", // ¡CORREGIDO QUIRÚRGICAMENTE AQUÍ!
     subcategory: "selladores-juntas",
     specs: {
       rendimiento: "3 metros lineales por cartucho en juntas de 0,5 cm x 1 cm.",
@@ -301,14 +299,14 @@ export const products: Product[] = [
       aplicacion: "Pistola aplicadora sobre superficies limpias; permite alisado con regla o espátula.",
       secado: "Secado al tacto en 60 min; Profundidad de curado de 3mm cada 24 hs"
     }
-},
-{
+  },
+  {
     id: "6.1",
     name: "Sellador Acrílico TACSA",
     slug: "sellador-acrilico-tacsa",
-    description: 'Este sellador flexible de base acuosa no emite olores. Por lo tanto, resulta ideal para terminaciones generales en interiores con un secado rápido y limpio.',
+    description: 'Sellador acrílico flexible de base acuosa ideal para interiores. Perfecto para el sellado de grietas, marcos de aberturas, molduras y juntas en placas de yeso.',
     image: "/assets/products/Juntas/sellador_acrilico_tacsa.webp",
-    category: "selladores",
+    category: "preparacion-superficies",
     subcategory: "selladores-juntas",
     specs: {
       rendimiento: "3 metros lineales por cartucho en juntas de 0,5 cm x 1 cm.",
@@ -318,121 +316,101 @@ export const products: Product[] = [
       aplicacion: "Pistola aplicadora sobre superficies limpias. Permite alisar con regla o espátula. No exponer al agua durante las primeras 2 horas.",
       secado: "Secado al tacto (formación de piel) entre 5-20 min. Profundidad de curado > 3mm cada 24 hs."
     }
-},
- {
-  id: '6.2',
-  name: 'Sella Grietas Elástico Das Beste',
-  slug: 'dasbeste-sella-grietas-elastico',
-    description: 'Esta masilla acrílica posee un alto poder adherente para techos y paredes. Como resultado, mantiene su elasticidad por años evitando que las grietas reaparezcan.',
-  image: '/assets/products/Juntas/sella-grietas-dasbeste.webp',
-  category: 'preparacion-superficies',
-  subcategory: 'selladores-juntas',
-  specs: {
-    rendimiento: 'Alto rendimiento, depende del ancho y profundidad de la grieta.',
-    prestacion: 'Potes de 1 litro.',
-    uso: 'Sellado de grietas en techos, paredes, juntas de placas cementicias y superficies de distintos materiales.',
-    acabado: 'Flexible, elástico y adherente.',
-    aplicacion: 'Aplicar sobre superficie limpia y seca. Se aplica directamente desde la bolsa o con espátula. Puede diluirse con agua para grietas horizontales.',
-    secado: 'Secado natural al aire. Mantiene elasticidad permanente.'
-  }
-},
-{
-  id: '6.4',
-  name: 'Manta de Fibra Sintetica',
-  slug: 'fibra-sintetica-manta',
-    description: 'Esta manta sintética permite realizar reparaciones y refuerzos eficientes en cubiertas. Debido a esto, garantiza una alta resistencia y flexibilidad en cada aplicación.',
-  image: '/assets/products/Grietas/manta-fibra-sintetica.webp',
-  category: 'preparacion-superficies',
-  subcategory: 'reparacion-grietas',
-  specs: {
-    prestacion: 'Rollo de 0,90 m x 25 m.',
-    uso: 'Reparación de grietas, fisuras y rajaduras en cemento, concreto, mampostería, galvanizado y fibrocemento.',
-    aplicacion: 'Aplicar con pincel o rodillo junto con impermeabilizante sobre superficie limpia y seca.',
-  }
-},
-{
-  id: '6.5',
-  name: 'Venda de Fibra Sintetica',
-  slug: 'fibra-sintetica-venda',
-    description: 'Esta venda de fibras sintéticas refuerza el sellado de grietas críticamente. Gracias a esto, mejora la durabilidad de la impermeabilización en diversos tipos de muros.',
-  image: '/assets/products/Grietas/venda-fibra-sintetica.webp',
-  category: 'preparacion-superficies',
-  subcategory: 'reparacion-grietas',
-  specs: {
-    prestacion: 'Vendas de 0,20 m x 25 m.',
-    uso: 'Reparación de grietas, fisuras y rajaduras en cemento, concreto, mampostería, galvanizado y fibrocemento.',
-    aplicacion: 'Aplicar con pincel o rodillo junto con impermeabilizante sobre superficie limpia y seca.',
-  }
-},
-{
-  id: '6.6',
-  name: 'Das Beste - Masilla Classic',
-  slug: 'dasbeste-masilla-classic',
-    description: 'Esta masilla lista para usar está formulada para placas de yeso. Como resultado, garantiza una alta adherencia y una calidad de terminación superior.',
-  image: '/assets/products/myf/masilla-classic-dasbeste.webp',
-  category: 'preparacion-superficies',
-  subcategory: 'masillas-fijadores',
-  specs: {
-    rendimiento: 'Aproximadamente 0,6 kg por m² en tomado de juntas y tapado de tornillos.',
-    prestacion: 'Baldes de 32 kg, 17 kg y 7 kg. Bolsa de 25 kg. Pote de 1 litro.',
-    uso: 'Tomado de juntas, tapado de tornillos y terminaciones en placas de yeso y sistemas de construcción en seco.',
-    acabado: 'Terminación lisa, uniforme y de alta adherencia.',
-    aplicacion: 'Aplicar con espátula sobre superficie limpia y seca. Colocar cinta en la junta y cubrir con masilla.',
-    secado: 'Secado al tacto variable. Para lijado final dejar secar mínimo 24 horas.'
-  }
-},
-{
-  id: '6.7',
-  name: 'Das Beste - Enlucido Exterior / Interior Multiproposito',
-  slug: 'dasbeste-enlucido-exterior-multiproposito',
-    description: 'Este revoque multipropósito resiste eficazmente el agua y la inmersión. Por lo tanto, permite lograr superficies lisas y parejas en cualquier ambiente de obra.',
-  image: '/assets/products/myf/enlucido-multiproposito-dasbeste.webp',
-  category: 'preparacion-superficies',
-  subcategory: 'masillas-fijadores',
-  specs: {
-    rendimiento: 'Aproximadamente 3 kg por m² en capas de 3 a 5 mm de espesor.',
-    prestacion: 'Bolsas de 1.25 kg, 5 kg y 20 kg en color blanco o gris cemento.',
-    uso: 'Revoques, reparaciones, emprolijado de superficies, colocación de cerámicos, arreglos en hormigón, mampostería, madera, chapa o vidrio.',
-    acabado: 'Superficie lisa, pareja, suave y resistente al agua.',
-    aplicacion: 'Aplicar con cuchara, llana o fratacho. Preparar mezclando con agua hasta lograr consistencia cremosa.',
-    secado: 'Tiempo variable según espesor y condiciones ambientales.'
-  }
-},
-  /*
+  },
   {
-    id: '7',
-    name: 'Esmalte Sintético Satinado',
-    slug: 'esmalte-sintetico-satinado',
-    description: 'Esmalte de gran terminación and durabilidad. Ideal para maderas y metales.',
-    image: '/assets/products/esmalte-satinado.jpg',
-    category: 'pintura',
-    subcategory: 'pintura-interior',
+    id: '6.2',
+    name: 'Sella Grietas Elástico Das Beste',
+    slug: 'dasbeste-sella-grietas-elastico',
+    description: 'Masilla acrílica de alto poder adherente para reparar grietas en techos y paredes. Mantiene su elasticidad permanente a lo largo de los años evitando filtraciones y rajaduras.',
+    image: '/assets/products/Juntas/sella-grietas-dasbeste.webp',
+    category: "preparacion-superficies",
+    subcategory: "selladores-juntas",
     specs: {
-      rendimiento: '12 a 15 m² por litro.',
-      prestacion: 'Gran brillo y nivelado.',
-      uso: 'Interior y Exterior.',
-      color: 'Blanco, Negro y colores intensos.',
-      aplicacion: 'Pincel, rodillo o soplete.',
-      secado: '4 a 6 horas.'
+      rendimiento: 'Alto rendimiento, depende del ancho y profundidad de la grieta.',
+      prestacion: 'Potes de 1 litro.',
+      uso: 'Sellado de grietas en techos, paredes, juntas de placas cementicias y superficies de distintos materiales.',
+      acabado: 'Flexible, elástico y adherente.',
+      aplicacion: 'Aplicar sobre superficie limpia y seca. Se aplica directamente desde la bolsa o con espátula. Puede diluirse con agua para grietas horizontales.',
+      secado: 'Secado natural al aire. Mantiene elasticidad permanente.'
     }
   },
-  */
   {
-  id: '7.1',
-  name: 'Emapi - Sellador Fijador',
-  slug: 'emapi-sellador-fijador',
-    description: 'Este sellador al agua elimina la porosidad de las superficies de mampostería. Gracias a esto, mejora la adherencia y aumenta el rendimiento final de la pintura.',
-  image: '/assets/products/myf/sellador-fijador-emapi.webp',
-  category: 'preparacion-superficies',
-  subcategory: 'masillas-fijadores',
-  specs: {
-    rendimiento: '10 a 20 m² por litro y por mano según absorción de la superficie.',
-    prestacion: 'Envases de 1 L, 4 L, 10 L y 20 L.',
-    uso: 'Sellado y fijado de superficies interiores y exteriores de mampostería, yeso, fibrocemento y placas de yeso.',
-    acabado: 'Mate, incoloro.',
-    aplicacion: 'Aplicar con pincel, rodillo o airless. Diluir 1 parte de producto en 2 a 3 partes de agua.',
-    secado: 'Al tacto 2 horas, secado total 8 horas.'
-  }
-},
+    id: '6.4',
+    name: 'Manta de Fibra Sintética',
+    slug: 'fibra-sintetica-manta',
+    description: 'Manta de fibra sintética para el refuerzo estructural de impermeabilizaciones líquidas. Garantiza una alta resistencia y flexibilidad previniendo grietas estructurales.',
+    image: '/assets/products/Grietas/manta-fibra-sintetica.webp',
+    category: "preparacion-superficies",
+    subcategory: "reparacion-grietas",
+    specs: {
+      prestacion: 'Rollo de 0,90 m x 25 m.',
+      uso: 'Reparación de grietas, fisuras y rajaduras en cemento, concreto, mampostería, galvanizado y fibrocemento.',
+      aplicacion: 'Aplicar con pincel o rodillo junto con impermeabilizante sobre superficie limpia y seca.',
+    }
+  },
+  {
+    id: '6.5',
+    name: 'Venda de Fibra Sintética',
+    slug: 'fibra-sintetica-venda',
+    description: 'Venda de fibras sintéticas diseñada para el tomado y reparación de fisuras críticas, mejorando la durabilidad de las membranas en uniones de muros y techados.',
+    image: '/assets/products/Grietas/venda-fibra-sintetica.webp',
+    category: "preparacion-superficies",
+    subcategory: "reparacion-grietas",
+    specs: {
+      prestacion: 'Vendas de 0,20 m x 25 m.',
+      uso: 'Reparación de grietas, fisuras y rajaduras en cemento, concreto, mampostería, galvanizado y fibrocemento.',
+      aplicacion: 'Aplicar con pincel o rodillo junto con impermeabilizante sobre superficie limpia y seca.',
+    }
+  },
+  {
+    id: '6.6',
+    name: 'Das Beste - Masilla Classic',
+    slug: 'dasbeste-masilla-classic',
+    description: 'Masilla lista para usar ideal para placas de yeso y sistemas de construcción en seco. Garantiza un tomado de juntas perfecto, excelente lijabilidad y terminación lisa uniforme.',
+    image: '/assets/products/myf/masilla-classic-dasbeste.webp',
+    category: "preparacion-superficies",
+    subcategory: "masillas-fijadores",
+    specs: {
+      rendimiento: 'Aproximadamente 0,6 kg por m² en tomado de juntas y tapado de tornillos.',
+      prestacion: 'Baldes de 32 kg, 17 kg y 7 kg. Bolsa de 25 kg. Pote de 1 litro.',
+      uso: 'Tomado de juntas, tapado de tornillos y terminaciones en placas de yeso y sistemas de construcción en seco.',
+      acabado: 'Terminación lisa, uniforme y de alta adherencia.',
+      aplicacion: 'Aplicar con espátula sobre superficie limpia y seca. Colocar cinta en la junta y cubrir con masilla.',
+      secado: 'Secado al tacto variable. Para lijado final dejar secar mínimo 24 horas.'
+    }
+  },
+  {
+    id: '6.7',
+    name: 'Das Beste - Enlucido Exterior / Interior Multipropósito',
+    slug: 'dasbeste-enlucido-exterior-multiproposito',
+    description: 'Revoque y enlucido multipropósito de alta resistencia al agua. Permite reparar grietas, emprolijar superficies y lograr acabados suaves tanto en interiores como en exteriores.',
+    image: '/assets/products/myf/enlucido-multiproposito-dasbeste.webp',
+    category: "preparacion-superficies",
+    subcategory: "masillas-fijadores",
+    specs: {
+      rendimiento: 'Aproximadamente 3 kg por m² en capas de 3 a 5 mm de espesor.',
+      prestacion: 'Bolsas de 1.25 kg, 5 kg y 20 kg en color blanco o gris cemento.',
+      uso: 'Revoques, reparaciones, emprolijado de superficies, colocación de cerámicos, arreglos en hormigón, mampostería, madera, chapa o vidrio.',
+      acabado: 'Superficie lisa, pareja, suave y resistente al agua.',
+      aplicacion: 'Aplicar con cuchara, llana o fratacho. Preparar mezclando con agua hasta lograr consistencia cremosa.',
+      secado: 'Tiempo variable según espesor y condiciones ambientales.'
+    }
+  },
+  {
+    id: '7.1',
+    name: 'Emapi - Sellador Fijador',
+    slug: 'emapi-sellador-fijador',
+    description: 'Fijador sellador al agua concentrado. Elimina la porosidad de la mampostería y el yeso, optimizando de manera drástica el rendimiento final de las pinturas de terminación.',
+    image: '/assets/products/myf/sellador-fijador-emapi.webp',
+    category: "preparacion-superficies",
+    subcategory: "masillas-fijadores",
+    specs: {
+      rendimiento: '10 a 20 m² por litro y por mano según absorción de la superficie.',
+      prestacion: 'Envases de 1 L, 4 L, 10 L y 20 L.',
+      uso: 'Sellado y fijado de superficies interiores y exteriores de mampostería, yeso, fibrocemento y placas de yeso.',
+      acabado: 'Mate, incoloro.',
+      aplicacion: 'Aplicar con pincel, rodillo o airless. Diluir 1 parte de producto en 2 a 3 partes de agua.',
+      secado: 'Al tacto 2 horas, secado total 8 horas.'
+    }
+  },
 ];
-
