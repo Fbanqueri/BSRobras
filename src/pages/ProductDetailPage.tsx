@@ -32,7 +32,7 @@ export default function ProductDetailPage() {
         return "BSR Obras";
     }, [product]);
 
-    // Generamos el Schema de Producto (JSON-LD) optimizado y blindado contra errores críticos
+    // Generamos el Schema de Producto (JSON-LD) optimizado usando priceSpecification para cotizaciones
     const productSchema = useMemo(() => {
         if (!product) return null;
         return {
@@ -49,9 +49,14 @@ export default function ProductDetailPage() {
             "offers": {
                 "@type": "Offer",
                 "url": `https://bsrobras.com.ar/catalogo/${categorySlug}/${subcategorySlug}/${product.slug}`,
-                "priceCurrency": "ARS",
                 "availability": "https://schema.org/InStock",
-                "itemCondition": "https://schema.org/NewCondition"
+                "itemCondition": "https://schema.org/NewCondition",
+                "priceSpecification": {
+                    "@type": "PriceSpecification",
+                    "priceCurrency": "ARS",
+                    "valueAddedTaxIncluded": "true",
+                    "description": "Precio a consultar / Cotización personalizada por volumen"
+                }
             }
         };
     }, [product, categorySlug, subcategorySlug, brandName]);
@@ -151,9 +156,9 @@ export default function ProductDetailPage() {
                         <dl className="divide-y divide-slate-100">
                             {Object.entries(product.specs).map(([key, value]) => (
                                 <div key={key} className="px-6 py-4 sm:grid sm:grid-cols-3 sm:gap-4 hover:bg-slate-50/50 transition-colors">
-                                    <dt className="text-sm font-bold text-slate-500 uppercase tracking-wider capitalize">
+                                    <button className="text-sm font-bold text-slate-500 uppercase tracking-wider text-left capitalize bg-transparent border-none p-0 cursor-default">
                                         {key.replace('_', ' ')}
-                                    </dt>
+                                    </button>
                                     <dd className="mt-1 text-sm font-semibold text-slate-900 sm:mt-0 sm:col-span-2">
                                         {value}
                                     </dd>
