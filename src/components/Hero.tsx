@@ -8,17 +8,20 @@ interface HeroProps {
 export default function Hero({ isMainHero = true }: HeroProps) {
     return (
         <section className={`relative bg-[#090D16] text-white overflow-hidden text-left ${isMainHero ? 'min-h-screen flex flex-col justify-center' : ''}`}>
-            {/* Imagen de fondo nativa — sin delay de CSSOM ni cálculo de mix-blend */}
-            <img
-                src="/assets/Hero.webp"
-                alt="Impermeabilizantes, membranas y pinturas en Rosario - BSR Obras"
-                loading="eager"
-                decoding="async"
-                fetchPriority="high"
-                width="1920"
-                height="1080"
-                className="absolute inset-0 w-full h-full object-cover opacity-25 pointer-events-none"
-            />
+            {/* Imagen de fondo responsiva — versión liviana en móvil (Hero-mobile.webp) y completa en desktop */}
+            <picture className="absolute inset-0 w-full h-full pointer-events-none">
+                <source media="(max-width: 768px)" srcSet="/assets/Hero-mobile.webp" type="image/webp" />
+                <img
+                    src="/assets/Hero.webp"
+                    alt="Impermeabilizantes, membranas y pinturas en Rosario - BSR Obras"
+                    loading="eager"
+                    decoding="async"
+                    fetchPriority="high"
+                    width="1100"
+                    height="614"
+                    className="w-full h-full object-cover opacity-25"
+                />
+            </picture>
             {/* Gradiente architectural — oscurece bottom para legibilidad */}
             <div className="absolute inset-0 bg-gradient-to-b from-[#090D16]/40 via-[#090D16]/65 to-[#090D16]/95" />
             {/* Resplandor ambiental — esquina derecha (GPU layer para evitar re-rasterización en scroll) */}
