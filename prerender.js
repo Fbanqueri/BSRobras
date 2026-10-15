@@ -17,7 +17,17 @@ async function runPrerender() {
     console.log(`Found ${uniqueRoutes.length} routes to prerender.`);
 
     // 2. Read the base HTML template from the Vite build output
-    const templateHtml = fs.readFileSync(path.join(distPath, 'index.html'), 'utf-8');
+    let templateHtml = fs.readFileSync(path.join(distPath, 'index.html'), 'utf-8');
+
+    // Inline CSS to eliminate render-blocking stylesheet requests on mobile
+    const assetsDir = path.join(distPath, 'assets');
+    const cssFiles = fs.existsSync(assetsDir) ? fs.readdirSync(assetsDir).filter(f => f.endsWith('.css')) : [];
+    if (cssFiles.length > 0) {
+        console.log(`Inlining CSS from ${cssFiles.join(', ')} directly into HTML templates...`);
+        const fullCss = cssFiles.map(f => fs.readFileSync(path.join(assetsDir, f), 'utf-8')).join('\n');
+        const styleTag = `<style id="bsr-app-css">${fullCss}</style>`;
+        templateHtml = templateHtml.replace(/<link rel="stylesheet"[^>]*href="\/assets\/[^"]+\.css"[^>]*>/i, () => styleTag);
+    }
 
     // 3. Import the SSR render function (built by Vite)
     const { render } = await import('./dist/server/entry-server.js');
