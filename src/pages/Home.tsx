@@ -1,121 +1,222 @@
 import { motion } from 'motion/react';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
-import { ArrowRight, ShieldCheck, PaintBucket, Construction } from 'lucide-react';
+import { ArrowRight, Droplets, PaintBucket, BrickWall, MessageSquare } from 'lucide-react';
 import Hero from '../components/Hero';
-import { categories } from '../data/products';
+
+// Escenarios de problemas comunes — hablan el idioma del cliente, no del fabricante
+const problemScenarios = [
+    {
+        id: 'filtraciones',
+        icon: <Droplets size={24} />,
+        problem: 'Se filtra la terraza o el techo',
+        description: 'Humedad que baja, manchas en el cielo raso, goteras cuando llueve. El problema está en la superficie expuesta y tiene solución.',
+        solution: 'Membranas líquidas, asfálticas y selladores elásticos que detienen la filtración de forma definitiva.',
+        link: '/catalogo/impermeabilizacion',
+        linkText: 'Ver impermeabilizantes y membranas',
+        image: '/assets/categories/MemLiquida_optimized.webp',
+        accentColor: 'emerald',
+    },
+    {
+        id: 'pintura',
+        icon: <PaintBucket size={24} />,
+        problem: 'La pared se descascara o se manchó',
+        description: 'Pintura que se ampolla, humedad que mancha, paredes que perdieron color. Antes de pintar, hay que elegir el producto correcto.',
+        solution: 'Línea de látex premium para interior y exterior con alto poder cubritivo y durabilidad garantizada.',
+        link: '/catalogo/pintura/latex',
+        linkText: 'Ver pinturas látex interior y exterior',
+        image: '/assets/categories/latex.webp',
+        accentColor: 'blue',
+    },
+    {
+        id: 'grietas',
+        icon: <BrickWall size={24} />,
+        problem: 'Grietas, juntas abiertas o superficies dañadas',
+        description: 'Rajaduras que vuelven a aparecer, juntas que se abrieron, paredes que necesitan preparación antes de cualquier acabado.',
+        solution: 'Masillas, selladores y fijadores que preparan la superficie para que el trabajo dure.',
+        link: '/catalogo/preparacion-superficies',
+        linkText: 'Ver selladores, masillas y fijadores',
+        image: '/assets/categories/selladores-juntas-optimized-v2.webp',
+        accentColor: 'amber',
+    },
+];
+
+// Color accent maps para evitar string interpolation de Tailwind
+const accentMap: Record<string, {
+    iconBg: string;
+    iconText: string;
+    glow: string;
+    linkHover: string;
+    tag: string;
+}> = {
+    emerald: {
+        iconBg: 'bg-emerald-500/15',
+        iconText: 'text-emerald-400',
+        glow: 'bg-emerald-500/10',
+        linkHover: 'hover:text-emerald-300',
+        tag: 'text-emerald-400',
+    },
+    blue: {
+        iconBg: 'bg-blue-500/15',
+        iconText: 'text-blue-400',
+        glow: 'bg-blue-500/10',
+        linkHover: 'hover:text-blue-300',
+        tag: 'text-blue-400',
+    },
+    amber: {
+        iconBg: 'bg-amber-500/15',
+        iconText: 'text-amber-400',
+        glow: 'bg-amber-500/10',
+        linkHover: 'hover:text-amber-300',
+        tag: 'text-amber-400',
+    },
+};
+
+// Spring transition estándar del proyecto
+const spring = { type: 'spring' as const, stiffness: 140, damping: 20 };
 
 export default function Home() {
-    // Asignamos iconos específicos a cada categoría
-    const getCategoryIcon = (id: string) => {
-        switch (id) {
-            case 'pintura': return <PaintBucket size={32} className="text-primary" />;
-            case 'impermeabilizacion': return <ShieldCheck size={32} className="text-primary" />;
-            case 'preparacion-superficies': return <Construction size={32} className="text-primary" />;
-            default: return <Construction size={32} className="text-primary" />;
-        }
-    };
-
-    // Modificamos las descripciones para ajustarlas al stock real
-    const getAdjustedDescription = (id: string, originalIntro: string) => {
-        if (id === 'pintura') {
-            return 'Nuestra línea de pinturas ofrece soluciones de alta calidad para renovar tus espacios. Contamos con látex premium para interior y exterior, garantizando el mejor poder cubritivo.';
-        }
-        return originalIntro;
-    };
-
-    // CORREGIDO: Rutas físicas y limpias (SSG) según auditoría SEO técnica
-    const getCategoryLink = (id: string) => {
-        if (id === 'pintura') {
-            return '/catalogo/pintura/latex'; // Va directo a látex porque es tu única subcategoría
-        }
-        // Para impermeabilización y preparación, apuntamos a sus URLs físicas distribuidoras
-        return `/catalogo/${id}`;
-    };
     return (
         <>
             <Helmet>
-                <title>Venta de Impermeabilizantes y Pinturas en Rosario | BSR Obras</title>
+                <title>Venta de Impermeabilizantes, Membranas y Pinturas en Rosario | BSR Obras</title>
                 <meta
                     name="description"
-                    content="Soluciones definitivas en impermeabilizantes y pinturas en Rosario. Olvidate de las filtraciones. Calidad profesional y asesoramiento experto en el local."
+                    content="¿Se filtra tu terraza? ¿Se descascara la pared? En BSR Obras te damos la solución exacta en impermeabilizantes, membranas, pinturas y selladores."
                 />
                 <link rel="canonical" href="https://bsrobras.com.ar/" />
+                <meta property="og:title" content="Venta de Impermeabilizantes, Membranas y Pinturas en Rosario | BSR Obras" />
+                <meta
+                    property="og:description"
+                    content="¿Se filtra tu terraza? ¿Se descascara la pared? En BSR Obras te damos la solución exacta en impermeabilizantes, membranas, pinturas y selladores."
+                />
+                <meta property="og:url" content="https://bsrobras.com.ar/" />
+                <meta property="og:type" content="website" />
+                <meta property="og:image" content="https://bsrobras.com.ar/assets/logo.png" />
             </Helmet>
 
-            {/* Reutilizamos tu Hero principal con los textos corporativos de entrada */}
             <Hero isMainHero={true} />
 
-            {/* Sección Estratégica de Enlazado Interno (Pilar 1 SEO) */}
-            <section className="py-20 bg-white text-left">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            {/* ── Sección Problema → Solución ── */}
+            <section className="relative min-h-screen flex flex-col justify-center py-20 lg:py-24 bg-slate-50">
+                <div className="max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8">
 
-                    <div className="mb-14 text-center md:text-left">
-                        <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mt-3 mb-4 tracking-tight">
-                            Pinturas, Membranas e Insumos para la Construcción
+                    {/* Header de sección — empático, centrado en el cliente */}
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true, amount: 0.3 }}
+                        transition={spring}
+                        className="mb-14"
+                    >
+                        <h2 className="text-3xl md:text-4xl font-bold text-slate-900 tracking-tight text-balance leading-tight mb-3">
+                            ¿Cuál es el problema de tu casa?
+                            <span className="sr-only"> — Soluciones en Impermeabilización y Pinturería en Rosario</span>
                         </h2>
-                        <p className="text-slate-600 max-w-3xl text-lg leading-relaxed">
-                            Somos una tienda especializada en la venta de impermeabilizantes de alta performance, pinturas de primeras marcas y soluciones para la preparación de superficies. Todo lo que necesitás para tu proyecto o local comercial.
+                        <p className="text-slate-500 text-base md:text-lg leading-relaxed max-w-[52ch]">
+                            Contanos qué te pasa y te guiamos al material correcto. Cada solución tiene su producto exacto.
                         </p>
-                    </div>
+                    </motion.div>
 
-                    {/* Grilla de Categorías Troncales */}
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                        {categories.map((cat, index) => (
-                            <motion.div
-                                key={cat.id}
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: index * 0.1 }}
-                                className="bg-slate-50 border border-slate-200/60 p-8 rounded-2xl flex flex-col justify-between hover:shadow-lg hover:border-primary/30 transition-all group"
-                            >
-                                <div>
-                                    <div className="mb-5 p-3 bg-white border border-slate-100 rounded-xl inline-block shadow-sm">
-                                        {getCategoryIcon(cat.id)}
+                    {/* ── Cards de problemas — 3 columnas iguales ── */}
+                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
+                        {problemScenarios.map((scenario, index) => {
+                            const accent = accentMap[scenario.accentColor];
+                            return (
+                                <motion.div
+                                    key={scenario.id}
+                                    initial={{ opacity: 0, y: 16 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    viewport={{ once: true, amount: 0.2 }}
+                                    transition={{ duration: 0.3, ease: "easeOut", delay: index * 0.06 }}
+                                    className="group relative bg-[#090D16] rounded-2xl overflow-hidden flex flex-col min-h-[420px]"
+                                >
+                                    {/* Imagen de fondo nativa con lazy loading */}
+                                    <img
+                                        src={scenario.image}
+                                        alt={scenario.problem}
+                                        loading="lazy"
+                                        decoding="async"
+                                        width="400"
+                                        height="420"
+                                        className="absolute inset-0 w-full h-full object-cover opacity-20 pointer-events-none"
+                                    />
+                                    {/* Gradiente de legibilidad */}
+                                    <div className="absolute inset-0 bg-gradient-to-t from-[#090D16]/95 via-[#090D16]/70 to-[#090D16]/30" />
+                                    {/* Resplandor de color propio — acelerado por GPU */}
+                                    <div className={`absolute top-0 right-0 w-40 h-40 ${accent.glow} rounded-full blur-[60px] pointer-events-none transform-gpu`} />
+
+                                    {/* Contenido */}
+                                    <div className="relative z-10 flex flex-col h-full p-7 md:p-8">
+                                        {/* Ícono */}
+                                        <div className={`p-2.5 ${accent.iconBg} ${accent.iconText} rounded-xl w-fit mb-6`}>
+                                            {scenario.icon}
+                                        </div>
+
+                                        {/* Etiqueta de problema */}
+                                        <span className={`text-[10px] font-mono uppercase tracking-[0.16em] ${accent.tag} mb-2`}>
+                                            Problema común
+                                        </span>
+
+                                        {/* Título del problema */}
+                                        <h3 className="text-xl md:text-2xl font-bold text-white mb-3 tracking-tight leading-snug">
+                                            {scenario.problem}
+                                        </h3>
+
+                                        {/* Descripción empática */}
+                                        <p className="text-slate-300 text-sm leading-relaxed mb-4">
+                                            {scenario.description}
+                                        </p>
+
+                                        {/* Solución (push to bottom) */}
+                                        <div className="mt-auto">
+                                            <p className="text-slate-400 text-xs leading-relaxed mb-5">
+                                                <span className={`font-semibold ${accent.tag}`}>Solución:</span>{' '}
+                                                {scenario.solution}
+                                            </p>
+
+                                            {/* CTA */}
+                                            <div className="pt-4 border-t border-white/10">
+                                                <Link
+                                                    to={scenario.link}
+                                                    className={`inline-flex items-center gap-2 text-sm font-semibold text-white ${accent.linkHover} transition-colors group/link`}
+                                                >
+                                                    {scenario.linkText}
+                                                    <ArrowRight size={15} className="transition-transform duration-200 group-hover/link:translate-x-1" />
+                                                </Link>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <h3 className="text-xl font-bold text-slate-900 mb-3 group-hover:text-primary transition-colors">
-                                        {cat.name}
-                                    </h3>
-                                    <p className="text-slate-600 text-sm leading-relaxed mb-6">
-                                        {getAdjustedDescription(cat.id, cat.introduction)}
-                                    </p>
-                                </div>
-
-                                {/* CORREGIDO: El Link ahora apunta dinámicamente a la ruta más eficiente según la categoría */}
-                                <div className="pt-4 border-t border-slate-200/60">
-                                    <Link
-                                        to={getCategoryLink(cat.id)}
-                                        className="inline-flex items-center gap-2 text-sm font-bold text-primary hover:gap-3 transition-all"
-                                    >
-                                        Ver Productos <ArrowRight size={16} />
-                                    </Link>
-                                </div>
-                            </motion.div>
-                        ))}
+                                </motion.div>
+                            );
+                        })}
                     </div>
-
                 </div>
             </section>
 
-            {/* Bloque de Confianza y Atención Directa */}
-            <section className="py-16 bg-slate-900 text-white text-center md:text-left">
-                <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-8">
-                    <div className="max-w-2xl">
-                        <p className="text-xl md:text-2xl font-bold mb-2 tracking-tight text-white">
-                            ¿Tenés que pintar o arreglar una filtración y no sabés por dónde empezar?
-                        </p>
-                        <p className="text-slate-400 text-sm md:text-base leading-relaxed">
-                            Mandanos un mensaje. Te asesoramos sin cargo para que te lleves el producto exacto que tu casa necesita, sin gastar de más.
-                        </p>
+            {/* ── CTA final — conversacional, empático ── */}
+            <section className="bg-[#090D16] relative overflow-hidden border-t border-slate-200 border-b border-white/10">
+                <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-24 relative z-10">
+                    <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
+                        <div className="max-w-xl">
+                            <h2 className="text-2xl md:text-3xl font-bold text-white mb-3 tracking-tight text-balance leading-tight">
+                                Cada caso es distinto. Contanos el tuyo.
+                            </h2>
+                            <p className="text-slate-400 text-sm md:text-base leading-relaxed">
+                                Mandanos un mensaje o una foto del problema. Te decimos qué producto necesitás y cuánto rinde por m² sin compromiso.
+                            </p>
+                        </div>
+                        <a
+                            href={`https://wa.me/5493413233169?text=${encodeURIComponent("Hola BSR Obras! Quiero hacer una consulta por materiales para mi casa/obra:")}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="group inline-flex items-center gap-2.5 bg-primary hover:bg-primary-dark text-white font-semibold py-3.5 px-7 rounded-xl transition-all duration-150 shadow-[0_8px_20px_-5px_rgba(4,120,87,0.45)] hover:shadow-[0_12px_28px_-5px_rgba(4,120,87,0.6)] active:scale-[0.97] text-sm whitespace-nowrap"
+                        >
+                            <MessageSquare size={16} />
+                            Hacer consulta
+                            <ArrowRight size={15} className="transition-transform duration-200 group-hover:translate-x-1" />
+                        </a>
                     </div>
-                    <a
-                        href="https://wa.me/5493413233169"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="bg-primary hover:bg-primary-dark text-white font-bold py-3.5 px-7 rounded-xl transition-all shadow-md hover:shadow-lg inline-flex items-center gap-2 whitespace-nowrap text-sm"
-                    >
-                        Consultar con un Asesor
-                    </a>
                 </div>
             </section>
         </>

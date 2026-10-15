@@ -1,28 +1,35 @@
 import { useState, useEffect } from 'react';
-import { Menu, X } from 'lucide-react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'motion/react';
+import { MessageSquare } from 'lucide-react';
 
 const Navbar = () => {
     const [isScrolled, setIsScrolled] = useState(false);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-    // Herramientas de React Router
     const navigate = useNavigate();
     const location = useLocation();
 
-    // Manejo de la sombra del Navbar al hacer scroll
     useEffect(() => {
-        const handleScroll = () => setIsScrolled(window.scrollY > 20);
-        window.addEventListener('scroll', handleScroll);
+        let ticking = false;
+        const handleScroll = () => {
+            if (!ticking) {
+                window.requestAnimationFrame(() => {
+                    const scrolled = window.scrollY > 20;
+                    setIsScrolled((prev) => (prev !== scrolled ? scrolled : prev));
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        };
+
+        window.addEventListener('scroll', handleScroll, { passive: true });
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
-    // Determinamos si estamos en la Home y si el navbar debe ser opaco
-    const isHome = location.pathname === '/';
-    const shouldBeOpaque = !isHome || isScrolled;
+    const hasDarkHero = location.pathname === '/';
+    const shouldBeOpaque = !hasDarkHero || isScrolled;
 
-    // Magia para el scroll automático si la URL tiene un hash (ej. /#contacto)
     useEffect(() => {
         if (location.hash) {
             setTimeout(() => {
@@ -32,88 +39,171 @@ const Navbar = () => {
         }
     }, [location]);
 
-    // Nuevas rutas limpias
     const navLinks = [
         { name: 'Inicio', path: '/' },
         { name: 'Catálogo', path: '/catalogo' },
-        { name: 'Contacto', path: '/#contacto' }, // Este mantiene el # porque es una sección en el footer
+        { name: 'Contacto', path: '/contacto' },
     ];
 
-    // Función unificada para manejar clics en desktop y mobile
+    const isActive = (path: string) => {
+        if (path === '/') return location.pathname === '/';
+        return location.pathname.startsWith(path);
+    };
+
     const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, path: string) => {
         e.preventDefault();
         setIsMobileMenuOpen(false);
-
-        // Si es la ruta de contacto, navegamos al hash
-        if (path.includes('#')) {
-            navigate(path);
-        } else {
-            // Navegamos a la ruta limpia (/ o /catalogo)
-            navigate(path);
-
-            // Hacemos el scroll suave a la sección correspondiente
-            setTimeout(() => {
-                if (path === '/catalogo') {
-                    document.querySelector('#catalogo')?.scrollIntoView({ behavior: 'smooth' });
-                } else if (path === '/') {
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
-                }
-            }, 150); // Pequeño delay para asegurar que React ya actualizó la ruta
-        }
+        navigate(path);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
     };
 
     return (
-        <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${shouldBeOpaque ? 'bg-white shadow-md py-3' : 'bg-transparent py-5'}`}>
+        <header
+            className={`fixed top-0 left-0 right-0 z-50 py-3.5 transition-[background-color,border-color,box-shadow] duration-200 transform-gpu ${
+                shouldBeOpaque
+                    ? 'bg-white/90 backdrop-blur-md border-b border-slate-200/60 shadow-xs'
+                    : 'bg-transparent border-b border-transparent'
+            }`}
+        >
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between items-center">
 
-                    {/* Logo ahora usa Link para ir al inicio limpiamente */}
-                    <Link to="/" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="flex items-center gap-2">
-                        <img src="/assets/logo.png" alt="BSR Obras" className="w-10 h-10 object-contain" />
-                        <span className={`text-xl font-bold tracking-tight ${shouldBeOpaque ? 'text-primary' : 'text-white'}`}>{import.meta.env.VITE_SITE_NAME || "BSR Obras"}</span>
+                    {/* Logo */}
+                    <Link
+                        to="/"
+                        onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                        className="flex items-center gap-2.5 group"
+                    >
+                        <img
+                            src="/assets/logo.png"
+                            alt="BSR Obras"
+                            className="w-9 h-9 object-contain transition-transform duration-200 group-hover:scale-105"
+                        />
+                        <span className={`text-lg font-bold tracking-tight transition-colors ${
+                            shouldBeOpaque ? 'text-slate-900' : 'text-white'
+                        }`}>
+                            BSR Obras
+                        </span>
                     </Link>
 
-                    <nav className="hidden md:flex items-center space-x-8">
+                    {/* Nav desktop */}
+                    <nav className="hidden md:flex items-center gap-1">
                         {navLinks.map((link) => (
                             <a
                                 key={link.name}
                                 href={link.path}
                                 onClick={(e) => handleNavClick(e, link.path)}
-                                className={`text-sm font-semibold transition-colors ${shouldBeOpaque ? 'text-slate-700 hover:text-primary' : 'text-white/90 hover:text-white'}`}
+                                className={`relative px-4 py-2 text-sm font-semibold transition-colors rounded-lg ${
+                                    shouldBeOpaque
+                                        ? isActive(link.path)
+                                            ? 'text-primary'
+                                            : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100/70'
+                                        : isActive(link.path)
+                                            ? 'text-white'
+                                            : 'text-white/75 hover:text-white'
+                                }`}
                             >
                                 {link.name}
+                                {/* Indicador de ruta activa — línea bajo el link, spring animated */}
+                                {isActive(link.path) && (
+                                    <motion.span
+                                        layoutId="nav-active-indicator"
+                                        className={`absolute bottom-0.5 left-3 right-3 h-[2px] rounded-full ${
+                                            shouldBeOpaque ? 'bg-primary' : 'bg-emerald-400'
+                                        }`}
+                                        transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                                    />
+                                )}
                             </a>
                         ))}
                     </nav>
 
-                    <button
-                        className="md:hidden"
-                        onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                    {/* CTA WhatsApp — solo desktop */}
+                    <a
+                        href="https://wa.me/5493413233169"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={`hidden md:inline-flex items-center gap-2 text-sm font-semibold px-4 py-2 rounded-xl transition-all duration-150 active:scale-[0.97] ${
+                            shouldBeOpaque
+                                ? 'bg-primary text-white hover:bg-primary-dark shadow-[0_4px_14px_-3px_rgba(4,120,87,0.4)] hover:shadow-[0_6px_18px_-3px_rgba(4,120,87,0.5)]'
+                                : 'bg-white/10 text-white border border-white/20 hover:bg-white/20 backdrop-blur-md'
+                        }`}
                     >
-                        {isMobileMenuOpen ? <X className={shouldBeOpaque ? 'text-primary' : 'text-white'} /> : <Menu className={shouldBeOpaque ? 'text-primary' : 'text-white'} />}
+                        <MessageSquare size={15} />
+                        Consultar
+                    </a>
+
+                    {/* Hamburger mobile — morph a X con spring physics */}
+                    <button
+                        type="button"
+                        className={`md:hidden w-10 h-10 flex flex-col items-center justify-center gap-[5px] rounded-lg transition-colors ${
+                            shouldBeOpaque ? 'hover:bg-slate-100' : 'hover:bg-white/10'
+                        }`}
+                        onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                        aria-label={isMobileMenuOpen ? "Cerrar menú principal" : "Abrir menú principal"}
+                        aria-expanded={isMobileMenuOpen}
+                    >
+                        <motion.span
+                            animate={isMobileMenuOpen ? { rotate: 45, y: 7 } : { rotate: 0, y: 0 }}
+                            transition={{ type: 'spring', stiffness: 300, damping: 25 }}
+                            className={`block w-5 h-[2px] rounded-full ${shouldBeOpaque ? 'bg-slate-700' : 'bg-white'}`}
+                        />
+                        <motion.span
+                            animate={isMobileMenuOpen ? { opacity: 0, scaleX: 0 } : { opacity: 1, scaleX: 1 }}
+                            transition={{ duration: 0.15 }}
+                            className={`block w-5 h-[2px] rounded-full ${shouldBeOpaque ? 'bg-slate-700' : 'bg-white'}`}
+                        />
+                        <motion.span
+                            animate={isMobileMenuOpen ? { rotate: -45, y: -7 } : { rotate: 0, y: 0 }}
+                            transition={{ type: 'spring', stiffness: 300, damping: 25 }}
+                            className={`block w-5 h-[2px] rounded-full ${shouldBeOpaque ? 'bg-slate-700' : 'bg-white'}`}
+                        />
                     </button>
                 </div>
             </div>
 
+            {/* Menú mobile con stagger reveal */}
             <AnimatePresence>
                 {isMobileMenuOpen && (
                     <motion.div
                         initial={{ opacity: 0, height: 0 }}
                         animate={{ opacity: 1, height: 'auto' }}
                         exit={{ opacity: 0, height: 0 }}
-                        className="md:hidden bg-white border-b border-primary/10 overflow-hidden"
+                        transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+                        className="md:hidden bg-white/95 backdrop-blur-md border-t border-slate-200/40 overflow-hidden"
                     >
-                        <div className="px-4 py-6 space-y-4">
-                            {navLinks.map((link) => (
-                                <a
+                        <div className="px-4 py-5 space-y-1">
+                            {navLinks.map((link, i) => (
+                                <motion.a
                                     key={link.name}
                                     href={link.path}
-                                    className="block text-lg font-semibold text-slate-700"
-                                    onClick={(e) => handleNavClick(e, link.path)}
+                                    initial={{ opacity: 0, y: 10 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ delay: i * 0.05, type: 'spring', stiffness: 300, damping: 25 }}
+                                    className={`flex items-center justify-between px-4 py-3 rounded-xl text-base font-semibold transition-colors ${
+                                        isActive(link.path)
+                                            ? 'text-primary bg-primary-subtle'
+                                            : 'text-slate-700 hover:bg-slate-100'
+                                    }`}
+                                    onClick={(e) => handleNavClick(e as React.MouseEvent<HTMLAnchorElement>, link.path)}
                                 >
                                     {link.name}
-                                </a>
+                                    {isActive(link.path) && (
+                                        <span className="w-1.5 h-1.5 rounded-full bg-primary" />
+                                    )}
+                                </motion.a>
                             ))}
+                            <div className="pt-2">
+                                <a
+                                    href="https://wa.me/5493413233169"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="flex items-center justify-center gap-2 w-full px-4 py-3 bg-primary text-white font-semibold rounded-xl text-sm active:scale-[0.97] transition-transform"
+                                >
+                                    <MessageSquare size={16} />
+                                    Consultar por WhatsApp
+                                </a>
+                            </div>
                         </div>
                     </motion.div>
                 )}

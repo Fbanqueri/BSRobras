@@ -25,11 +25,36 @@ let xml = `<?xml version="1.0" encoding="UTF-8"?>
     <lastmod>${currentDate}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>${baseUrl}/contacto</loc>
+    <lastmod>${currentDate}</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>`;
 
 const addedUrls = new Set();
+addedUrls.add(`${baseUrl}/`);
+addedUrls.add(`${baseUrl}/catalogo`);
+addedUrls.add(`${baseUrl}/contacto`);
 
-// 1. Mapeo de Subcategorías (Nivel 2)
+// 1. Mapeo de Categorías Padre Nivel 1
+const parentCategories = ['pintura', 'impermeabilizacion', 'preparacion-superficies'];
+parentCategories.forEach(catId => {
+    const targetUrl = `${baseUrl}/catalogo/${catId}`;
+    if (!addedUrls.has(targetUrl)) {
+        addedUrls.add(targetUrl);
+        xml += `
+  <url>
+    <loc>${targetUrl}</loc>
+    <lastmod>${currentDate}</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>`;
+    }
+});
+
+// 2. Mapeo de Subcategorías (Nivel 2)
 const subcategoryRegex = /id:\s*['"]([^'"]+)['"],\s*name:\s*['"][^'"]+['"],\s*categoryId:\s*['"]([^'"]+)['"]/g;
 const subcategoryMatches = [...productsFileContent.matchAll(subcategoryRegex)];
 
@@ -48,7 +73,7 @@ subcategoryMatches.forEach(match => {
     }
 });
 
-// 2. Mapeo de Productos (Nivel 3) - Buscamos las propiedades directo en todo el archivo de forma flexible
+// 3. Mapeo de Productos (Nivel 3) - Buscamos las propiedades directo en todo el archivo de forma flexible
 const productRegex = /slug:\s*['"]([^'"]+)['"][\s\S]*?category:\s*['"]([^'"]+)['"][\s\S]*?subcategory:\s*['"]([^'"]+)['"]/g;
 const productMatches = [...productsFileContent.matchAll(productRegex)];
 
@@ -69,8 +94,13 @@ productMatches.forEach(match => {
 
 xml += `\n</urlset>`;
 
-// Guardamos el sitemap final
+// Guardamos el sitemap tanto en public/ como en dist/ para sincronizar con prerender
 const publicPath = path.join(__dirname, '../public/sitemap.xml');
 fs.writeFileSync(publicPath, xml, 'utf-8');
+
+const distDir = path.join(__dirname, '../dist');
+if (fs.existsSync(distDir)) {
+    fs.writeFileSync(path.join(distDir, 'sitemap.xml'), xml, 'utf-8');
+}
 
 console.log('¡Sitemap.xml dinámico y jerárquico generado con éxito para BSR Obras!');

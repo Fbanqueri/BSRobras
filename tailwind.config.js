@@ -8,8 +8,8 @@ export default {
         extend: {
             colors: {
                 primary: {
-                    DEFAULT: '#064e3b', // El verde de BSR
-                    dark: '#022c22',
+                    DEFAULT: '#047857', // Emerald-700 — Verde técnico BSR (unificado con DESIGN.md)
+                    dark: '#065f46',    // Emerald-800 — hover/active state
                 },
             },
         },

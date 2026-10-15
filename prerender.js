@@ -28,21 +28,54 @@ async function runPrerender() {
 
         const { html: appHtml, helmet } = render(route);
 
-        // Inject the rendered app HTML into the template
-        let finalHtml = templateHtml.replace('<div id="root"></div>', `<div id="root">${appHtml}</div>`);
+        // Extract and deduplicate head tags (supporting both Helmet and React 19 native metadata rendering)
+        let headElements = [];
 
-        // Inject Helmet meta tags into <head>
         if (helmet) {
-            const headTags = [
+            const helmetTags = [
                 helmet.title?.toString() || '',
                 helmet.meta?.toString() || '',
                 helmet.link?.toString() || '',
                 helmet.script?.toString() || '',
-            ].filter(Boolean).join('\n');
+            ].filter(Boolean);
+            headElements.push(...helmetTags);
+        }
 
-            if (headTags) {
-                finalHtml = finalHtml.replace('</head>', `${headTags}\n</head>`);
-            }
+        // In React 19, metadata tags are rendered directly in appHtml by renderToString
+        const titleMatches = [...appHtml.matchAll(/<title>.*?<\/title>/g)].map(m => m[0]);
+        const canonicalMatches = [...appHtml.matchAll(/<link rel="canonical"[^>]*\/?>/g)].map(m => m[0]);
+        const metaDescMatches = [...appHtml.matchAll(/<meta name="description"[^>]*\/?>/g)].map(m => m[0]);
+        const ogMatches = [...appHtml.matchAll(/<meta property="og:[^"]+"[^>]*\/?>/g)].map(m => m[0]);
+        const jsonLdMatches = [...appHtml.matchAll(/<script type="application\/ld\+json">[\s\S]*?<\/script>/g)].map(m => m[0]);
+
+        // Take the most specific (last) title, canonical, and description to avoid duplicates
+        const finalTitle = titleMatches.length > 0 ? titleMatches[titleMatches.length - 1] : '';
+        const finalCanonical = canonicalMatches.length > 0 ? canonicalMatches[canonicalMatches.length - 1] : '';
+        const finalMetaDesc = metaDescMatches.length > 0 ? metaDescMatches[metaDescMatches.length - 1] : '';
+
+        if (finalTitle && !headElements.some(t => t.includes('<title>'))) headElements.push(finalTitle);
+        if (finalMetaDesc && !headElements.some(t => t.includes('name="description"'))) headElements.push(finalMetaDesc);
+        if (finalCanonical && !headElements.some(t => t.includes('rel="canonical"'))) headElements.push(finalCanonical);
+        headElements.push(...ogMatches);
+        headElements.push(...jsonLdMatches);
+
+        // Remove extracted head tags from appHtml so <div id="root"> remains clean body content
+        const cleanAppHtml = appHtml
+            .replace(/<title>.*?<\/title>/g, '')
+            .replace(/<link rel="canonical"[^>]*\/?>/g, '')
+            .replace(/<meta name="description"[^>]*\/?>/g, '')
+            .replace(/<meta property="og:[^"]+"[^>]*\/?>/g, '')
+            .replace(/<script type="application\/ld\+json">[\s\S]*?<\/script>/g, '');
+
+        // Inject the rendered app HTML into the template (using function replacer to avoid special $ patterns)
+        let finalHtml = templateHtml.replace('<div id="root"></div>', () => `<div id="root">${cleanAppHtml}</div>`);
+
+        const headTagsStr = headElements.filter(Boolean).join('\n    ');
+
+        if (finalHtml.includes('<!-- HEAD_OUTLET -->')) {
+            finalHtml = finalHtml.replace('<!-- HEAD_OUTLET -->', () => headTagsStr);
+        } else if (headTagsStr) {
+            finalHtml = finalHtml.replace('</head>', () => `${headTagsStr}\n</head>`);
         }
 
         // Write the prerendered HTML file

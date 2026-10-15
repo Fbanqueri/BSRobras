@@ -28,4 +28,7 @@ dist-ssr
 
 # AI and local tools
 .agents/
-skills-lock.json
+.agent/
+.codex/
+.gemini/
+DESING.md

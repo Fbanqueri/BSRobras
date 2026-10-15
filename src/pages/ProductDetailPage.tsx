@@ -1,9 +1,8 @@
 import { useMemo } from 'react';
 import { useParams, Link, Navigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
-import { motion } from 'motion/react';
-import { FileText, ArrowLeft, MessageSquare } from 'lucide-react';
-import { products, subcategories } from '../data/products';
+import { MessageSquare, ShieldCheck, CheckCircle2, ChevronRight } from 'lucide-react';
+import { products, subcategories, categories } from '../data/products';
 
 export default function ProductDetailPage() {
     const { categorySlug, subcategorySlug, productSlug } = useParams<{
@@ -12,29 +11,33 @@ export default function ProductDetailPage() {
         productSlug: string;
     }>();
 
-    // Buscamos el producto exacto basándonos en el slug de la URL
+    const categoryName = useMemo(() => {
+        const found = categories.find(c => c.id === categorySlug);
+        return found ? found.name : categorySlug;
+    }, [categorySlug]);
+
     const product = useMemo(() => {
         return products.find(p => p.slug === productSlug && p.subcategory === subcategorySlug);
     }, [productSlug, subcategorySlug]);
 
-    // Buscamos la subcategoría para armar los Breadcrumbs visuales y semánticos
     const subcategory = useMemo(() => {
         return subcategories.find(s => s.id === subcategorySlug);
     }, [subcategorySlug]);
 
-    // Extraemos dinámicamente la marca para el Schema
     const brandName = useMemo(() => {
         if (!product) return 'BSR Obras';
-        if (product.name.includes("Das Beste")) return "Das Beste";
-        if (product.name.includes("TACSA")) return "TACSA";
-        if (product.name.includes("Terra Color")) return "Terra Color";
-        if (product.name.includes("Kover")) return "KoverTech";
-        return "BSR Obras";
+        return product.brand || 'BSR Obras';
     }, [product]);
 
-    // Generamos el Schema de Producto (JSON-LD) optimizado usando priceSpecification para cotizaciones
     const productSchema = useMemo(() => {
         if (!product) return null;
+
+        const additionalProperty = Object.entries(product.specs).map(([key, value]) => ({
+            "@type": "PropertyValue",
+            "name": key.replace('_', ' ').replace(/\b\w/g, l => l.toUpperCase()),
+            "value": String(value)
+        }));
+
         return {
             "@context": "https://schema.org",
             "@type": "Product",
@@ -49,123 +52,180 @@ export default function ProductDetailPage() {
             "offers": {
                 "@type": "Offer",
                 "url": `https://bsrobras.com.ar/catalogo/${categorySlug}/${subcategorySlug}/${product.slug}`,
-                "price": "0",
-                "priceCurrency": "ARS",
                 "availability": "https://schema.org/InStock",
                 "itemCondition": "https://schema.org/NewCondition",
-                "priceValidUntil": "2027-12-31",
-                "description": "Precio a consultar. Contactar para cotización personalizada."
-            }
+                "seller": {
+                    "@type": "LocalBusiness",
+                    "name": "BSR Obras Rosario"
+                }
+            },
+            "additionalProperty": additionalProperty
         };
     }, [product, categorySlug, subcategorySlug, brandName]);
 
-    // Si el producto no existe, redirigimos por seguridad al catálogo
+    const breadcrumbSchema = useMemo(() => {
+        if (!product) return null;
+        return {
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+                { "@type": "ListItem", "position": 1, "name": "Inicio", "item": "https://bsrobras.com.ar/" },
+                { "@type": "ListItem", "position": 2, "name": "Catálogo", "item": "https://bsrobras.com.ar/catalogo" },
+                { "@type": "ListItem", "position": 3, "name": categoryName, "item": `https://bsrobras.com.ar/catalogo/${categorySlug}` },
+                { "@type": "ListItem", "position": 4, "name": subcategory?.name || "Subcategoría", "item": `https://bsrobras.com.ar/catalogo/${categorySlug}/${subcategorySlug}` },
+                { "@type": "ListItem", "position": 5, "name": product.name, "item": `https://bsrobras.com.ar/catalogo/${categorySlug}/${subcategorySlug}/${product.slug}` }
+            ]
+        };
+    }, [product, subcategory, categorySlug, subcategorySlug, categoryName]);
+
     if (!product) {
         return <Navigate to="/catalogo" replace />;
     }
 
-    // Armamos el enlace de consulta para WhatsApp con un texto personalizado predefinido
     const whatsappNumber = import.meta.env.VITE_WHATSAPP_NUMBER || "5493413233169";
-    const whatsappMessage = encodeURIComponent(`Hola BSR Obras! Me interesa el producto: ${product.name}. Me podrían dar más asesoramiento?`);
+    const whatsappMessage = encodeURIComponent(`Hola BSR Obras! Me interesa el producto: ${product.name}. Me podrían brindar cotización y asesoramiento técnico?`);
     const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${whatsappMessage}`;
 
+    const pageTitle = `${product.name} en Rosario | Cotizar Precio | BSR Obras`;
+    const prestacionText = product.specs?.prestacion ? ` (${product.specs.prestacion})` : '';
+    const pageDescription = `${product.name}${prestacionText}. ${product.description} Retiro en nuestro local de Mendoza 7301 (Rosario). ¡Consultá precio y disponibilidad por WhatsApp!`;
+
     return (
-        <section className="pt-24 pb-12 md:pt-32 md:pb-20 bg-slate-50 text-left">
+        <section className="pt-32 pb-24 bg-slate-50 min-h-[90dvh] text-left">
             <Helmet>
-                <title>{`${product.name} | BSR Obras Rosario`}</title>
-                <meta name="description" content={product.description} />
+                <title>{pageTitle}</title>
+                <meta name="description" content={pageDescription} />
                 <link rel="canonical" href={`https://bsrobras.com.ar/catalogo/${categorySlug}/${subcategorySlug}/${product.slug}`} />
 
-                {/* Metadatos Open Graph para redes sociales */}
-                <meta property="og:title" content={`${product.name} | BSR Obras`} />
-                <meta property="og:description" content={product.description} />
+                <meta property="og:title" content={pageTitle} />
+                <meta property="og:description" content={pageDescription} />
                 <meta property="og:image" content={`https://bsrobras.com.ar${product.image}`} />
                 <meta property="og:type" content="product" />
+                <link rel="preload" as="image" href={product.image} fetchPriority="high" />
 
-                {/* Inyección del Schema Estructurado */}
                 {productSchema && (
                     <script type="application/ld+json">
                         {JSON.stringify(productSchema)}
                     </script>
                 )}
+                {breadcrumbSchema && (
+                    <script type="application/ld+json">
+                        {JSON.stringify(breadcrumbSchema)}
+                    </script>
+                )}
             </Helmet>
 
-            <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                {/* Breadcrumb visual jerárquico */}
+                <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-sm text-slate-400 mb-8 flex-wrap">
+                    <Link to="/" className="hover:text-slate-700 transition-colors">Inicio</Link>
+                    <ChevronRight size={14} className="text-slate-300 shrink-0" />
+                    <Link to="/catalogo" className="hover:text-slate-700 transition-colors">Catálogo</Link>
+                    <ChevronRight size={14} className="text-slate-300 shrink-0" />
+                    <Link to={`/catalogo/${categorySlug}`} className="hover:text-slate-700 transition-colors">{categoryName}</Link>
+                    <ChevronRight size={14} className="text-slate-300 shrink-0" />
+                    <Link to={`/catalogo/${categorySlug}/${subcategorySlug}`} className="hover:text-slate-700 transition-colors">{subcategory?.name || 'Subcategoría'}</Link>
+                    <ChevronRight size={14} className="text-slate-300 shrink-0" />
+                    <span className="text-slate-700 font-medium truncate max-w-[220px] sm:max-w-none">{product.name}</span>
+                </nav>
 
-                {/* Enlace de Retorno e Historial Semántico */}
-                <div className="mb-6">
-                    <Link
-                        to={`/catalogo/${categorySlug}/${subcategorySlug}`}
-                        className="text-primary hover:underline inline-flex items-center gap-2 text-sm font-semibold"
-                    >
-                        <ArrowLeft size={16} /> Volver a {subcategory?.name || 'Categoría'}
-                    </Link>
-                </div>
-
-                {/* Bloque Principal: Dos Columnas Estéticas */}
-                <motion.div
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="bg-white rounded-2xl border border-slate-200/80 shadow-sm p-6 md:p-10 grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-start"
+                {/* Bloque Principal del Producto (Ficha Técnica y Visual con animación CSS nativa) */}
+                <div
+                    className="animate-card bg-white rounded-2xl border border-slate-200/80 p-6 md:p-10 lg:p-12 shadow-sm grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start mb-12"
                 >
-                    {/* Columna Izquierda: Imagen del Producto Maximizada */}
-                    <div className="w-full bg-white rounded-xl overflow-hidden border border-slate-100 flex items-center justify-center p-4 shadow-sm">
+                    {/* Columna Izquierda: Escaparate del producto (5 cols) — fondo blanco integrado y escala completa */}
+                    <div className="lg:col-span-5 bg-white rounded-2xl border border-slate-200/80 p-4 sm:p-6 flex items-center justify-center min-h-[380px] md:min-h-[460px] overflow-hidden shadow-xs">
                         <img
                             src={product.image}
                             alt={product.name}
-                            className="w-full h-auto max-h-[450px] object-contain rounded-lg hover:scale-102 transition-transform duration-300"
+                            className="w-full h-full max-h-[440px] object-contain scale-115 md:scale-120 hover:scale-125 transition-transform duration-300 drop-shadow-xs"
+                            decoding="async"
+                            loading="eager"
+                            fetchPriority="high"
+                            width="440"
+                            height="440"
                         />
                     </div>
 
-                    {/* Columna Derecha: Información Comercial Atractiva */}
-                    <div className="flex flex-col h-full justify-between">
+                    {/* Columna Derecha: Especificaciones comerciales y asesoramiento (7 cols) */}
+                    <div className="lg:col-span-7 flex flex-col justify-between h-full">
                         <div>
-                            {/* H1 Obligatorio con el nombre del producto en su URL única */}
-                            <h1 className="text-2xl md:text-3xl font-bold text-slate-900 mb-4 tracking-tight leading-tight">
+                            {/* Metadata de fabricante o línea */}
+                            <div className="flex items-center gap-2 mb-3">
+                                <span className="text-xs font-mono font-medium text-slate-400 uppercase tracking-widest">
+                                    {brandName} · Ficha de Producto
+                                </span>
+                            </div>
+
+                            <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight leading-tight mb-4 text-balance">
                                 {product.name}
                             </h1>
 
-                            <p className="text-slate-600 text-base md:text-lg mb-8 leading-relaxed">
+                            <p className="text-slate-600 text-base md:text-lg leading-relaxed mb-8">
                                 {product.description}
                             </p>
+
+                            {/* Garantías y soporte técnico */}
+                            <div className="space-y-2.5 pb-8 mb-8 border-b border-slate-100 text-xs sm:text-sm text-slate-600 font-medium">
+                                <div className="flex items-center gap-2.5">
+                                    <CheckCircle2 size={16} className="text-primary shrink-0" />
+                                    <span>Asesoramiento para el cálculo exacto de m²</span>
+                                </div>
+                                <div className="flex items-center gap-2.5">
+                                    <CheckCircle2 size={16} className="text-primary shrink-0" />
+                                    <span>Retiro por nuestro local</span>
+                                </div>
+                                <div className="flex items-center gap-2.5">
+                                    <CheckCircle2 size={16} className="text-primary shrink-0" />
+                                    <span>Material garantizado de primera calidad</span>
+                                </div>
+                            </div>
                         </div>
 
-                        {/* Acción de Conversión Inmediata */}
-                        <div className="pt-6 border-t border-slate-100">
+                        {/* CTA Directo a Asesoría por WhatsApp */}
+                        <div>
                             <a
                                 href={whatsappUrl}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="w-full md:w-auto inline-flex items-center justify-center gap-3 bg-[#25D366] hover:bg-[#20ba56] text-white font-bold py-3.5 px-8 rounded-xl shadow-md hover:shadow-lg transition-all text-base tracking-wide"
+                                className="group w-full sm:w-auto inline-flex items-center justify-center gap-3 bg-primary hover:bg-primary-dark text-white font-semibold py-3.5 px-8 rounded-xl shadow-[0_10px_25px_-5px_rgba(4,120,87,0.40)] hover:shadow-[0_14px_30px_-5px_rgba(4,120,87,0.55)] transition-all duration-150 active:scale-[0.97] text-sm tracking-wide"
                             >
-                                <MessageSquare size={20} fill="currentColor" /> Consultar Asesoramiento por WhatsApp
+                                <MessageSquare size={17} />
+                                <span>Consultar precio y disponibilidad</span>
                             </a>
                         </div>
                     </div>
-                </motion.div>
+                </div>
 
-                {/* Sección Inferior: Especificaciones Técnicas Estilo E-Commerce Profesional */}
-                <div className="mt-12">
-                    <h2 className="text-xl font-bold text-slate-900 mb-4 inline-flex items-center gap-2">
-                        <FileText size={20} className="text-primary" /> Prestaciones y Especificaciones
-                    </h2>
+                {/* Especificaciones Técnicas: Matriz Modular (Estudio de Materiales) */}
+                <div className="mt-14">
+                    <div className="mb-6 flex items-center gap-2.5">
+                        <ShieldCheck size={20} className="text-primary" />
+                        <h2 className="text-xl font-bold text-slate-900 tracking-tight">
+                            Especificaciones y Rendimientos Técnicos
+                        </h2>
+                    </div>
 
-                    <div className="bg-white rounded-xl border border-slate-200/80 shadow-sm overflow-hidden">
-                        <dl className="divide-y divide-slate-100">
-                            {Object.entries(product.specs).map(([key, value]) => (
-                                <div key={key} className="px-6 py-4 sm:grid sm:grid-cols-3 sm:gap-4 hover:bg-slate-50/50 transition-colors">
-                                    <button className="text-sm font-bold text-slate-500 uppercase tracking-wider text-left capitalize bg-transparent border-none p-0 cursor-default">
+                    <dl className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                        {Object.entries(product.specs).map(([key, value]) => {
+                            const isTechnicalData = key === 'rendimiento' || key === 'secado' || key === 'prestacion';
+                            return (
+                                <div
+                                    key={key}
+                                    className="bg-white rounded-xl border border-slate-200/80 p-5 hover:border-slate-300 transition-colors"
+                                >
+                                    <dt className="text-[10px] font-mono uppercase tracking-widest text-slate-400 block mb-1">
                                         {key.replace('_', ' ')}
-                                    </button>
-                                    <dd className="mt-1 text-sm font-semibold text-slate-900 sm:mt-0 sm:col-span-2">
+                                    </dt>
+                                    <dd className={`text-sm font-semibold text-slate-900 block ${isTechnicalData ? 'font-mono text-slate-800' : ''
+                                        }`}>
                                         {value}
                                     </dd>
                                 </div>
-                            ))}
-                        </dl>
-                    </div>
+                            );
+                        })}
+                    </dl>
                 </div>
-
             </div>
         </section>
     );

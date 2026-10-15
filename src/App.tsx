@@ -5,16 +5,28 @@ import CatalogLanding from './pages/CatalogLanding';
 import SubcategoryPage from './pages/SubcategoryPage';
 import ProductDetailPage from './pages/ProductDetailPage';
 import Home from './pages/Home';
+import ContactPage from './pages/ContactPage';
 
 function App() {
   const organizationSchema = {
     "@context": "https://schema.org",
-    "@type": "LocalBusiness",
+    "@type": ["LocalBusiness", "HardwareStore"],
     "name": import.meta.env.VITE_SITE_NAME || "BSR Obras",
     "image": `${import.meta.env.VITE_SITE_URL || "https://bsrobras.com.ar"}/assets/logo.png`,
     "@id": import.meta.env.VITE_SITE_URL || "https://bsrobras.com.ar",
     "url": import.meta.env.VITE_SITE_URL || "https://bsrobras.com.ar",
     "telephone": "+54 341 457-7305",
+    "priceRange": "$$",
+    "areaServed": [
+      {
+        "@type": "City",
+        "name": "Rosario"
+      },
+      {
+        "@type": "AdministrativeArea",
+        "name": "Santa Fe"
+      }
+    ],
     "contactPoint": [
       {
         "@type": "ContactPoint",
@@ -40,13 +52,13 @@ function App() {
       {
         "@type": "OpeningHoursSpecification",
         "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-        "opens": "08:30",
-        "closes": "12:00"
+        "opens": "09:00",
+        "closes": "12:30"
       },
       {
         "@type": "OpeningHoursSpecification",
         "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-        "opens": "16:30",
+        "opens": "16:00",
         "closes": "19:00"
       },
       {
@@ -65,25 +77,21 @@ function App() {
   return (
     <>
       <Helmet>
-        <title>Pinturas, Impermeabilizantes y Revestimientos en Rosario | BSR Obras</title>
-        <meta name="description" content="Solucioná tus problemas de humedad y renová tus ambientes. Especialistas en impermeabilizantes y pinturas en Rosario. ¡Pedí asesoramiento sin cargo!" />
-        <link rel="canonical" href="https://bsrobras.com.ar/" />
         <script type="application/ld+json">
           {JSON.stringify(organizationSchema)}
         </script>
       </Helmet>
 
       <Routes>
-        {/* Envolvemos todas las rutas dentro de nuestro nuevo Layout común */}
+        {/* Envolvemos todas las rutas dentro de nuestro Layout común */}
         <Route path="/" element={<Layout />}>
 
           {/* 1. Ruta de Inicio (Home) */}
           <Route index element={<Home />} />
 
-          {/* 2. Catálogo Nivel 1: General (/catalogo) */}
-          <Route path="/catalogo" element={<CatalogLanding />}>
-            <Route path=":categoryId" element={<CatalogLanding />} />
-          </Route>
+          {/* 2. Catálogo Nivel 1: General y Categorías Padre (/catalogo y /catalogo/:categoryId) */}
+          <Route path="catalogo" element={<CatalogLanding />} />
+          <Route path="catalogo/:categoryId" element={<CatalogLanding />} />
 
           {/* 3. Catálogo Nivel 2: Subcategoría Jerárquica (/catalogo/impermeabilizacion/membranas-liquidas) */}
           <Route path="catalogo/:categorySlug/:subcategorySlug" element={<SubcategoryPage />} />
@@ -91,8 +99,10 @@ function App() {
           {/* 4. Catálogo Nivel 3: Ficha de Producto Individual (/catalogo/impermeabilizacion/membranas-liquidas/slug-producto) */}
           <Route path="catalogo/:categorySlug/:subcategorySlug/:productSlug" element={<ProductDetailPage />} />
 
-          {/* Redirecciones de seguridad para mantener compatibilidad si alguien entra a las URLs viejas */}
-          <Route path="catalogo/:subcategoria" element={<Navigate to="/catalogo" replace />} />
+          {/* 5. Ruta de Contacto y Ubicación (/contacto) */}
+          <Route path="contacto" element={<ContactPage />} />
+
+          {/* Redirecciones de seguridad cliente y fallback */}
           <Route path="producto/:slug" element={<Navigate to="/catalogo" replace />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Route>

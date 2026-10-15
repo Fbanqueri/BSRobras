@@ -1,8 +1,17 @@
 @import "tailwindcss";
 
 @theme {
-  --color-primary: #064e3b;
-  --color-primary-dark: #022c22;
+  /* Geist — importada en index.html */
+  --font-sans: 'Geist', system-ui, -apple-system, sans-serif;
+  /* JetBrains Mono — importada en index.html */
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+
+  /* Sistema de color BSR — unificado */
+  --color-primary: #047857;
+  --color-primary-dark: #065f46;
+  --color-primary-subtle: rgba(4, 120, 87, 0.10);
+  --color-primary-shadow: rgba(4, 120, 87, 0.28);
+  --color-slate-deep: #090d16;
 }
 
 @layer base {
@@ -14,10 +23,84 @@
   }
 
   html {
-    scroll-behavior: smooth;
+    /* El scroll fluido nativo permite respuesta directa de rueda sin competir con la GPU */
   }
 
   [id] {
     scroll-margin-top: 5rem;
   }
+
+  /* Fuente monospace para datos técnicos (rendimiento, medidas) */
+  .font-data {
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-variant-numeric: tabular-nums;
+  }
 }
+
+/* Overlay de noise fijo — textura arquitectónica sutil */
+@layer utilities {
+  .noise-overlay::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.025;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+    background-size: 128px 128px;
+  }
+
+  /* Animación CSS nativa fuera del hilo de JS para evitar parpadeos de composición en GPU */
+  @keyframes heroFadeUp {
+    from {
+      opacity: 0;
+      transform: translateY(14px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-hero-up {
+    animation: heroFadeUp 0.45s cubic-bezier(0.23, 1, 0.32, 1) both;
+  }
+
+  .animate-hero-up-delay-1 {
+    animation: heroFadeUp 0.45s cubic-bezier(0.23, 1, 0.32, 1) 0.06s both;
+  }
+
+  .animate-hero-up-delay-2 {
+    animation: heroFadeUp 0.45s cubic-bezier(0.23, 1, 0.32, 1) 0.12s both;
+  }
+
+  .animate-hero-up-delay-3 {
+    animation: heroFadeUp 0.45s cubic-bezier(0.23, 1, 0.32, 1) 0.18s both;
+  }
+
+  /* Animación CSS nativa para tarjetas y fichas del catálogo sin tocar JS */
+  @keyframes cardFadeUp {
+    from {
+      opacity: 0;
+      transform: translateY(12px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-card {
+    animation: cardFadeUp 0.35s cubic-bezier(0.23, 1, 0.32, 1) both;
+  }
+
+  /* Delays CSS ligeros para efecto stagger en cuadrículas */
+  .delay-1 { animation-delay: 0.04s; }
+  .delay-2 { animation-delay: 0.08s; }
+  .delay-3 { animation-delay: 0.12s; }
+  .delay-4 { animation-delay: 0.16s; }
+  .delay-5 { animation-delay: 0.20s; }
+  .delay-6 { animation-delay: 0.24s; }
+}
+
