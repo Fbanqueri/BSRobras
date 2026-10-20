@@ -29,39 +29,26 @@ export default function ProductDetailPage() {
         return product.brand || 'BSR Obras';
     }, [product]);
 
-    const productSchema = useMemo(() => {
+    const itemPageSchema = useMemo(() => {
         if (!product) return null;
-
-        const additionalProperty = Object.entries(product.specs).map(([key, value]) => ({
-            "@type": "PropertyValue",
-            "name": key.replace('_', ' ').replace(/\b\w/g, l => l.toUpperCase()),
-            "value": String(value)
-        }));
-
+        const canonicalUrl = `https://bsrobras.com.ar/catalogo/${categorySlug}/${subcategorySlug}/${product.slug}`;
         return {
             "@context": "https://schema.org",
-            "@type": "Product",
-            "name": product.name,
-            "image": `https://bsrobras.com.ar${product.image}`,
+            "@type": "ItemPage",
+            "name": `${product.name} | BSR Obras Rosario`,
             "description": product.description,
-            "sku": product.id,
-            "brand": {
-                "@type": "Brand",
-                "name": brandName
+            "url": canonicalUrl,
+            "primaryImageOfPage": {
+                "@type": "ImageObject",
+                "url": `https://bsrobras.com.ar${product.image}`
             },
-            "offers": {
-                "@type": "Offer",
-                "url": `https://bsrobras.com.ar/catalogo/${categorySlug}/${subcategorySlug}/${product.slug}`,
-                "availability": "https://schema.org/InStock",
-                "itemCondition": "https://schema.org/NewCondition",
-                "seller": {
-                    "@type": "LocalBusiness",
-                    "name": "BSR Obras Rosario"
-                }
-            },
-            "additionalProperty": additionalProperty
+            "provider": {
+                "@type": "LocalBusiness",
+                "@id": "https://bsrobras.com.ar/#organization",
+                "name": "BSR Obras"
+            }
         };
-    }, [product, categorySlug, subcategorySlug, brandName]);
+    }, [product, categorySlug, subcategorySlug]);
 
     const breadcrumbSchema = useMemo(() => {
         if (!product) return null;
@@ -100,12 +87,12 @@ export default function ProductDetailPage() {
                 <meta property="og:title" content={pageTitle} />
                 <meta property="og:description" content={pageDescription} />
                 <meta property="og:image" content={`https://bsrobras.com.ar${product.image}`} />
-                <meta property="og:type" content="product" />
+                <meta property="og:type" content="website" />
                 <link rel="preload" as="image" href={product.image} fetchPriority="high" />
 
-                {productSchema && (
+                {itemPageSchema && (
                     <script type="application/ld+json">
-                        {JSON.stringify(productSchema)}
+                        {JSON.stringify(itemPageSchema)}
                     </script>
                 )}
                 {breadcrumbSchema && (
